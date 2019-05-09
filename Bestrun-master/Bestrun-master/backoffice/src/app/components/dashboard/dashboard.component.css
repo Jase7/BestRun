@@ -1,0 +1,11 @@
+.dropdown-toggle::after {
+  display:none;
+  cursor: pointer;
+}
+.dropdown-toggle {
+  cursor: pointer;
+}
+
+#sidebar ul li.active>a, a[aria-expanded="true"] {
+  background: none;
+}

@@ -1,0 +1,81 @@
+<div class="row">
+  <div class="col-md-3 col-sm-12 mt-3" [class.visible-search]="searchBoxResponsive">
+    <div class="box-search">
+      <h4>Buscar</h4>
+      <div class="mb-2">
+        <label for="InputCloseDate">Tipo de evento</label>
+        <select class="custom-select" id="InputCloseDate" [(ngModel)]="searchEvent.typeEvent">
+          <option value="">Elige un evento</option>
+          <option *ngFor="let type of typeEvents" [ngValue]="type.id">{{type.name}}</option>
+        </select>
+      </div>
+      <div class="mb-2">
+        <label for="InputCity">Ciudad</label>
+        <input class="form-control" type="text" id="InputCity" placeholder="Introduce una ciudad"
+               [(ngModel)]="searchEvent.city">
+      </div>
+      <div class="mb-2">
+        <label for="InputMonth">Mes</label>
+        <select class="custom-select" id="InputMonth" [(ngModel)]="searchEvent.month">
+          <option value="">Elige un mes</option>
+          <option *ngFor="let m of allMonths" [ngValue]="m.id">{{m.name}}</option>
+        </select>
+      </div>
+      <div class="btn btn-primary w-100 my-2" (click)="searchEvents()">Buscar</div>
+    </div>
+  </div>
+  <div class="col-md-9 col-sm-12 mt-lg-3 mt-md-3 mt-2 px-lg-2 px-md-2 px-0">
+
+    <div *ngIf="events.length > 0">
+      <div class="box-event d-flex flex-row px-sm-1 px-md-1 mb-3" [class.sponsored]="e.sponsored"
+           *ngFor="let e of events">
+        <img *ngIf="e.sponsored" class="img-sponsored" src="assets/logo.png">
+        <div class="box-image">
+          <img class="image-event" src="{{e.photo | imageEvent}}">
+        </div>
+        <div class="event-content mr-md-3 mr-lg-3 mr-2">
+          <div class="d-flex flex-column">
+            <h3 class="mt-4 title-event">{{e.tittle}}</h3>
+            <div class="d-flex justify-content-start">
+              <p class="date-event">{{e.celebrationDate | date:'medium'}}</p>
+              <!--<p class="location-event">{{e.city}}</p>-->
+            </div>
+            <p class="category-event">
+              <strong>{{e.categories}}</strong>
+            </p>
+            <div class="d-flex flex-md-row flex-lg-row flex-column justify-content-md-between justify-content-lg-between  align-items-end">
+              <p class="message-lead">Quedan pocas plazas!</p>
+              <h3 style="color:#00B152">{{e.city}}</h3>
+            </div>
+            <div class="d-flex justify-content-end">
+              <p class="tax-event">Impuestos y tasas incluídas</p>
+            </div>
+            <div class="d-flex justify-content-end">
+              <button class="btn btn-primary btn-lg btn-autosize" routerLink="/event/{{e.id}}">Reserva tu plaza</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row justify-content-center" *ngIf="events.length > 0 && !empty">
+        <div *ngIf="loading" class="alert alert-warning d-block text-center position-absolute">Cargando datos...</div>
+        <div class="search-results"
+             infiniteScroll
+             [infiniteScrollDistance]="2"
+             [infiniteScrollThrottle]="50"
+             (scrolled)="onScroll()">
+        </div>
+      </div>
+
+      <div *ngIf="empty" class="alert alert-primary d-block text-center">Ya no hay más eventos! <a
+        (click)="deleteFilters()">Borrar
+        filtros</a></div>
+
+    </div>
+
+    <div *ngIf="events.length === 0" class="alert alert-primary d-block text-center">No hay eventos! <a
+      (click)="deleteFilters()">Borrar
+      filtros</a></div>
+
+  </div>
+</div>

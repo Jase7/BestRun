@@ -1,0 +1,54 @@
+<h2>Nuevo administrador</h2>
+<div class="row">
+  <div class="col-12">
+    <form [formGroup]="editAdminForm" (ngSubmit)="onSubmit()">
+      <div class="d-flex justify-content-end my-3">
+        <div class="custom-control custom-switch">
+          <input type="checkbox" class="custom-control-input" id="customSwitch1" formControlName="active">
+          <label class="custom-control-label" for="customSwitch1">Habilitar/Deshabilitar</label>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-lg-4 col-md-4 mb-3">
+          <label for="InputName">Nombre (Obligatorio)</label>
+          <input type="text" class="form-control" id="InputName" placeholder="Introduce un nombre" formControlName="name"
+                 [class.is-invalid]="!editAdminForm.controls['name'].valid && (!editAdminForm.controls['name'].pristine)"
+                 [class.is-valid]="editAdminForm.controls['name'].valid && (!editAdminForm.controls['name'].pristine)">
+        </div>
+        <div class="col-lg-8 col-md-8 mb-3">
+          <label for="InputSurnames">Apellidos (Obligatorio)</label>
+          <input type="email" class="form-control" id="InputSurnames" placeholder="Introduce los apellidos"  formControlName="surnames"
+                 [class.is-invalid]="!editAdminForm.controls['surnames'].valid && (!editAdminForm.controls['surnames'].pristine)"
+                 [class.is-valid]="editAdminForm.controls['surnames'].valid && (!editAdminForm.controls['surnames'].pristine)">
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3">
+          <label for="InputPhone">Teléfono</label>
+          <input type="tel" class="form-control" id="InputPhone" placeholder="Introduce el teléfono" formControlName="mobileNumber"
+                 [class.is-invalid]="!editAdminForm.controls['mobileNumber'].valid && (!editAdminForm.controls['mobileNumber'].pristine)"
+                 [class.is-valid]="editAdminForm.controls['mobileNumber'].valid && (!editAdminForm.controls['mobileNumber'].pristine)">
+        </div>
+        <div class="col-lg-8 col-md-8 mb-3">
+          <label for="InputEmail">Email (Obligatorio)</label>
+          <input type="text" class="form-control" id="InputEmail" placeholder="Introduce un email" formControlName="email"
+                 [class.is-invalid]="!editAdminForm.controls['email'].valid && (!editAdminForm.controls['email'].pristine)"
+                 [class.is-valid]="editAdminForm.controls['email'].valid && (!editAdminForm.controls['email'].pristine)">
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3">
+          <label for="InputPassword">Contraseña (Obligatorio)</label>
+          <input type="password" class="form-control" id="InputPassword" placeholder="Introduce la contraseña" formControlName="password"
+                 [class.is-invalid]="!editAdminForm.controls['password'].valid && (!editAdminForm.controls['password'].pristine)"
+                 [class.is-valid]="editAdminForm.controls['password'].valid && (!editAdminForm.controls['password'].pristine)">
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3">
+          <label for="InputRePassword">Repite la contraseña</label>
+          <input type="password" class="form-control" id="InputRePassword" placeholder="Introduce de nuevo la contraseña" formControlName="confirmPass"
+                 [class.is-invalid]="editAdminForm.controls['password'].value!==editAdminForm.controls['confirmPass'].value && (!editAdminForm.controls['confirmPass'].pristine)"
+                 [class.is-valid]="editAdminForm.controls['password'].value===editAdminForm.controls['confirmPass'].value && (!editAdminForm.controls['confirmPass'].pristine)">
+        </div>
+      </div>
+      <div class="d-flex justify-content-end">
+        <button type="submit" class="btn btn-warning btn-lg"  [disabled]="!editAdminForm.valid">Crear Admin</button>
+      </div>
+    </form>
+  </div>
+</div>

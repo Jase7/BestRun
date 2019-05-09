@@ -1,0 +1,42 @@
+<div class="d-flex justify-content-between">
+  <h3>Eventos</h3>
+  <span style="font-size: 32px;color: Dodgerblue;" routerLink="new">
+    <i class="fas fa-plus-circle"></i>
+  </span>
+</div>
+<div class="line"></div>
+<div class="d-flex justify-content-start my-3" style="align-items: flex-end">
+  <div>
+    <input id="search-participant" type="search" class="form-control w-100" #searchBox
+           placeholder="Nombre del evento" aria-label="Search" (keyup)="search(searchBox.value)"/>
+
+  </div>
+</div>
+<div class="table-responsive">
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Título</th>
+      <th scope="col">Fecha</th>
+      <th scope="col">Lugar</th>
+      <th scope="col">Patrocinado</th>
+      <th scope="col">Estado</th>
+    </thead>
+    <tbody>
+    <tr *ngFor="let event of events | async" [class.sponsored]="event.sponsored" [class.inactive]="!event.active" routerLink="show/{{event.id}}">
+      <th scope="row"><a placement="top" ngbTooltip="{{event.id}}">{{event.id.substring(0,5)}}...</a></th>
+      <td>{{event.tittle}}</td>
+      <td>{{event.celebrationDate | date:'dd/MM/yyyy'}}</td>
+      <td>{{event.city}}</td>
+      <td>{{event.sponsored ? 'Patrocinado' : 'No'}}</td>
+      <td>{{event.active ? 'Activo' : 'Inactivo'}}</td>
+    </tr>
+    </tbody>
+  </table>
+  <div class="d-flex justify-content-end">
+    <ngb-pagination [pageSize]="searchEvent.pageSize" [collectionSize]="searchEvent.totalItems"
+                    [maxSize]="searchEvent.pages" [(page)]="searchEvent.page"
+                    (pageChange)="onPageChange($event)"></ngb-pagination>
+  </div>
+</div>

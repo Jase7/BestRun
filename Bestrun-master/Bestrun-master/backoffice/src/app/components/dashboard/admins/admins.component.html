@@ -1,0 +1,33 @@
+<div class="d-flex justify-content-between">
+  <h3>Administradores</h3>
+  <span style="font-size: 32px;margin-bottom:10px;color: Dodgerblue;" routerLink="new">
+    <i class="fas fa-plus-circle"></i>
+  </span>
+</div>
+<div class="line"></div>
+<div class="table-responsive mt-3">
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Nombre</th>
+      <th scope="col">Apellidos</th>
+      <th scope="col">Email</th>
+      <th scope="col">Nº teléfono</th>
+      <th scope="col">Estado</th>
+    </thead>
+    <tbody>
+    <tr *ngFor="let admin of allAdmins" [class.inactive]="!admin.active" routerLink="show/{{admin.id}}">
+      <th scope="row"><a placement="top" ngbTooltip="{{admin.id}}">{{admin.id.substring(0,5)}}...</a></th>
+      <td>{{admin.name}}</td>
+      <td>{{admin.surnames}}</td>
+      <td>{{admin.email}}</td>
+      <td>{{admin.mobileNumber}}</td>
+      <td>{{admin.active ? 'Activo' : 'Inactivo'}}</td>
+    </tr>
+    </tbody>
+  </table>
+  <div class="d-flex justify-content-end">
+    <ngb-pagination [pageSize]="pageItems" [collectionSize]="totalItems" [maxSize]="pages" [(page)]="page" (pageChange)="getAdmins($event)"></ngb-pagination>
+  </div>
+</div>

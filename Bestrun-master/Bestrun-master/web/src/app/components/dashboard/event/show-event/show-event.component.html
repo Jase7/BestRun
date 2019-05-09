@@ -1,0 +1,118 @@
+<!--<script>var titleMeta = document.createElement('meta');-->
+<!--var descMeta = document.createElement('meta');-->
+
+<!--titleMeta.setAttribute('property', 'og:title');-->
+<!--titleMeta.setAttribute('content', 'The Rock');-->
+
+<!--descMeta.setAttribute('property', 'og:description');-->
+<!--descMeta.setAttribute('content', 'Foo Description');-->
+
+<!--document.getElementsByTagName('head')[0].appendChild(titleMeta);-->
+<!--document.getElementsByTagName('head')[0].appendChild(descMeta);-->
+<!--</script>-->
+<div class="row m-lg-0 m-md-0 m-2">
+  <div class="col-md-3 col-sm-12 mt-3">
+    <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+      <a class="nav-link active" id="v-pills-home-tab" data-toggle="tab" href="#v-pills-home" role="tab"
+         [ngClass]="{ 'active':activeTab==='info'}" (click)="changeActiveTab('info')">Información</a>
+      <a class="nav-link" id="v-pills-profile-tab" data-toggle="tab" href="#v-pills-profile" role="tab"
+         [ngClass]="{ 'active':activeTab==='inscription'}" (click)="changeActiveTab('inscription')">Inscripciones</a>
+      <a class="nav-link" id="v-pills-weather-tab" data-toggle="tab" href="#v-pills-profile-weather" role="tab"
+         [ngStyle]="{'display':event.showWeather?'block':'none'}" [ngClass]="{ 'active':activeTab==='weather'}"
+         (click)="changeActiveTab('weather')">Estado metereológico</a>
+      <a class="nav-link" id="v-pills-doc-tab" target="_blank" href="{{event.document}}"
+         [ngClass]="{ 'disabled':event.document===null}">Documentación</a>
+    </div>
+  </div>
+  <div class="col-md-9 col-sm-12 mt-lg-3 mt-md-3 mt-2 px-lg-2 px-md-2 px-0">
+    <div class="tab-content" id="v-pills-tabContent">
+      <div class="tab-pane fade" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab"
+           [ngClass]="{ 'active':activeTab==='info','show':activeTab==='info'}">
+        <div class="d-flex justify-content-center">
+          <img style="width: 80%;" src="{{event.photo | imageEvent}}">
+        </div>
+        <h3 class="mt-4 title-event">{{event.tittle}}</h3>
+        <div class="d-flex flex-md-row flex-lg-row flex-column justify-content-md-between justify-content-lg-between">
+          <p class="location-event">{{event.location}}</p>
+          <p class="location-event">Celebración: {{event.celebrationDate | date}}</p>
+        </div>
+        <div class="d-flex flex-md-row flex-lg-row flex-column justify-content-md-between justify-content-lg-between">
+          <span class="location-event">Categorias: <strong>{{event.categories}}</strong></span>
+          <p class="location-event" *ngIf="event.closeInscriptions">Cierre: <strong>{{event.closeInscriptions | date}}</strong></p>
+        </div>
+        <div class="d-flex justify-content-start mb-2">
+          <span class="location-event">Distancia: <strong>{{event.distance}}</strong></span>
+        </div>
+        <p>{{event.description}}</p>
+        <!--<div class="d-flex justify-content-end">-->
+        <!--<p class="message-lead">Quedan pocas plazas!</p>-->
+        <!--</div>-->
+        <share-button button="facebook" theme="circles-dark" [icon]="['fab', 'facebook-square']"
+                      (opened)="open()"></share-button>
+        <share-button button="twitter" theme="circles-dark" [icon]="['fab', 'twitter-square']"
+                      [title]="'Unete conmigo al evento'+event.tittle+'!'"
+                      [description]="'Unete conmigo al evento'+event.tittle+'!'" [tags]="event.categories"
+                      [url]="url+'/'+event.id"></share-button>
+        <share-button button="whatsapp" theme="circles-dark" [icon]="['fab', 'whatsapp']"
+                      [title]="'Unete conmigo al evento'+event.tittle+'!'"
+                      [description]="'Unete conmigo al evento'+event.tittle+'!'" [tags]="event.categories"
+                      [url]="url+'/'+event.id"></share-button>
+        <div class="d-flex justify-content-end">
+          <div class="btn btn-primary btn-lg btn-autosize" (click)="changeActiveTab('inscription')">Reserva tu plaza
+          </div>
+        </div>
+        <div class="d-flex justify-content-end">
+          <p class="tax-event">Impuestos y tasas incluídas</p>
+        </div>
+
+      </div>
+      <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab"
+           [ngClass]="{'active':activeTab==='inscription','show':activeTab==='inscription'}">
+        <div *ngFor="let i of event.typeInscription">
+          <div class="inscription mb-3" *ngIf="i.active">
+            <div class="d-flex justify-content-between" style="background-color: #086AC7; color:white!important;">
+              <div style="padding: 10px">
+                <strong>Descripción:</strong>
+              </div>
+              <div style="padding: 10px">
+                <p style="color:white!important;">{{i.tittle}}</p>
+              </div>
+            </div>
+            <div class="d-flex justify-content-between">
+              <div style="padding: 10px;max-width: 600px">
+                <p style="word-break: break-all;white-space: normal;">{{i.description}}</p>
+              </div>
+              <div style="padding: 10px; max-width: 200px!important;">
+                <h4 class="price-incription" style="color:#00B152">{{i.price}}&euro;
+                  <small>({{i.taxPercentage}}% iva.)</small>
+                </h4>
+              </div>
+            </div>
+            <div class="d-flex justify-content-end">
+              <button class="btn btn-primary btn-lg btn-autosize m-2">Inscribete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tab-pane fade" id="v-pills-profile-weather" role="tabpanel" aria-labelledby="v-pills-profile-weather"
+           [ngClass]="{'active':activeTab==='weather','show':activeTab==='weather'}">
+        <div class="d-flex flex-row" style="margin-top: 40px!important;border-radius: 10px; border: 2px solid #086AC7;padding: 10px">
+          <div style="width: 25%">
+          <span class="icon-weather" *ngIf="event.iconWeather || event.iconWeather===0"><i
+            class="fas fa-lg {{icons[event.iconWeather].icon}}"></i></span>
+          </div>
+          <div class="d-flex flex-column" style="width: 45%">
+            <h3>{{event.city}}</h3>
+            <h6>{{event.overallStatus}}</h6>
+            <h6>Probabilidad de lluvía: {{event.chanceRain}} %</h6>
+          </div>
+          <div class="d-flex flex-column" style="width: 30%">
+            <h1>{{event.temperature}} º</h1>
+            <h6>{{event.temperatureMax}}º / {{event.temperatureMax}}º</h6>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

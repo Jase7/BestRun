@@ -1,0 +1,82 @@
+<div class="wrapper">
+  <!-- Sidebar  -->
+  <nav id="sidebar" [class.active]="collapse">
+    <div class="sidebar-header">
+      <h3>BestRun</h3>
+      <strong>BR</strong>
+    </div>
+
+    <ul class="list-unstyled components">
+      <li *ngIf="role==='Superadmin'">
+        <a routerLink="/admins" routerLinkActive="active-link">
+          <i class="fas fa-briefcase"></i>
+          <span class="title-menu">Admins</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/sportsman" routerLinkActive="active-link">
+          <i class="fas fa-user"></i>
+          <span class="title-menu">Usuarios</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/events" routerLinkActive="active-link">
+          <i class="fas fa-image"></i>
+          <span class="title-menu">Eventos</span>
+        </a>
+      </li>
+      <li *ngIf="role==='Superadmin'">
+        <a routerLink="/logs" routerLinkActive="active-link">
+          <i class="fas fa-question"></i>
+          <span class="title-menu">Logs</span>
+        </a>
+      </li>
+    </ul>
+
+    <!--<ul class="list-unstyled CTAs">-->
+    <!--<li>-->
+    <!--<a href="https://bootstrapious.com/tutorial/files/sidebar.zip" class="download">Download source</a>-->
+    <!--</li>-->
+    <!--<li>-->
+    <!--<a href="https://bootstrapious.com/p/bootstrap-sidebar" class="article">Back to article</a>-->
+    <!--</li>-->
+    <!--</ul>-->
+  </nav>
+
+  <!-- Page Content  -->
+  <div id="content">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+
+        <button type="button" id="sidebarCollapse" class="btn btn-info" (click)="clickToggle()" style="background-color:#086AC7">
+          <span><i class="fas fa-align-left"></i></span>
+        </button>
+        <ul class="nav navbar-nav ml-auto d-flex">
+          <!--<li class="nav-item active">-->
+          <!--<a class="nav-link" href="#">Page</a>-->
+          <!--</li>-->
+          <!--<li class="nav-item">-->
+          <!--<a class="nav-link" href="#">Page</a>-->
+          <!--</li>-->
+          <li class="nav-item dropdown mr-md-2 user-data" *ngIf="profile">
+            <a class="nav-link dropdown-toggle " data-toggle="dropdown"><strong>{{profile.name}} </strong>({{profile.role}})</a>
+            <div class="dropdown-menu">
+              <span class="dropdown-item">Nombre: <strong>{{profile.name}}</strong></span>
+              <span class="dropdown-item">Apellidos: <strong>{{profile.surnames}}</strong></span>
+              <span class="dropdown-item">Email: <strong>{{profile.email}}</strong></span>
+            </div>
+          </li>
+          <li class="nav-item">
+            <!--<span style="font-size: 24px;color: Dodgerblue;" (click)="signOut()"><i-->
+            <!--class="fas fa-external-link-alt"></i></span>-->
+            <button type="button" class="btn btn-warning" (click)="signOut()">Salir</button>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="m-4">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,60 @@
+<div class="auth">
+  <div class="container h-100">
+    <div class="row d-flex h-100 justify-content-center login">
+      <!--<img src="../../../assets/logo/LOGOTIPO%20PRINCIPAL%203X.png">-->
+      <div class="col-12">
+        <div style="text-align: center;align-content: center;">
+          <h1>Hola</h1>
+          <p>Identifícate en Bestrun o <a id="create-count" routerLink="/register">crea una cuenta</a></p>
+        </div>
+        <div class="form-group row">
+          <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 mt-3">
+            <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+              <div class="input-group-lg mb-3">
+                <input type="email" class="form-control input-lg" placeholder="Email" aria-label="email"
+                       formControlName="email"
+                       [class.is-invalid]="!signInForm.controls['email'].valid && (!signInForm.controls['email'].pristine)"
+                       [class.is-valid]="signInForm.controls['email'].valid && (!signInForm.controls['email'].pristine)">
+              </div>
+              <div class="input-group-lg mb-3">
+                <input type="password" class="form-control" placeholder="Contraseña" aria-label="password"
+                       formControlName="password"
+                       [class.is-invalid]="!signInForm.controls['password'].valid && (!signInForm.controls['password'].pristine)"
+                       [class.is-valid]="signInForm.controls['password'].valid && (!signInForm.controls['password'].pristine)">
+              </div>
+              <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-warning btn-lg" [disabled]="!signInForm.valid">Identifícate
+                </button>
+              </div>
+            </form>
+          </div>
+          <div class="col-lg-2 col-md-2 separator-vertical">
+            <div class="d-flex justify-content-center w-100">
+              <div class="flex-column">
+                <div class="line-vertical"></div>
+                <span>o</span>
+                <div class="line-vertical"></div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-12 separator-horizontal my-4">
+            <div class="d-flex justify-content-center w-100">
+              <div class="line-horizontal"></div>
+              <span>o</span>
+              <div class="line-horizontal"></div>
+            </div>
+          </div>
+
+          <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 mt-3 w-100">
+            <a class="btn btn-lg btn-social btn-facebook" style="color:white;" (click)="signInWithFB()">
+              <span class="fab fa-facebook-f" style="padding-top: 6px"></span>Identifícate con Facebook
+            </a>
+            <a class="btn btn-lg btn-social btn-google mt-3" style="color:white;" id="customBtn" (click)="signInWithGoogle()">
+              <span class="fab fa-google" style="padding-top: 6px"></span>Identifícate con Google
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+export class Admin {
+  id:string;
+  name: string = "";
+  surnames: string = "";
+  email: string = "";
+  mobileNumber: string = "";
+  photo: string;
+  password: string = "";
+  role: string = 'Admin';
+  active: boolean = true;
+  createdAt:string = new Date().toISOString();
+}

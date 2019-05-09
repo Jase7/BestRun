@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Web</title>
+  <base href="/">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId            : '2710923765615144',
+        status           :false,
+        cookie           :false,
+        xfbml            : false,
+        version          : 'v3.2'
+      });
+    };
+  </script>
+  <script async defer src="https://connect.facebook.net/es_LA/sdk.js"></script>
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <meta name="google-signin-client_id" content="592124169403-th6kuk6rk3rue80p8htkh5j7le36j4i6.apps.googleusercontent.com">
+</head>
+<body>
+  <app-root></app-root>
+  <script>
+    function onSuccess(googleUser) {
+      console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+    }
+    function onFailure(error) {
+      console.log(error);
+    }
+    function renderButton() {
+      gapi.signin2.render('my-signin2', {
+        'scope': 'profile email',
+        'width': 240,
+        'height': 50,
+        'longtitle': true,
+        'theme': 'dark',
+        'onsuccess': onSuccess,
+        'onfailure': onFailure
+      });
+    }
+  </script>
+
+</body>
+</html>

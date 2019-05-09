@@ -1,0 +1,320 @@
+<div class="mx-lg-5 mx-md-5">
+  <div class="d-flex justify-content-between mb-2">
+    <h2>{{event.tittle}}
+      <small>({{event.active?'activo':'inactivo'}})</small>
+    </h2>
+    <div>
+      <button type="button" class="btn btn-warning btn-sm mr-2" routerLink="/events/edit/{{event.id}}">Editar</button>
+      <button type="button" class="btn btn-warning btn-sm " (click)="openModal(removeEventoModal)">Eliminar</button>
+    </div>
+  </div>
+
+  <ngb-tabset>
+    <ngb-tab title="Información">
+      <ng-template ngbTabContent>
+
+        <div class="d-flex justify-content-center align-items-center mt-3" style="width: 100%">
+          <div class="d-flex justify-content-center align-items-center not-image" *ngIf="!event.photo">
+            <div class="d-flex flex-column">
+              <i class="fas fa-image" style="font-size: 120px;"></i>
+              <input type="file" #fileInput class="upload" accept="image/*"
+                     (change)="uploadImage(fileInput.files); fileInput.value=''">
+              <button type="button" (click)="fileInput.click()" class="btn btn-warning">Subir imagen</button>
+            </div>
+          </div>
+          <div class="d-flex justify-content-center align-items-center" *ngIf="event.photo">
+            <div style="position: relative;">
+              <div (click)="deleteImage()"><i class="fas fa-times-circle remove-image"></i></div>
+              <img class="image" src="{{event.photo}}">
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-4 mx-lg-4 mx-md-4">
+          <div class="col-12">
+            <form>
+              <div class="form-group row">
+                <div class="col-lg-4 col-md-4 mb-3">
+                  <label for="InputTittle">Título</label>
+                  <span id="InputTittle">{{event.tittle}}</span>
+                </div>
+                <div class="col-lg-3 col-md-3 mb-3">
+                  <label for="InputDate">Fecha</label>
+                  <span id="InputDate" >{{event.celebrationDate|date:'dd/MM/yyyy, HH:mm:ss'}}</span>
+                </div>
+                <div class="col-lg-3 col-md-3 mb-3">
+                  <label for="InputClose">Cierre de inscripciones</label>
+                  <span id="InputClose">{{event.closeInscriptions|date:'dd/MM/yyyy, HH:mm:ss'}}</span>
+                </div>
+                <div class="col-lg-2 col-md-2 mb-3">
+                  <label for="InputLimit">Limite de inscripciones</label>
+                  <span id="InputLimit">{{event.limitInscriptions}}</span>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-lg-4 col-md-4 mb-3">
+                  <label for="InputId">Id</label>
+                  <span id="InputId"><strong>{{event.id}}</strong></span>
+                </div>
+                <div class="col-lg-2 col-md-2 mb-3">
+                  <label for="InputSponsored">Patrocinado</label>
+                  <span id="InputSponsored"><strong>{{event.sponsored?'Si':'No'}}</strong></span>
+                </div>
+                <div class="col-lg-2 col-md-2 mb-3">
+                  <label for="InputCity">Ciudad</label>
+                  <span id="InputCity">{{event.city}}</span>
+                </div>
+                <div class="col-lg-4 col-md-4 mb-3">
+                  <label for="InputLocation">Localización</label>
+                  <span id="InputLocation">{{event.location}}</span>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-lg-4 col-md-4 mb-3">
+                  <label for="InputDistance">Distancia</label>
+                  <span id="InputDistance">{{event.distance}}</span>
+                </div>
+                <div class="col-lg-2 col-md-2 mb-3">
+                  <label for="InputType">Tipo de evento</label>
+                  <span id="InputType">{{typeEvent? typeEvent.name: ''}}</span>
+                </div>
+                <div class="col-lg-6 col-md-6 mb-3">
+                  <label for="InputCategories">Categorías</label>
+                  <span id="InputCategories"><strong>{{event.categories}}</strong></span>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-lg-12 col-md-12 mb-3">
+                  <label for="InputDescription">Descripción</label>
+                  <span id="InputDescription" style="border: black 1px solid; height: auto;width: 100%;padding: 10px">{{event.description}}</span>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-lg-3 col-md-3 mb-3">
+                  <label for="InputTemperature">Temperatura</label>
+                  <span id="InputTemperature">{{event.temperature}}</span>
+                </div>
+                <div class="col-lg-3 col-md-3 mb-3">
+                  <label for="InputTemperatureMax">Temperatura Máx.</label>
+                  <span id="InputTemperatureMax">{{event.temperatureMax}}</span>
+                </div>
+                <div class="col-lg-3 col-md-3 mb-3">
+                  <label for="InputTemperatureMin">Temperatura Mín.</label>
+                  <span id="InputTemperatureMin">{{event.temperatureMin}}</span>
+                </div>
+                <div class="col-lg-3 col-md-3 mb-3">
+                  <label for="InputChanceRain">Probabilidad lluvia</label>
+                  <span id="InputChanceRain">{{event.chanceRain}}</span>
+                </div>
+                <div class="col-lg-6 col-md-6 mb-3">
+                  <label for="InputOverallStatus">Estado general</label>
+                  <span id="InputOverallStatus">{{event.overallStatus}}</span>
+                </div>
+                <div class="col-lg-3 col-md-3 mb-3">
+                  <label for="InputIcon">Icono</label>
+                  <span id="InputIcon" *ngIf="event.iconWeather || event.iconWeather===0"><i class="fas fa-lg {{icons[event.iconWeather].icon}}"></i></span>
+                </div>
+                <div class="col-lg-3 col-md-3 mb-3">
+                  <label for="InputShowWheather">Mostrar tiempo</label>
+                  <span id="InputShowWheather"><strong>{{event.showWeather?'Si':'No'}}</strong></span>
+                </div>
+              </div>
+              <!--<div class="d-flex justify-content-end mb-5" align="right">-->
+                <!--<div class="mr-md-5 mr-2">-->
+                  <!--<label for="InputBI">Base imponible</label>-->
+                  <!--<span id="InputBI">{{event.price && event.taxPercentage? (event.price/(1+(event.taxPercentage/100))).toFixed(2): event.price?event.price:0}}&euro;</span>-->
+                <!--</div>-->
+                <!--<div class="mx-md-5 mx-2">-->
+                  <!--<label for="InputTax">Iva</label>-->
+                  <!--<span id="InputTax">{{event.taxPercentage? event.taxPercentage:0}}&#37;</span>-->
+                <!--</div>-->
+                <!--<div class="ml-md-5">-->
+                  <!--<label for="InputPrice">Precio</label>-->
+                  <!--<span id="InputPrice">{{event.price? event.price:0}}&euro;</span>-->
+                <!--</div>-->
+              <!--</div>-->
+              <div class="form-group row mt-5 mb-2" *ngIf="event.typeInscription">
+                <div class="col-lg-12 col-md-12">
+                  <h5>Tipos de inscripciones</h5>
+                  <div class="line"></div>
+                </div>
+              </div>
+              <div class="form-group row" *ngIf="event.typeInscription">
+                <div class="col-lg-12 col-md-12 table-responsive mt-2">
+                  <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                      <th scope="col">Id</th>
+                      <th scope="col">Título</th>
+                      <th scope="col">Descripción</th>
+                      <th scope="col">Iva</th>
+                      <th scope="col">Precio</th>
+                      <th scope="col">Estado</th>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let inscription of event.typeInscription;">
+                      <td>{{inscription._id}}</td>
+                      <td>{{inscription.tittle}}</td>
+                      <td><a *ngIf="inscription.description" placement="top" container="body" ngbTooltip="{{inscription.description}}">{{inscription.description.substring(0,20)}} ...</a>
+                      </td>
+                      <td>{{inscription.taxPercentage}}</td>
+                      <td>{{inscription.price}}</td>
+                      <td>{{inscription.active?'Activo':'Inactivo'}}</td>
+                    </tr>
+                    <tr *ngIf="event.typeInscription.length===0">
+                      <td colspan="5">No hay tipos de inscripción</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-lg-12 col-md-12">
+                  <h5>Archivo</h5>
+                  <div class="line"></div>
+                </div>
+                <div class="col-lg-8 col-md-8 table-responsive mt-2" *ngIf="event.document">
+                  <table class="table">
+                    <tbody>
+                    <tr>
+                      <td style="padding-left:0!important;">{{event.document.toString().split('/').pop()}}</td>
+                      <td style="cursor: pointer"><a target="_blank" href="{{event.document}}">Descargar</a></td>
+                      <td style="cursor: pointer" (click)="deleteFile()">Eliminar</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <div class="col-lg-12 col-md-12 mt-3" *ngIf="!event.document">
+                  <div class="input-group mb-2">
+                    <div class="custom-file">
+                      <input #imageInput type="file" class="custom-file-input" id="inputGroupFile02"
+                             accept="application/pdf"
+                             (change)="processFile(imageInput)">
+                      <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">{{fileName?fileName:inputLabel}}</label>
+                    </div>
+                    <div class="input-group-append">
+<span class="input-group-text" id="inputGroupFileAddon02" (click)="uploadFile(imageInput)"
+      style="cursor: pointer">Upload</span>
+                    </div>
+                  </div>
+                  <small>**Tamaño máximo de archivos 15mb</small>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </ng-template>
+    </ngb-tab>
+    <ngb-tab title="Participantes">
+      <ng-template ngbTabContent>
+        <div class="d-flex justify-content-between mt-3" style="align-items: flex-end">
+          <div>
+            <label for="search-participant">Busca un participante:</label>
+            <input id="search-participant" type="search" class="form-control w-100" #searchBox
+                   placeholder="Nombre del participant" aria-label="Search" (keyup)="search(searchBox.value)"/>
+
+          </div>
+          <div class="ml-2">
+            <button type="button" class="btn btn-warning" (click)="openModal(addParticipant)">Añadir participante
+            </button>
+          </div>
+        </div>
+        <div class="table-responsive mt-3">
+          <table class="table table-bordered">
+            <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Nombre</th>
+              <th scope="col">Email</th>
+              <th scope="col">Dorsal</th>
+              <th scope="col">Tiempo</th>
+              <th scope="col">Categoría</th>
+              <th scope="col">Posición</th>
+              <th scope="col"></th>
+            </thead>
+            <tbody>
+            <tr *ngFor="let p of participants | async">
+              <th scope="row"><a placement="top" ngbTooltip="{{p.userId}}">{{p.userId.substring(0,5)}}</a></th>
+              <td>{{p.nameUser}} {{p.surnames}}</td>
+              <td>{{p.email}}</td>
+              <td><input type="text" [(ngModel)]="p.dorsal" class="form-control"/></td>
+              <td><input type="text" [(ngModel)]="p.time" class="form-control"/></td>
+              <td><input type="text" [(ngModel)]="p.category" class="form-control"/></td>
+              <td><input type="text" [(ngModel)]="p.position" class="form-control"/></td>
+              <td class="actions">
+                <div class="list-inline-item d-flex justify-content-center">
+                  <a (click)="updateParticipant(p)"><i class="fas fa-save save"></i></a>
+                  <a (click)="participantToRemove=p;openModal(removeParticipanteModal)"><i
+                    class="fas fa-trash-alt ml-md-3 ml-1 remove"></i></a>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+          <div class="d-flex justify-content-end">
+            <ngb-pagination [pageSize]="searchParticipant.pageSize" [collectionSize]="searchParticipant.totalItems"
+                            [maxSize]="searchParticipant.pages" [(page)]="searchParticipant.page"
+                            (pageChange)="onPageChange($event)"></ngb-pagination>
+          </div>
+        </div>
+      </ng-template>
+    </ngb-tab>
+  </ngb-tabset>
+
+  <ng-template #removeEventoModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Eliminar evento</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>¿Estás seguro de eliminar el evento {{event.tittle}}?</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Cancelar</button>
+      <button type="button" class="btn btn-danger" (click)="removeEvent();modal.close('Close click')">Eliminar</button>
+    </div>
+  </ng-template>
+
+  <ng-template #removeParticipanteModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Eliminar participante</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <p>¿Estás seguro de eliminar el participante {{participantToRemove.nameUser}}
+        {{participantToRemove.surnames}}?</p>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Cancelar</button>
+      <button type="button" class="btn btn-danger" (click)="removeParticipant();modal.close('Close click')">Eliminar
+      </button>
+    </div>
+  </ng-template>
+
+  <ng-template #addParticipant let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Añadir Participante</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <label for="input-add">Busca un usuario:</label>
+      <input id="input-add" type="text" class="form-control" [(ngModel)]="user" [ngbTypeahead]="usersData"
+             [resultTemplate]="rt"
+             [inputFormatter]="formatterUser"/>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Cancelar</button>
+      <button type="button" class="btn btn-primary" (click)="addParticipantEvent();modal.close()">Añadir</button>
+    </div>
+  </ng-template>
+
+  <ng-template #rt let-r="result" let-t="term">
+    <ngb-highlight [result]="r.name+' '+r.surnames" [term]="t"></ngb-highlight>
+  </ng-template>
+</div>

@@ -1,0 +1,53 @@
+<h2>Edita {{sportsman.name}}</h2>
+<div class="row">
+  <div class="col-12">
+    <form [formGroup]="editSportsmanForm" (ngSubmit)="onSubmit()">
+      <div class="d-flex justify-content-end my-3">
+        <div class="custom-control custom-switch">
+          <input type="checkbox" class="custom-control-input" id="customSwitch1" formControlName="active">
+          <label class="custom-control-label" for="customSwitch1">{{editSportsmanForm.controls['active'].value?'Habilitado':'Deshabilitado'}}</label>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-lg-4 col-md-4 mb-3">
+          <label for="InputName">Nombre (Obligatorio)</label>
+          <input type="text" class="form-control" id="InputName" placeholder="Introduce un nombre"
+                 formControlName="name"
+                 [class.is-invalid]="!editSportsmanForm.controls['name'].valid && (!editSportsmanForm.controls['name'].pristine)"
+                 [class.is-valid]="editSportsmanForm.controls['name'].valid && (!editSportsmanForm.controls['name'].pristine)">
+        </div>
+        <div class="col-lg-8 col-md-8 mb-3">
+          <label for="InputSurnames">Apellidos (Obligatorio)</label>
+          <input type="email" class="form-control" id="InputSurnames" placeholder="Introduce los apellidos"
+                 formControlName="surnames"
+                 [class.is-invalid]="!editSportsmanForm.controls['surnames'].valid && (!editSportsmanForm.controls['surnames'].pristine)"
+                 [class.is-valid]="editSportsmanForm.controls['surnames'].valid && (!editSportsmanForm.controls['surnames'].pristine)">
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3">
+          <label for="InputPhone">Teléfono</label>
+          <input type="tel" class="form-control" id="InputPhone" placeholder="Introduce el teléfono"
+                 formControlName="mobileNumber"
+                 [class.is-invalid]="!editSportsmanForm.controls['mobileNumber'].valid && (!editSportsmanForm.controls['mobileNumber'].pristine)"
+                 [class.is-valid]="editSportsmanForm.controls['mobileNumber'].valid && (!editSportsmanForm.controls['mobileNumber'].pristine)">
+        </div>
+        <div class="col-lg-8 col-md-8 mb-3">
+          <label for="InputEmail">Email (Obligatorio)</label>
+          <input type="text" class="form-control" id="InputEmail" placeholder="Introduce un email"
+                 formControlName="email"
+                 [class.is-invalid]="!editSportsmanForm.controls['email'].valid && (!editSportsmanForm.controls['email'].pristine)"
+                 [class.is-valid]="editSportsmanForm.controls['email'].valid && (!editSportsmanForm.controls['email'].pristine)">
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3">
+          <label for="InputPassword">Contraseña (No obligatorio)</label>
+          <input type="password" class="form-control" id="InputPassword" placeholder="Introduce la nueva contraseña"
+                 formControlName="password"
+                 [class.is-invalid]="!editSportsmanForm.controls['password'].valid && (!editSportsmanForm.controls['password'].pristine)"
+                 [class.is-valid]="editSportsmanForm.controls['password'].valid && (!editSportsmanForm.controls['password'].pristine)">
+        </div>
+      </div>
+      <div class="d-flex justify-content-end">
+        <button type="submit" class="btn btn-warning btn-lg" [disabled]="!editSportsmanForm.valid">Actualizar Usuario</button>
+      </div>
+    </form>
+  </div>
+</div>

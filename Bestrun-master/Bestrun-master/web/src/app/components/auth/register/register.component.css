@@ -1,0 +1,63 @@
+.auth{
+  /*background-color: #81b1d5!important;*/
+  height: 100vh;
+}
+
+/*.input-group-prepend {*/
+/*width: 36px!important;*/
+/*}*/
+
+.login{
+  padding-top: 250px;
+}
+
+a#create-count{
+  text-decoration: underline!important;
+  text-decoration-color:black!important;
+  cursor: pointer;
+}
+
+a:active, a:link{
+  color:#81b1d5!important;
+}
+
+.login-email{
+  height: 100vh;
+}
+
+.line-vertical{
+  border-left: 1px solid black;
+  height: 140px;
+  margin-left: 4px;
+}
+
+.line-horizontal{
+  border-bottom: 1px solid black;
+  width: 48%;
+  margin-bottom: 8px;
+}
+
+.btn-social{
+  width: 80%;
+}
+.separator-horizontal{
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .login{
+    padding-top: 130px;
+  }
+
+  .separator-vertical {
+    display: none;
+  }
+
+  .btn-social{
+    width: 100%;
+  }
+
+  .separator-horizontal{
+    display: block;
+  }
+}

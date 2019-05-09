@@ -1,0 +1,12 @@
+.inactive{
+  background-color: #dddddd;
+}
+
+.sponsored{
+  background-color:#F5D900;
+}
+
+i, tr{
+  cursor: pointer;
+}
+

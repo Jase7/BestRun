@@ -1,0 +1,26 @@
+version: '2'
+services:
+  backoffice:
+    build: backoffice
+#    volumes:
+#    - ./backoffice:/usr/src/app
+    ports:
+    - "5200:4200"
+  web:
+    build: web
+#    volumes:
+#    - ./web:/usr/src/app
+    ports:
+    - "4401:4200"
+  api:
+    build: ./api-server
+#    volumes:
+#    - ./api-server:/usr/src/app
+    ports:
+    - "3000:3000"
+    links:
+    - database
+  database:
+    image: mongo
+    ports:
+    - "27017:27017"

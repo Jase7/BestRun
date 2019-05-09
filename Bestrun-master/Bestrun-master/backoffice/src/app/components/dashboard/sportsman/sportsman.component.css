@@ -1,0 +1,8 @@
+.inactive{
+  background-color: #dddddd;
+}
+
+i, tr{
+  cursor: pointer;
+}
+

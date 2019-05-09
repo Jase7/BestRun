@@ -1,0 +1,60 @@
+label{
+  display:block;
+}
+
+/*.files tr,td,th{*/
+  /*border:none!important;*/
+/*}*/
+
+th,td{
+  vertical-align: middle!important;
+}
+
+.actions{
+  font-size: 22px;
+}
+.actions .save{
+  color:green;
+}
+.actions .remove{
+  color:gray;
+}
+
+.image{
+  height: 40vh;
+}
+
+.not-image{
+  height: 40vh;
+  width: 70%;
+  background-color: #086AC7;
+}
+
+.remove-image {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.upload{
+  display: none;
+  visibility: hidden;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+}
+
+
+@media (max-width: 768px) {
+  .image{
+    height: 30vh;
+  }
+
+  .not-image{
+    height: 40vh;
+    width: 100%;
+    background-color: #086AC7;
+  }
+}
