@@ -4,6 +4,7 @@ const UserService = require('../services/db/user.service');
 const ValidationService = require('../services/validation.service');
 const PasswordService = require('../services/password.service');
 const logService = require('../services/db/logs.service');
+const utils = require("./utils/models.format")
 
 exports.getAllAdmins = async function (req, res, next) {
     var page = req.query.page ? req.query.page : 1;
@@ -15,7 +16,7 @@ exports.getAllAdmins = async function (req, res, next) {
             return res.status(httpStatus.BAD_REQUEST).json({status: httpStatus.BAD_REQUEST, message: errors});
         }
 
-        var admins = await UserService.getAllUsers({role:['Admin', 'Superadmin']}, page, limit);
+        var admins = await UserService.getAllUsers({role:[utils.USER_TYPES.ADMIN, utils.USER_TYPES.SUPERADMIN]}, page, limit);
         admins.docs = admins.docs.map((admin) => {
             return formatAdmin(admin);
         });
@@ -34,7 +35,7 @@ exports.createAdmin = async function (req, res, next) {
             return res.status(httpStatus.BAD_REQUEST).json({status: httpStatus.BAD_REQUEST, message: err});
         }
 
-        req.body.role = 'Admin';
+        req.body.role = utils.USER_TYPES.ADMIN
         req.body.accessProvider= 'Password';
         req.body.password = await PasswordService.generateHash(req.body.password);
         var newAdmin = await UserService.createUser(req.body);
@@ -101,7 +102,7 @@ exports.removeAdmin = async function (req, res, next) {
 
     try {
         var savedAdmin = await UserService.getUser(id);
-        if (savedAdmin.role !== "Superadmin") {
+        if (savedAdmin.role !== utils.USER_TYPES.ADMIN) {
             return res.status(httpStatus.BAD_REQUEST).json({status: httpStatus.BAD_REQUEST, message: "User is Superadmin"});
         }
         var deleted = await UserService.deleteUser(id);

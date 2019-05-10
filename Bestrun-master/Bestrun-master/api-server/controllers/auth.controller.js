@@ -67,7 +67,7 @@ exports.register = async function (req, res, next) {
             return res.status(httpStatus.BAD_REQUEST).json({status: httpStatus.BAD_REQUEST, message: err});
         }
 
-        req.body.role = 'Sportsman';
+        req.body.role = utils.USER_TYPES.SPORTSMAN
         req.body.accessProvider= 'Password';
         req.body.password = await passwordService.generateHash(req.body.password);
         const newSportsman = await UserService.createUser(req.body);
@@ -106,7 +106,7 @@ exports.signInFacebook = async function (req, res, next) {
     var code = req.body.code;
     try {
         var userFacebook = await FacebookService.getUser(code);
-        userFacebook.role = 'Sportsman';
+        userFacebook.role = utils.USER_TYPES.SPORTSMAN
         userFacebook.accessProvider= 'Facebook';
         var user = await UserService.getUserFacebookId(userFacebook.facebookId);
         if (!user) {
@@ -145,7 +145,7 @@ exports.signInGoogle = async function (req, res, next) {
     var code = req.body.code;
     try {
         var userGoogle = await GoogleService.getUser(code);
-        userGoogle.role = 'Sportsman';
+        userGoogle.role = utils.USER_TYPES.SPORTSMAN
         userGoogle.accessProvider= 'Google';
         var user = await UserService.getUserGoogleId(userGoogle.googleId);
         if (!user) {

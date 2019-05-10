@@ -27,6 +27,7 @@ import {TokenInterceptor} from "./services/token-interceptor.service";
 import {MyTimesComponent} from './components/dashboard/my-times/my-times.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {ShareButtonModule} from "@ngx-share/button";
+import {FriendsComponent} from './components/dashboard/friends/friends.component';
 
 import {SocialLoginModule, AuthServiceConfig, FacebookLoginProvider} from "angularx-social-login";
 import { GoogleLoginProvider} from "angularx-social-login";
@@ -56,7 +57,8 @@ export function provideConfig() {
     ImageEventPipe,
     ShowEventComponent,
     MyEventsComponent,
-    MyTimesComponent
+    MyTimesComponent,
+    FriendsComponent
   ],
   imports: [
     CommonModule,

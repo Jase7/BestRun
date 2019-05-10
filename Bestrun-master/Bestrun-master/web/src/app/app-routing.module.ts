@@ -8,6 +8,8 @@ import {ShowEventComponent} from "./components/dashboard/event/show-event/show-e
 import {AuthenticationService} from "./services/api/authentication.service";
 import {MyEventsComponent} from "./components/dashboard/my-events/my-events.component";
 import {MyTimesComponent} from "./components/dashboard/my-times/my-times.component";
+import { CanActivate } from '@angular/router/src/utils/preactivation';
+import { FriendsComponent } from './components/dashboard/friends/friends.component';
 
 const routes: Routes = [
   {
@@ -39,7 +41,13 @@ const routes: Routes = [
         path: 'my-times',
         canActivate: [AuthenticationService],
         component: MyTimesComponent
+      },
+      {
+        path: "friends",
+        canActivate: [AuthenticationService],
+        component: FriendsComponent
       }
+
     ]
   }
 ];

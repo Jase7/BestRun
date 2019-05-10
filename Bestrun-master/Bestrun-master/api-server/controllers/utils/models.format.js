@@ -1,3 +1,11 @@
+const USER_TYPES = {
+    SUPERADMIN: "SuperAdmin",
+    ADMIN: "Admin",
+    SPORTSMAN: "Sportsman"
+}
+
+exports.USER_TYPES = USER_TYPES
+
 exports.formatAdmin = (admin) => {
     return {
         id: admin._id,

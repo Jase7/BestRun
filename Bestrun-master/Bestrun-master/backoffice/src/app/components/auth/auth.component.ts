@@ -33,6 +33,7 @@ export class AuthComponent implements OnInit {
         },
         (error) => {
           this.notify.show(NotificationType.Error, "Error login", error.error.message);
+          console.debug(error)
         });
   }
 
