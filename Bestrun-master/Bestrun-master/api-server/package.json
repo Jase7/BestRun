@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "node server.js",
-    "start-dev": "nodemon server.js"
+    "start-dev": "nodemon server.js",
+    "debug": "nodemon --inspect server.js"
   },
   "dependencies": {
     "@google-cloud/storage": "^2.3.4",

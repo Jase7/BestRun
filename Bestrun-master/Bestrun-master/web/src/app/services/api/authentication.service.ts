@@ -62,7 +62,7 @@ export class AuthenticationService implements CanActivate {
   async signOut() {
     try {
       this.storageService.clear();
-      this.router.navigate(['/']);
+      this.router.navigate(['/login']);
     } catch (e) {
       this.notify.show(NotificationType.Error, "Error", e.message)
     }

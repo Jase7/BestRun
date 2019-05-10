@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.authService.signIn(this.signInForm.value)
       .subscribe((data: any) => {
-          this.router.navigate([this.page]);
+          this.router.navigate(["/"]);
         },
         (error) => {
           this.notify.show(NotificationType.Error, "Error login", error.error.message);

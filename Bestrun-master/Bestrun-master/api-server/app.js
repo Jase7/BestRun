@@ -10,7 +10,7 @@ require('dotenv').config();
 
 var mongoose = require('mongoose');
 mongoose.Promise = bluebird;
-mongoose.connect(process.env.DATABASE)
+mongoose.connect(process.env.DATABASE_LOCAL)
     .then(() => {
         console.log(`Succesfully Connected to the Mongodb Database  at URL : mongodb://127.0.0.1:27017/bestrun`);
     })
@@ -21,14 +21,17 @@ mongoose.connect(process.env.DATABASE)
 
 // //Create superadmin
 var user = new User({
-    "name": "miguel",
-    "surnames": "donaire",
-    "email": "mdonaireparra@gmail.com",
-    "password": "$2a$10$fjGqfhbIlkwJRIUOxoXewOqDLjZNSb//ssd1Kbx87/9CmQIAyCJ0.", //password
+    "name": "luis miguel",
+    "surnames": "martin pardo",
+    "email": "martinpardoluisma@gmail.com",
+    "password": "$2a$10$xREs9X6QdHPBqOsRU6ZfPeV6fYTGB7D8mS5cfR1bBLTyuVhEfFlIW", //password
     "role": "Superadmin",
     "accessProvider": "Password"
 });
-user.save();
+
+if (!User.find({email: user.email})) {
+    user.save();
+}
 
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
