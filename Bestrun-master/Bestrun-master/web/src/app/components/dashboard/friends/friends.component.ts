@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {SearchNavbarService} from '../../../services/search-navbar.service'
 import { RouteConfigLoadStart } from '@angular/router';
+import { FriendsService} from 'src/app/services/api/friends.service';
 
 @Component({
     selector: 'app-friends',
@@ -10,7 +11,13 @@ import { RouteConfigLoadStart } from '@angular/router';
 
 export class FriendsComponent implements OnInit {
 
-    constructor(private searchNavbarService: SearchNavbarService) {}
+    public pendRequests : number = 0;
 
-    ngOnInit() { }     
+    constructor(private searchNavbarService: SearchNavbarService, private _friendsService : FriendsService) {}
+
+    ngOnInit() {
+        this._friendsService.getPendRequests().subscribe((res : number) => {
+            this.pendRequests = res
+        });
+     }     
 }

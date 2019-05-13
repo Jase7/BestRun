@@ -5,7 +5,7 @@
         <ul class="list-group">
             <li class="list-group-item" routerLink="add-friend" [routerLinkActive]="['active']" #rlal="routerLinkActive">Añadir amigos</li>
             <li class="list-group-item" routerLink="friend-requests" routerLinkActive="active">Solicitudes de amistad pendientes
-                <span class="badge badge-primary badge-pill" #nRequests>0</span>
+                <span class="badge badge-primary badge-pill" #nRequests>{{pendRequests}}</span>
             </li>
             <li class="list-group-item" routerLink="time-comparator" routerLinkActive="active">Comparar tiempos con amigos</li>
         </ul>

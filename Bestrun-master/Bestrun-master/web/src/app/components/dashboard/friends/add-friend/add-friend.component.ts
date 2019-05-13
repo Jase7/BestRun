@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, INJECTOR, Inject, PLATFORM_ID, Injector } from '@angular/core';
 import { UsersService } from 'src/app/services/api/users.service';
+import { FriendsService } from 'src/app/services/api/friends.service';
 import { Sportsman } from 'src/app/models/sportsman.model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
     selector: 'app-add-friend',
@@ -12,7 +15,12 @@ export class AddFriendComponent implements OnInit {
     public users : Sportsman[]  = [];
     public isHidden : boolean = true 
 
-    constructor(private usersSvc: UsersService) {}
+    //Modal
+    public username: string = ""
+    public userid: string = ""
+
+    constructor(private usersSvc: UsersService, private modalService: NgbModal, private friendsService : FriendsService){
+    }
 
     ngOnInit() {}
 
@@ -26,11 +34,28 @@ export class AddFriendComponent implements OnInit {
                 this.users = [];
                 this.users.push(data)
             })
-
         }
     }
 
+    //Hide/Show the founded users' list
     toggleUsers(event: Event) {
         this.isHidden = !this.isHidden;
+    }
+
+    //Open modal for stablish friendship
+    modalFriendship(content, userid: string, username: string) {
+
+        this.userid = userid
+        this.username = username
+
+        this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'})
+    }
+
+    //Triggered by OK modal, send friendship
+    addFriend(userid: string) {
+
+        console.log(userid)
+
+        this.friendsService.addFriend(userid);
     }
 }

@@ -4,7 +4,6 @@ var logger = require('morgan');
 var api = require('./routes/api.route');
 var bluebird = require('bluebird');
 var User = require('./models/user.model');
-
 var app = express();
 require('dotenv').config();
 
@@ -16,7 +15,7 @@ mongoose.connect(process.env.DATABASE_LOCAL)
     })
     .catch((err) => {
         console.log(err);
-        console.log(`Error Connecting to the Mongodb Database at URL : mongodb://127.0.0.1:27017/bestrun`)
+        console.log(`Error Connecting to the Mongodb Database at URL : mongodb://127.0.0.1:27017/bestrun`);
     });
 
 // //Create superadmin

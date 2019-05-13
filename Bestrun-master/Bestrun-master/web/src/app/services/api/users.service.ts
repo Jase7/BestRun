@@ -11,12 +11,13 @@ import { Sportsman } from "../../models/sportsman.model";
 
 export class UsersService {
 
-    strFriendsApiUrl = data.api + "/users"
+    strUsersApiUrl = data.api + "/users"
 
     constructor(private http: HttpClient) {}
 
     getUserByName(username: String): Observable<Sportsman> {
-        return this.http.get(`${this.strFriendsApiUrl}/${username}`).pipe(
+      
+        return this.http.get(`${this.strUsersApiUrl}/${username}`).pipe(
           map((res : any) => {
             return res.data.docs as Sportsman;
           })

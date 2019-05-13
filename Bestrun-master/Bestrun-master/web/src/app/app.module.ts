@@ -13,7 +13,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {SimpleNotificationsModule} from "angular2-notifications";
 import {AuthFacebookService} from "./services/api/auth-facebook.service";
-import {NgbDatepickerModule} from "@ng-bootstrap/ng-bootstrap";
+import {NgbDatepickerModule, NgbModalModule} from "@ng-bootstrap/ng-bootstrap";
 import {AuthenticationService} from "./services/api/authentication.service";
 import {EventComponent} from './components/dashboard/event/event.component';
 import {EventsService} from "./services/api/events.service";
@@ -78,7 +78,8 @@ export function provideConfig() {
     NgbDatepickerModule,
     ShareButtonModule,
     FontAwesomeModule,
-    SocialLoginModule.initialize(config)
+    SocialLoginModule.initialize(config), 
+    NgbModalModule
   ],
   providers: [
     NotifyService,

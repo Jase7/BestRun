@@ -1,0 +1,11 @@
+#userphoto img {
+    max-width : 100px;
+}
+
+.list-group-item {
+    cursor: pointer; 
+}
+
+.list-group-item:hover {
+    background-color: #007bff;
+}

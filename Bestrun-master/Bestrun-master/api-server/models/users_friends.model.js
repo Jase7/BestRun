@@ -6,16 +6,18 @@ const UsersFriendsSchema = new mongoose.Schema({
     user1: {
         type: Schema.Types.ObjectId,
         ref: "Users",
-        required: true, 
-        unique: true
+        required: true
     },
     user2: {
         type: Schema.Types.ObjectId,
         ref: "Users",
-        required: true,
-        unique: true
+        required: true
     },
-});
+    isFriend: {
+        type: Boolean,
+        default: false
+    }
+}).index({ user1: 1, user2: 1 }, { unique: true });
 
 UsersFriendsSchema.plugin(mongoosePaginate);
 const UsersFriends = mongoose.model('UsersFriends', UsersFriendsSchema);

@@ -1,12 +1,29 @@
 <div class="mb-2 mt-12">
         <label for="InputName">Nombre</label>
-        <input class="form-control" type="text" id="InputName"  #InputName placeholder="Introduce un nombre" (keyup)="searchUser(InputName.value)" (blur)="toggleUsers()" (focus)="toggleUsers()" >
+        <input class="form-control" type="text" id="InputName"  #InputName placeholder="Introduce un nombre" (keyup)="searchUser(InputName.value)" (focus)="toggleUsers()" >
         <div *ngIf="users.length > 0 && !isHidden" class="list-users">
                 <ul class="user list-group">
-                        <li class="list-group-item" *ngFor="let user of users[0]">
-                                <span id="userphoto"><img src={{user.photo}}></span>
-                                <span id="userid">{{user.name}}</span>
+                        <li class="list-group-item d-flex flex-row" *ngFor="let user of users[0]" (click)="modalFriendship(content, user.id, user.name)" ngbAutofocus>
+                                <div id="userid" class="d-none">{{user.id}}</div>
+                                <div id="userphoto" class="d-flex"><img src={{user.photo}}></div>
+                                <div id="userid" class="w-100 d-flex align-self-center justify-content-center">{{user.name}} {{user.surnames}}</div>
                         </li>
                 </ul>
         </div>
 </div>
+
+<ng-template #content let-modal>
+        <div class="modal-header">
+                <h4 class="modal-title" id="modal-title">Agregar amigo</h4>
+                <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+                        <span aria-hidden="true">&times;</span>
+                </button>
+        </div>
+        <div class="modal-body">
+                <p><strong>¿Estás seguro de querer agregar a <span class="text-primary">"{{username}}"</span>?</strong></p>                
+        </div>
+        <div class="modal-footer">
+                <button type="button" class="btn btn-danger" (click)="addFriend(userid)">Agregar amigo</button>
+                <button type="button" class="btn btn-outline-secondary" (click)="modal.close()">Cancelar</button>
+        </div>
+</ng-template>
