@@ -12,13 +12,13 @@ exports.getAllUsers = async function (req, res, next) {
         query = {
             active: true,
             $or: [
-                {name: {$regex: term, $options: 'i'}},
-                {surnames: {$regex: term, $options: 'i'}},
-                {email: {$regex: term, $options: 'i'}},
-                {"$where": `function() { return this._id.toString().match(/${term}/) != null;}`}
+                { name: { $regex: term, $options: 'i' } },
+                { surnames: { $regex: term, $options: 'i' } },
+                { email: { $regex: term, $options: 'i' } },
+                { "$where": `function() { return this._id.toString().match(/${term}/) != null;}` }
             ]
 
-        }
+        };
     }
 
     try {
@@ -30,6 +30,39 @@ exports.getAllUsers = async function (req, res, next) {
         return res.status(httpStatus.OK).json({status: httpStatus.OK, data: users});
     } catch (e) {
         return res.status(httpStatus.BAD_REQUEST).json({status: httpStatus.BAD_REQUEST, message: e.message});
+    }
+};
+
+exports.getUserByName = async function (req, res, next) {
+
+    var page = req.query.page ? req.query.page : 1;
+    var limit = req.query.limit ? req.query.limit : 15;
+    var term = req.params.name && req.params.name !== '' ? req.params.name : null;
+
+    var query = { active: true };
+
+    if (term) {
+        query = {
+            $or: [  
+                { name: { $regex: term, $options: 'i'} }, 
+                { surnames: { $regex: term, $options: 'i' } }, 
+                { "$where": `function() { return this._id.toString().match(/${term}/) != null;}` }
+            ]
+        };
+    }
+
+    try {
+
+        var users = await userService.getUserByName(query, page, limit);
+
+        users.docs = users.docs.map((user) => {
+            return formatUsers(user);
+        });
+
+        return res.status(httpStatus.OK).json({ data: users });
+    }
+    catch (e) {
+        return res.status(httpStatus.BAD_REQUEST).json({ status: httpStatus.BAD_REQUEST, message: e.message });
     }
 };
 

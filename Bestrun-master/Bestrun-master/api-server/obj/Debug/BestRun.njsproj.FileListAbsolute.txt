@@ -1,0 +1,3 @@
+E:\Proyectos\BestRun\Bestrun-master\Bestrun-master\api-server\obj\Debug\BestRun.njsprojAssemblyReference.cache
+E:\Proyectos\BestRun\Bestrun-master\Bestrun-master\api-server\obj\Debug\BestRun.njsproj.CoreCompileInputs.cache
+E:\Proyectos\BestRun\Bestrun-master\Bestrun-master\api-server\bin\Microsoft.NodejsTools.WebRole.dll

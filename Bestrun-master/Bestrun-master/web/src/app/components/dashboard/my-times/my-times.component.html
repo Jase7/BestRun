@@ -9,18 +9,6 @@
           <option *ngFor="let type of typeEvents" [ngValue]="type.id">{{type.name}}</option>
         </select>
       </div>
-      <!--<div class="mb-2">-->
-      <!--<label for="InputCity">Ciudad</label>-->
-      <!--<input class="form-control" type="text" id="InputCity" placeholder="Introduce una ciudad"-->
-      <!--[(ngModel)]="searchEvent.city">-->
-      <!--</div>-->
-      <!--<div class="mb-2">-->
-      <!--<label for="InputMonth">Mes</label>-->
-      <!--<select class="custom-select" id="InputMonth" [(ngModel)]="searchEvent.month">-->
-      <!--<option value="">Elige un mes</option>-->
-      <!--<option *ngFor="let m of allMonths" [ngValue]="m.id">{{m.name}}</option>-->
-      <!--</select>-->
-      <!--</div>-->
       <div class="btn btn-primary w-100 my-2" (click)="searchEvents()">Buscar</div>
     </div>
   </div>

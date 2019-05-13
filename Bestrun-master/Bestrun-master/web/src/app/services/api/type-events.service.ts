@@ -9,7 +9,7 @@ import {data} from "../../config/data";
 })
 export class TypeEventsService {
   api_url = data.api;
-  eventsUrl = `${this.api_url}/api/type-events`;
+  eventsUrl = `${this.api_url}/type-events`;
 
   constructor(private http: HttpClient) {
   }

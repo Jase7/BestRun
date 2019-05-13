@@ -31,6 +31,9 @@ import {FriendsComponent} from './components/dashboard/friends/friends.component
 
 import {SocialLoginModule, AuthServiceConfig, FacebookLoginProvider} from "angularx-social-login";
 import { GoogleLoginProvider} from "angularx-social-login";
+import { AddFriendComponent } from './components/dashboard/friends/add-friend/add-friend.component';
+import { FriendRequestsComponent } from './components/dashboard/friends/friend-requests/friend-requests.component';
+import { TimeComparatorComponent } from './components/dashboard/friends/time-comparator/time-comparator.component';
 
 let config = new AuthServiceConfig([
   {
@@ -58,7 +61,10 @@ export function provideConfig() {
     ShowEventComponent,
     MyEventsComponent,
     MyTimesComponent,
-    FriendsComponent
+    FriendsComponent,
+    AddFriendComponent,
+    FriendRequestsComponent,
+    TimeComparatorComponent
   ],
   imports: [
     CommonModule,

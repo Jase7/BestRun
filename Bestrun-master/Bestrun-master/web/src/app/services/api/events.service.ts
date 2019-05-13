@@ -11,7 +11,7 @@ import {data} from "../../config/data";
 })
 export class EventsService {
   api_url = data.api;
-  eventsUrl = `${this.api_url}/api/events`;
+  eventsUrl = `${this.api_url}/events`;
 
   constructor(private http: HttpClient) {
   }
@@ -33,7 +33,7 @@ export class EventsService {
   }
 
   getMyEvents(search: SearchEventModel){
-    return this.http.get(`${this.api_url}/api/sportsman/my-events?page=${search.page}&search=${search.term}&limit=${search.pageSize}&type=${search.typeEvent}`).pipe(
+    return this.http.get(`${this.api_url}/sportsman/my-events?page=${search.page}&search=${search.term}&limit=${search.pageSize}&type=${search.typeEvent}`).pipe(
       map(res => {
         return res["data"];
       })

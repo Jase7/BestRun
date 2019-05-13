@@ -34,6 +34,21 @@ exports.getUserFacebookId = async function (facebookId) {
     }
 };
 
+exports.getUserByName = async function (query, page, limit) {
+
+    var options = {
+        page,
+        limit
+    };
+
+    try {
+        return User.paginate(query, options);
+    }
+    catch (e) {
+        throw Error(e.message);
+    }
+};
+
 exports.createUser = async function (user) {
     var newUser = new User({
         name: user.name,

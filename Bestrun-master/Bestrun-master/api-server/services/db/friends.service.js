@@ -1,5 +1,5 @@
 var Friends = require('../../models/users_friends.model');
-var LogService = require('./logs.service')
+var LogService = require('./logs.service');
 _this = this;
 
 exports.getAllFriends = async function(query, page, limit) {
@@ -10,7 +10,8 @@ exports.getAllFriends = async function(query, page, limit) {
     };
 
     try {
-        var allFriends = await Friends.paginate(query, options)
+
+        var allFriends = await Friends.paginate(query, options);
         return allFriends;
 
     } catch (err) {       

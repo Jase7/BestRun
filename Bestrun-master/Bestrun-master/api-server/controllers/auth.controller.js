@@ -11,7 +11,7 @@ var passwordService = require('../services/password.service');
 const GoogleService = require('../services/google-credentials.service');
 const FacebookService = require('../services/facebook-credentials.service');
 
-_this = this
+_this = this;
 
 exports.authenticated = async function (req, res, next) {
     const result = await JWTService.getData(req.headers);
@@ -47,7 +47,8 @@ exports.signIn = async function (req, res, next) {
                 .json(
                     {
                         token: 'JWT ' + JWTService.generateJWT(user.name, user.surnames, user.id, user.email, user.role, user.active),
-                        role: user.role
+                        role: user.role,
+                        userid: user.id
                     });
         }
         return res.status(httpStatus.UNAUTHORIZED).json({
@@ -76,7 +77,8 @@ exports.register = async function (req, res, next) {
             data: {
                 token: 'JWT ' + JWTService.generateJWT(newSportsman.name, newSportsman.surnames, newSportsman.id, newSportsman.email, newSportsman.role, newSportsman.active),
                 data: utils.formatSportsman(newSportsman),
-                role: newSportsman.role
+                role: newSportsman.role,
+                userid: newSportsman.id
             },
             message: "Succesfully Created Sportsman"
         });
@@ -106,7 +108,7 @@ exports.signInFacebook = async function (req, res, next) {
     var code = req.body.code;
     try {
         var userFacebook = await FacebookService.getUser(code);
-        userFacebook.role = utils.USER_TYPES.SPORTSMAN
+        userFacebook.role = utils.USER_TYPES.SPORTSMAN;
         userFacebook.accessProvider= 'Facebook';
         var user = await UserService.getUserFacebookId(userFacebook.facebookId);
         if (!user) {
@@ -116,7 +118,8 @@ exports.signInFacebook = async function (req, res, next) {
                 data: {
                     token: 'JWT ' + JWTService.generateJWT(newSportsman.name, newSportsman.surnames, newSportsman.id, newSportsman.email, newSportsman.role, newSportsman.active),
                     data: utils.formatSportsman(newSportsman),
-                    role: newSportsman.role
+                    role: newSportsman.role,
+                    userid: newSportsman.id
                 },
                 message: "Successfully Logged Sportsman"
             });
@@ -127,7 +130,8 @@ exports.signInFacebook = async function (req, res, next) {
                 data: {
                     token: 'JWT ' + JWTService.generateJWT(user.name, user.surnames, user.id, user.email, user.role, user.active),
                     data: utils.formatSportsman(user),
-                    role: user.role
+                    role: user.role,
+                    userid: user.id
                 },
                 message: "Successfully Logged Sportsman"
             });
@@ -145,7 +149,7 @@ exports.signInGoogle = async function (req, res, next) {
     var code = req.body.code;
     try {
         var userGoogle = await GoogleService.getUser(code);
-        userGoogle.role = utils.USER_TYPES.SPORTSMAN
+        userGoogle.role = utils.USER_TYPES.SPORTSMAN;
         userGoogle.accessProvider= 'Google';
         var user = await UserService.getUserGoogleId(userGoogle.googleId);
         if (!user) {
@@ -156,7 +160,8 @@ exports.signInGoogle = async function (req, res, next) {
                 data: {
                     token: 'JWT ' + JWTService.generateJWT(newSportsman.name, newSportsman.surnames, newSportsman.id, newSportsman.email, newSportsman.role, newSportsman.active),
                     data: utils.formatSportsman(newSportsman),
-                    role: newSportsman.role
+                    role: newSportsman.role,
+                    userid: newSportsman.id
                 },
                 message: "Successfully Logged Sportsman"
             });
@@ -167,7 +172,8 @@ exports.signInGoogle = async function (req, res, next) {
                 data: {
                     token: 'JWT ' + JWTService.generateJWT(user.name, user.surnames, user.id, user.email, user.role, user.active),
                     data: utils.formatSportsman(user),
-                    role: user.role
+                    role: user.role,
+                    userid: user.id
                 },
                 message: "Successfully Logged Sportsman"
             });

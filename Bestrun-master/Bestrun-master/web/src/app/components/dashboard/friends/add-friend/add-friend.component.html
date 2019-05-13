@@ -1,0 +1,12 @@
+<div class="mb-2 mt-12">
+        <label for="InputName">Nombre</label>
+        <input class="form-control" type="text" id="InputName"  #InputName placeholder="Introduce un nombre" (keyup)="searchUser(InputName.value)" (blur)="toggleUsers()" (focus)="toggleUsers()" >
+        <div *ngIf="users.length > 0 && !isHidden" class="list-users">
+                <ul class="user list-group">
+                        <li class="list-group-item" *ngFor="let user of users[0]">
+                                <span id="userphoto"><img src={{user.photo}}></span>
+                                <span id="userid">{{user.name}}</span>
+                        </li>
+                </ul>
+        </div>
+</div>

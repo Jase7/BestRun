@@ -8,5 +8,5 @@ export class Sportsman {
   password: string = "";
   role: string = 'Admin';
   active: boolean = true;
-  createdAt:string = new Date().toISOString();
+  createdAt:String = new Date().toISOString();
 }

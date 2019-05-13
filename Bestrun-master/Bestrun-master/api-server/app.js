@@ -25,7 +25,7 @@ var user = new User({
     "surnames": "martin pardo",
     "email": "martinpardoluisma@gmail.com",
     "password": "$2a$10$xREs9X6QdHPBqOsRU6ZfPeV6fYTGB7D8mS5cfR1bBLTyuVhEfFlIW", //password
-    "role": "Superadmin",
+    "role": "SuperAdmin",
     "accessProvider": "Password"
 });
 

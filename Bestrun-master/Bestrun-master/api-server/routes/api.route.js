@@ -7,7 +7,7 @@ var sportsman = require('./api/sportsman.route');
 var events = require('./api/events.route');
 var typeEvents = require('./api/typeEvents.route');
 var users = require('./api/users.route');
-var friends = require("./api/friends.route")
+var friends = require("./api/friends.route");
 
 var AuthController = require('../controllers/auth.controller');
 var AuthorizationController = require('../controllers/authorization.controller');
@@ -20,7 +20,7 @@ router.use('/users', users);
 router.use('/admins', AuthController.authenticated);
 router.use('/admins', AuthorizationController.onlySuperadmin);
 router.use('/admins', admins);
-//router.use('/sportsman', AuthController.authenticated);
+router.use('/sportsman', AuthController.authenticated);
 router.use('/sportsman', sportsman);
 router.use('/events', events);
 router.use('/type-events', typeEvents);

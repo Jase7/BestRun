@@ -10,6 +10,9 @@ import {MyEventsComponent} from "./components/dashboard/my-events/my-events.comp
 import {MyTimesComponent} from "./components/dashboard/my-times/my-times.component";
 import { CanActivate } from '@angular/router/src/utils/preactivation';
 import { FriendsComponent } from './components/dashboard/friends/friends.component';
+import { AddFriendComponent } from './components/dashboard/friends/add-friend/add-friend.component';
+import { FriendRequestsComponent } from './components/dashboard/friends/friend-requests/friend-requests.component';
+import { TimeComparatorComponent } from './components/dashboard/friends/time-comparator/time-comparator.component';
 
 const routes: Routes = [
   {
@@ -45,16 +48,34 @@ const routes: Routes = [
       {
         path: "friends",
         canActivate: [AuthenticationService],
-        component: FriendsComponent
+        component: FriendsComponent, 
+        children: [
+          {
+            path: '',
+            component: AddFriendComponent
+          },
+          {
+            path: 'add-friend',
+            component: AddFriendComponent
+          },
+          {
+            path: 'friend-requests',
+            component: FriendRequestsComponent
+          }, 
+          {
+            path: 'time-comparator',
+            component: TimeComparatorComponent
+          }
+        ]
       }
-
     ]
-  }
+  },
+  
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule {
 }

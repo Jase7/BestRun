@@ -15,9 +15,10 @@ import {Sportsman} from "../../models/sportsman.model";
 export class AuthenticationService implements CanActivate {
 
   api_url = data.api;
-  authUrl = `${this.api_url}/api/auth`;
+  authUrl = `${this.api_url}/auth`;
   token_key: string = "token_auth";
   role: string = "user_role";
+  userid: string = "userid"
 
 
   constructor(private http: HttpClient, private notify: NotifyService, private storageService: StorageService,
@@ -30,6 +31,7 @@ export class AuthenticationService implements CanActivate {
         console.log(data);
         this.storageService.add(this.token_key, data.token);
         this.storageService.add(this.role, data.role);
+        this.storageService.add(this.userid, data.userid);
       }));
   }
 
@@ -38,6 +40,7 @@ export class AuthenticationService implements CanActivate {
       .pipe(map((data: any) => {
         this.storageService.add(this.token_key, data.data.token);
         this.storageService.add(this.role, data.data.role);
+        this.storageService.add(this.userid, data.userid);
       }));
   }
 
@@ -47,6 +50,7 @@ export class AuthenticationService implements CanActivate {
       .pipe(map((data: any) => {
         this.storageService.add(this.token_key, data.data.token);
         this.storageService.add(this.role, data.data.role);
+        this.storageService.add(this.userid, data.userid);
       }));
   }
 
@@ -56,6 +60,7 @@ export class AuthenticationService implements CanActivate {
         console.log(data);
         this.storageService.add(this.token_key, data.data.token);
         this.storageService.add(this.role, data.data.role);
+        this.storageService.add(this.userid, data.userid);
       }));
   }
 
