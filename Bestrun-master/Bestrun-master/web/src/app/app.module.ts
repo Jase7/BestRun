@@ -37,6 +37,7 @@ import { TimeComparatorComponent } from './components/dashboard/friends/time-com
 import { ProfileComponent } from './components/dashboard/profile/profile.component';
 import { ProfileRoutingModule } from './components/dashboard/profile/profile-routing.module';
 
+
 let config = new AuthServiceConfig([
   {
     id: GoogleLoginProvider.PROVIDER_ID,

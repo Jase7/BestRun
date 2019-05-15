@@ -8,6 +8,7 @@ var events = require('./api/events.route');
 var typeEvents = require('./api/typeEvents.route');
 var users = require('./api/users.route');
 var friends = require("./api/friends.route");
+var profile = require("./api/profile.route");
 
 var AuthController = require('../controllers/auth.controller');
 var AuthorizationController = require('../controllers/authorization.controller');
@@ -29,5 +30,7 @@ router.use('/logs', AuthorizationController.onlySuperadmin);
 router.use('/logs', LogsController.getAllLogs);
 router.use('/friends', AuthController.authenticated);
 router.use('/friends', friends);
+router.use('/profile', AuthController.authenticated);
+router.use('/profile', profile);
 
 module.exports = router;

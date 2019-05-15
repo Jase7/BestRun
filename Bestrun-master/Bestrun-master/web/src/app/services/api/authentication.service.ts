@@ -19,6 +19,7 @@ export class AuthenticationService implements CanActivate {
   token_key: string = "token_auth";
   role: string = "user_role";
   userid: string = "userid"
+  profileImage : string = "profile_image"
 
 
   constructor(private http: HttpClient, private notify: NotifyService, private storageService: StorageService,
@@ -32,6 +33,7 @@ export class AuthenticationService implements CanActivate {
         this.storageService.add(this.token_key, data.token);
         this.storageService.add(this.role, data.role);
         this.storageService.add(this.userid, data.userid);
+        this.storageService.add(this.profileImage, data.photo)
       }));
   }
 

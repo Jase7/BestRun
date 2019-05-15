@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { Sportsman } from 'src/app/models/sportsman.model';
 
 @Component({
     selector: 'profile',
@@ -7,6 +8,8 @@ import { Title } from '@angular/platform-browser';
     styleUrls: ['profile.component.css']
 })
 export class ProfileComponent implements OnInit {
+
+    public user : Sportsman = new Sportsman();
 
     constructor(private title : Title) {}
 

@@ -27,8 +27,14 @@ export class StorageService {
       }
       return item;
     }
-    return false;
+    return null;
 
+  }
+
+  change(key: string, value: string) {
+    if(this.localStorageSupported) {
+      localStorage.setItem(key, value);
+    }
   }
 
   remove(key: string) {

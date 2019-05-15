@@ -59,7 +59,21 @@ const UserSchema = new mongoose.Schema({
             type: Schema.Types.ObjectId,
             ref: 'Event'
         }
+    }],
+    address: {
+        type: String
+    },
+    shirtsize: {
+        type: String,
+        enum: ['S', 'M', 'L', 'XL', 'XXL']
+    }, 
+    paymentMethods: [{
+        paymentMethod: {
+            type: Schema.Types.ObjectId,
+            ref: "PaymentMethod"
+        }
     }]
+
 });
 
 UserSchema.path('events').index({sparse: true});

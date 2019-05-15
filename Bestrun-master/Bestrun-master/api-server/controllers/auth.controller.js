@@ -48,7 +48,8 @@ exports.signIn = async function (req, res, next) {
                     {
                         token: 'JWT ' + JWTService.generateJWT(user.name, user.surnames, user.id, user.email, user.role, user.active),
                         role: user.role,
-                        userid: user.id
+                        userid: user.id,
+                        photo: user.photo
                     });
         }
         return res.status(httpStatus.UNAUTHORIZED).json({
@@ -78,7 +79,8 @@ exports.register = async function (req, res, next) {
                 token: 'JWT ' + JWTService.generateJWT(newSportsman.name, newSportsman.surnames, newSportsman.id, newSportsman.email, newSportsman.role, newSportsman.active),
                 data: utils.formatSportsman(newSportsman),
                 role: newSportsman.role,
-                userid: newSportsman.id
+                userid: newSportsman.id,
+                photo: newSportsman.photo
             },
             message: "Succesfully Created Sportsman"
         });
@@ -119,7 +121,8 @@ exports.signInFacebook = async function (req, res, next) {
                     token: 'JWT ' + JWTService.generateJWT(newSportsman.name, newSportsman.surnames, newSportsman.id, newSportsman.email, newSportsman.role, newSportsman.active),
                     data: utils.formatSportsman(newSportsman),
                     role: newSportsman.role,
-                    userid: newSportsman.id
+                    userid: newSportsman.id,
+                    photo: newSportsman.photo
                 },
                 message: "Successfully Logged Sportsman"
             });
@@ -131,7 +134,8 @@ exports.signInFacebook = async function (req, res, next) {
                     token: 'JWT ' + JWTService.generateJWT(user.name, user.surnames, user.id, user.email, user.role, user.active),
                     data: utils.formatSportsman(user),
                     role: user.role,
-                    userid: user.id
+                    userid: user.id, 
+                    photo: user.photo
                 },
                 message: "Successfully Logged Sportsman"
             });
@@ -161,7 +165,8 @@ exports.signInGoogle = async function (req, res, next) {
                     token: 'JWT ' + JWTService.generateJWT(newSportsman.name, newSportsman.surnames, newSportsman.id, newSportsman.email, newSportsman.role, newSportsman.active),
                     data: utils.formatSportsman(newSportsman),
                     role: newSportsman.role,
-                    userid: newSportsman.id
+                    userid: newSportsman.id,
+                    photo: newSportsman.photo
                 },
                 message: "Successfully Logged Sportsman"
             });
@@ -173,7 +178,8 @@ exports.signInGoogle = async function (req, res, next) {
                     token: 'JWT ' + JWTService.generateJWT(user.name, user.surnames, user.id, user.email, user.role, user.active),
                     data: utils.formatSportsman(user),
                     role: user.role,
-                    userid: user.id
+                    userid: user.id,
+                    photo: user.photo
                 },
                 message: "Successfully Logged Sportsman"
             });

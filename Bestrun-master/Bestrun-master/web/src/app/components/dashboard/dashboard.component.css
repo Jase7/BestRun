@@ -47,6 +47,11 @@
   cursor: pointer;
 }
 
+.profileImage {
+  max-width: 100%;
+  width:75px;
+}
+
 @media screen and (max-width: 768px) {
   .nav.navbar-nav.pull-right {
     float: none !important;

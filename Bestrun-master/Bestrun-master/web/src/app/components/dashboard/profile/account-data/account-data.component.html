@@ -1,2 +1,84 @@
-<!--component html goes here -->
-Account Data
+<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="account-data-tab">
+
+    <div class="form-group row mt-5 justify-content-center"> 
+        <label for="name" class="col-sm-1">Nombre</label>
+        <div class="col-sm-5">       
+            <input type="text" id="name" class="form-control mx-sm-3" readonly value="{{user.name}}">    
+        </div>
+
+        <label for="surnames" class="col-sm-1">Apellidos</label>
+        <div class="col-sm-5">
+            <input type="text" id="surnames" readonly class="form-control mx-sm-3" value="{{user.surnames}}">
+        </div>
+    </div>
+
+    <!--PHOTO-->
+    <div class="row form-group justify-content-center mt-5">
+            <div class="hovereffect" (click)="file.click()">
+                <img class="img-responsive" src="{{user.photo}}" id="photo" alt="" #InputPhoto>
+                    <div class="overlay">
+                        <p>Cambiar imagen</p>
+                        <input type="file" (change)="readImage($event);" hidden #file>
+                    </div>
+            </div>
+        </div>
+
+    <div class="row justify-content-end mt-3 mb-5">        
+            <div class="btn btn-outline-primary" role="button" aria-pressed="true" (click)="cambiarImagen(user.photo)">Cambiar imagen</div>
+    </div>
+
+    <!--EMAIL-->
+    <div class="form-group row mt-3 justify-content-center">        
+        <label for="email" class="col-sm-2 col-form-label">Email</label>
+        <div class="col-sm-10">
+            <input type="email" id="email" class="form-control mx-sm-3" value="{{user.email}}">
+        </div>        
+    </div>
+
+    <div class="form-group row mt-3 justify-content-center">        
+        <label for="email" class="col-sm-2 col-form-label">Confirmar email</label>
+        <div class="col-sm-10">
+            <input type="email" id="email" class="form-control mx-sm-3" placeholder="Confirma la dirección de correo electrónico que quieres">
+        </div>        
+    </div>
+
+    <div class="row justify-content-end mt-3 mb-5">        
+        <div class="btn btn-outline-primary" role="button" aria-pressed="true" (click)="setNewEmail()">Cambiar email</div>
+    </div>
+    
+    <!--PASSWORD-->
+    <div class="form-group row mt-3 justify-content-center">        
+        <label for="password" class="col-sm-3 col-form-label">Antigua contraseña</label>
+        <div class="input-group col-sm-9">
+            <input type="password" id="password" class="form-control" #InputPassword placeholder="Escribe tu contraseña actual">
+            <div class="input-group-append">
+                <span class="input-group-text icon"><fa-icon [icon]="faEye"></fa-icon></span>
+            </div>
+        </div>        
+    </div>
+
+    <div class="form-group row mt-3 justify-content-center">        
+            <label for="confirmPassword" class="col-sm-3 col-form-label">Nueva contraseña</label>
+            <div class="input-group col-sm-9">
+                <input type="password" id="confirmPassword" class="form-control" #InputConfirmPassword placeholder="Escribe la contraseña que quieres">
+                <div class="input-group-append">
+                    <span class="input-group-text icon"><fa-icon [icon]="faEye"></fa-icon></span>
+                </div>
+            </div>        
+        </div>
+    
+    <div class="form-group row mt-3 justify-content-center">        
+        <label for="confirmPassword" class="col-sm-3 col-form-label">Confirmar contraseña</label>
+        <div class="input-group col-sm-9">
+            <input type="password" id="confirmPassword" class="form-control" #InputConfirmPassword placeholder="Confirma la contraseña que quieres">
+            <div class="input-group-append">
+                <span class="input-group-text icon"><fa-icon [icon]="faEye"></fa-icon></span>
+            </div>
+        </div>        
+    </div>
+    
+    <div class="row justify-content-end mt-5 mb-5">        
+        <div class="btn btn-outline-primary" role="button" aria-pressed="true" (click)="setNewPassword()">Cambiar contraseña</div>
+    </div>
+    
+</div>

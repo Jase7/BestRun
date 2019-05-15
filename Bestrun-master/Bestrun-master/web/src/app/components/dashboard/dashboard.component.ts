@@ -4,6 +4,8 @@ import {AuthenticationService} from "../../services/api/authentication.service";
 import {StorageService} from "../../services/storage.service";
 import {Router} from "@angular/router";
 import { Title } from '@angular/platform-browser';
+import { ProfileService } from 'src/app/services/api/profile.service';
+import { Sportsman } from 'src/app/models/sportsman.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -14,10 +16,14 @@ export class DashboardComponent implements OnInit {
 
   searchBoxResponsive=true;  
 
-  constructor(private authService:AuthenticationService, private searchNavbarService:SearchNavbarService, private storageService: StorageService, 
-    private router: Router) {}
+  private profileImage : string
 
-  ngOnInit(){
+  constructor(private authService:AuthenticationService, private searchNavbarService:SearchNavbarService, private storageService: StorageService, 
+    private router: Router, private profileService : ProfileService) {}
+
+  ngOnInit(){    
+
+    this.profileImage = this.storageService.get("profile_image")
 
     //If we're not logged in, redirect to the login form
     if (!this.storageService.get("token_auth") || !this.storageService.get("user_role")) {

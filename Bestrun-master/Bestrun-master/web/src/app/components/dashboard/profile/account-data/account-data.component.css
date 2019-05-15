@@ -1,0 +1,64 @@
+.btn {
+    cursor: pointer;
+}
+
+.hovereffect {    
+    cursor: pointer;
+    background: #ccc;
+    height: auto;
+    float: left;
+    overflow: hidden;
+    position: relative;
+    text-align: center;    
+    width: 25%;
+}
+
+.hovereffect .overlay {
+    cursor: pointer;
+    width: 100%;
+    height: auto;
+    position: absolute;
+    overflow: hidden;
+    top: 50%;
+    left: 0;
+}
+.hovereffect img {
+    display: block;
+    position: relative;
+    max-width: none;
+    width: calc(100% + 20px);
+    -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+    transition: opacity 0.35s, transform 0.35s;
+    -webkit-transform: translate3d(-10px,0,0);
+    transform: translate3d(-10px,0,0);
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.hovereffect:hover img {
+    opacity: 0.4;
+    filter: alpha(opacity=40);
+    -webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
+}
+
+.hovereffect a, .hovereffect p {
+    color: #FFF;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+    transition: opacity 0.35s, transform 0.35s;
+    -webkit-transform: translate3d(100%,0,0);
+    transform: translate3d(100%,0,0);
+}
+
+.hovereffect:hover a, .hovereffect:hover p {
+    opacity: 1;
+    filter: alpha(opacity=100);
+    -webkit-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
+}
+
+.icon {
+    cursor: pointer;
+}
