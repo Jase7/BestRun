@@ -145,7 +145,7 @@ exports.addParticipant = async function (idEvent, idUser) {
     try {
         return await Event.findOneAndUpdate({_id: idEvent}, {$push: {user: idUser}});
     } catch (e) {
-        throw Error("Error while adding participant to Event")
+        throw Error("Error while adding participant to Event");
     }
 };
 

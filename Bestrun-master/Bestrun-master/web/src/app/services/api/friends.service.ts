@@ -16,23 +16,47 @@ export class FriendsService {
 
     constructor(private http: HttpClient, private _storage : StorageService) {}
 
-    addFriend(userid: String) {
+     addFriend(userid: String) : Observable<any> {
+        return this.http.post<any>(`${this.strFriendsApiUrl}/`, {user1: this._storage.get("userid"), user2: userid}).pipe()
+    }
 
-        const httpOptions = {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json',
-                'Authorization': `${this._storage.get('token_auth')}`
-            })
-        };
+    acceptFriendship(id: string) {
+        return this.http.put<any>(`${this.strFriendsApiUrl}/`, {id: id}).pipe()
+    }
 
-        return this.http.post<any>(`${this.strFriendsApiUrl}/`, {user1: this._storage.get("userid"), user2: userid}, httpOptions).subscribe()
+    rejectFriendship(id: string) {
+        return this.http.delete<any>(`${this.strFriendsApiUrl}/${id}`).pipe()
     }
 
     getPendRequests() : Observable<number> {
 
         return this.http.get(`${this.strFriendsApiUrl}/${this._storage.get('userid')}`).pipe(map((res : any) => {
-             console.log(res.data.docs.length )
-             return res.data.docs.length
+        
+            //Let's filter the ones who aren't friends
+           return res.data.docs.filter( (doc : any) => {                
+                
+                if (!doc.isFriendship) {
+                    return doc
+                }
+
+             }).length
         }))
     }
-}
+
+    getDataFromPendRequests() : Observable<UsersFriends> {
+        return this.http.get(`${this.strFriendsApiUrl}/${this._storage.get('userid')}`).pipe(map((res : any) => {
+
+            var result =  res.data.docs.filter((user) => {
+
+                if (!user.isFriendship) {
+                    return user as UsersFriends
+                }
+            })
+            
+
+            return result
+        }));
+    }
+
+    
+} 

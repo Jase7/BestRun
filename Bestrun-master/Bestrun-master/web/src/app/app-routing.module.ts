@@ -13,6 +13,8 @@ import { FriendsComponent } from './components/dashboard/friends/friends.compone
 import { AddFriendComponent } from './components/dashboard/friends/add-friend/add-friend.component';
 import { FriendRequestsComponent } from './components/dashboard/friends/friend-requests/friend-requests.component';
 import { TimeComparatorComponent } from './components/dashboard/friends/time-comparator/time-comparator.component';
+import { ProfileComponent } from './components/dashboard/profile/profile.component';
+
 
 const routes: Routes = [
   {
@@ -67,6 +69,11 @@ const routes: Routes = [
             component: TimeComparatorComponent
           }
         ]
+      }, 
+      {
+        path: 'profile',
+        component: ProfileComponent,
+        loadChildren: 'src/app/components/dashboard/profile/profile.module#ProfileModule'
       }
     ]
   },

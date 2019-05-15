@@ -27,6 +27,7 @@ router.use('/type-events', typeEvents);
 router.use('/logs', AuthController.authenticated);
 router.use('/logs', AuthorizationController.onlySuperadmin);
 router.use('/logs', LogsController.getAllLogs);
+router.use('/friends', AuthController.authenticated);
 router.use('/friends', friends);
 
 module.exports = router;

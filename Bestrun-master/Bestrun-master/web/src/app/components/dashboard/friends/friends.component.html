@@ -3,11 +3,11 @@
 
     <div class="col-md-4 col-sm-4 mt-4">
         <ul class="list-group">
-            <li class="list-group-item" routerLink="add-friend" [routerLinkActive]="['active']" #rlal="routerLinkActive">Añadir amigos</li>
-            <li class="list-group-item" routerLink="friend-requests" routerLinkActive="active">Solicitudes de amistad pendientes
+            <li class="list-group-item" routerLink="add-friend" [routerLinkActive]="['active']" (click)="getPendRequest()">Añadir amigos</li>
+            <li class="list-group-item" routerLink="friend-requests" routerLinkActive="active" (click)="getPendRequest()">Solicitudes de amistad pendientes
                 <span class="badge badge-primary badge-pill" #nRequests>{{pendRequests}}</span>
             </li>
-            <li class="list-group-item" routerLink="time-comparator" routerLinkActive="active">Comparar tiempos con amigos</li>
+            <li class="list-group-item" routerLink="time-comparator" routerLinkActive="active" (click)="getPendRequest()">Comparar tiempos con amigos</li>
         </ul>
     </div>
 

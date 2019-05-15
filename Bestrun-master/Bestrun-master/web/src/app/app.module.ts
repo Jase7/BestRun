@@ -34,6 +34,8 @@ import { GoogleLoginProvider} from "angularx-social-login";
 import { AddFriendComponent } from './components/dashboard/friends/add-friend/add-friend.component';
 import { FriendRequestsComponent } from './components/dashboard/friends/friend-requests/friend-requests.component';
 import { TimeComparatorComponent } from './components/dashboard/friends/time-comparator/time-comparator.component';
+import { ProfileComponent } from './components/dashboard/profile/profile.component';
+import { ProfileRoutingModule } from './components/dashboard/profile/profile-routing.module';
 
 let config = new AuthServiceConfig([
   {
@@ -64,7 +66,8 @@ export function provideConfig() {
     FriendsComponent,
     AddFriendComponent,
     FriendRequestsComponent,
-    TimeComparatorComponent
+    TimeComparatorComponent, 
+    ProfileComponent
   ],
   imports: [
     CommonModule,
@@ -79,7 +82,7 @@ export function provideConfig() {
     ShareButtonModule,
     FontAwesomeModule,
     SocialLoginModule.initialize(config), 
-    NgbModalModule
+    NgbModalModule,
   ],
   providers: [
     NotifyService,

@@ -3,22 +3,23 @@ var Schema = mongoose.Schema;
 var mongoosePaginate = require('mongoose-paginate');
 
 const UsersFriendsSchema = new mongoose.Schema({
-    user1: {
+    userSent: {
         type: Schema.Types.ObjectId,
-        ref: "Users",
+        ref: "User",
         required: true
     },
-    user2: {
+    userTo: {
         type: Schema.Types.ObjectId,
-        ref: "Users",
+        ref: "User",
         required: true
     },
-    isFriend: {
+    isFriendship: {
         type: Boolean,
         default: false
     }
-}).index({ user1: 1, user2: 1 }, { unique: true });
+}).index({ userSent: 1, userTo: 1 }, { unique: true });
 
+UsersFriendsSchema.path("users");
 UsersFriendsSchema.plugin(mongoosePaginate);
 const UsersFriends = mongoose.model('UsersFriends', UsersFriendsSchema);
 module.exports = UsersFriends;

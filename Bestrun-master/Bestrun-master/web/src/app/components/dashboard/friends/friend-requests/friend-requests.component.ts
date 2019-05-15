@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-
+import { FriendsService} from 'src/app/services/api/friends.service';
+import { UsersFriends } from 'src/app/models/users_friends.model';
 
 @Component({
     selector: 'friend-requests',
@@ -8,7 +9,37 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FriendRequestsComponent implements OnInit{
 
-    constructor() {}
+    private _users : UsersFriends[] = [];
 
-    ngOnInit(){}
+    constructor(private _friendsService : FriendsService) {}
+
+    ngOnInit(){
+        
+        this.getDataFromPendRequests();
+    }
+
+    getDataFromPendRequests() {
+        this._friendsService.getDataFromPendRequests().subscribe((data : UsersFriends) => {
+
+            this._users = []
+            this._users[0] = data[0]
+
+            console.log(this._users)
+        })
+    }
+
+    acceptFriendship(id: string) {
+        console.log(id)
+        this._friendsService.acceptFriendship(id).subscribe((data: any) => {
+            console.log(data)
+        })
+    }
+
+    rejectFriendship(id: string) {
+        console.log(id)
+
+        this._friendsService.rejectFriendship(id).subscribe((data: any) => {
+            console.log(data)
+        })
+    }
 }

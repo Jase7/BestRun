@@ -1,8 +1,10 @@
-import { Component, OnInit, INJECTOR, Inject, PLATFORM_ID, Injector } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UsersService } from 'src/app/services/api/users.service';
 import { FriendsService } from 'src/app/services/api/friends.service';
 import { Sportsman } from 'src/app/models/sportsman.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NotifyService } from 'src/app/services/notify.service';
+import { NotificationType } from 'angular2-notifications';
 
 
 @Component({
@@ -19,7 +21,7 @@ export class AddFriendComponent implements OnInit {
     public username: string = ""
     public userid: string = ""
 
-    constructor(private usersSvc: UsersService, private modalService: NgbModal, private friendsService : FriendsService){
+    constructor(private usersSvc: UsersService, private modalService: NgbModal, private friendsService : FriendsService, private notify : NotifyService){
     }
 
     ngOnInit() {}
@@ -54,8 +56,9 @@ export class AddFriendComponent implements OnInit {
     //Triggered by OK modal, send friendship
     addFriend(userid: string) {
 
-        console.log(userid)
+        this.friendsService.addFriend(userid).subscribe((data : any) => this.notify.show(NotificationType.Success, "Petición enviada", "Se ha enviado la petición correctamente"),
+        (error) => this.notify.show(NotificationType.Error, "Error", error.error.message));
 
-        this.friendsService.addFriend(userid);
+        this.modalService.dismissAll();
     }
 }

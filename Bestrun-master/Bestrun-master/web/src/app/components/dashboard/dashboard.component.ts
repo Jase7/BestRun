@@ -3,6 +3,7 @@ import {SearchNavbarService} from "../../services/search-navbar.service";
 import {AuthenticationService} from "../../services/api/authentication.service";
 import {StorageService} from "../../services/storage.service";
 import {Router} from "@angular/router";
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,11 +12,10 @@ import {Router} from "@angular/router";
 })
 export class DashboardComponent implements OnInit {
 
-  searchBoxResponsive=true;
+  searchBoxResponsive=true;  
 
-  constructor(private authService:AuthenticationService,private searchNavbarService:SearchNavbarService, private storageService: StorageService, private router: Router){
-
-  }
+  constructor(private authService:AuthenticationService, private searchNavbarService:SearchNavbarService, private storageService: StorageService, 
+    private router: Router) {}
 
   ngOnInit(){
 

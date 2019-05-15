@@ -5,6 +5,7 @@ import {Event} from "../../../models/event.model";
 import {EventsService} from "../../../services/api/events.service";
 import {TypeEventsService} from "../../../services/api/type-events.service";
 import {SearchNavbarService} from "../../../services/search-navbar.service";
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-event',
@@ -22,7 +23,7 @@ export class EventComponent implements OnInit {
   searchBoxResponsive = true;
 
   constructor(private eventsService: EventsService, private typeEventService: TypeEventsService,
-              private searchNavbarService: SearchNavbarService) {
+              private searchNavbarService: SearchNavbarService, private title : Title) {
     this.searchNavbarService.clickAnnounced$.subscribe(
       (state) => {
         console.log(state);
@@ -31,6 +32,8 @@ export class EventComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.title.setTitle("BestRun")
     this.getTypesEvent();
     this.getEvents();
   }

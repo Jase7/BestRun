@@ -1,6 +1,9 @@
+import { Sportsman } from './sportsman.model';
+
 export class UsersFriends {
-    user1:string;
-    user2: string;
+    id: string;
+    UserSent:Sportsman;
+    UserTo: Sportsman;
     isFriend: boolean;    
   }
   

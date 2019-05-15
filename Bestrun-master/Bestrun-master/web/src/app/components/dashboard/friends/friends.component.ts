@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {SearchNavbarService} from '../../../services/search-navbar.service'
-import { RouteConfigLoadStart } from '@angular/router';
 import { FriendsService} from 'src/app/services/api/friends.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
     selector: 'app-friends',
@@ -9,15 +9,26 @@ import { FriendsService} from 'src/app/services/api/friends.service';
     styleUrls: ['friends.component.css']
 })
 
-export class FriendsComponent implements OnInit {
+export class FriendsComponent implements OnInit{
 
     public pendRequests : number = 0;
 
-    constructor(private searchNavbarService: SearchNavbarService, private _friendsService : FriendsService) {}
+    constructor(private searchNavbarService: SearchNavbarService, private _friendsService : FriendsService, private title : Title) {}
 
     ngOnInit() {
+        this.title.setTitle("BestRun - AMIGOS")
+
         this._friendsService.getPendRequests().subscribe((res : number) => {
             this.pendRequests = res
         });
-     }     
+    }   
+    
+    getPendRequest() {
+
+        this._friendsService.getPendRequests().subscribe((res : number) => {
+            this.pendRequests = res
+        });
+    }
+
+
 }
