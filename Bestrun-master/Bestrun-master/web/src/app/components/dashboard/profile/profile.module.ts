@@ -5,7 +5,7 @@ import { NgModule } from '@angular/core';
 import { SportsmanDataComponent } from './sportsman-data/sportsman-data.component';
 import { AccountDataComponent } from './account-data/account-data.component';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProfileRoutingModule } from './profile-routing.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
@@ -17,6 +17,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     imports: [
         CommonModule,        
         ProfileRoutingModule,
+        ReactiveFormsModule,
         FormsModule,
         FontAwesomeModule
     ],

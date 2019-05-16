@@ -3,8 +3,9 @@ const saltRounds = 10;
 
 exports.comparePasswords = async function (plainPassword, hash) {
     try {
-        const match = await bcrypt.compare(plainPassword, hash);
-        return match;
+        var match = await bcrypt.compare(plainPassword, hash)
+        return match
+
     }catch (e) {
         throw Error('Error while compare password');
     }
