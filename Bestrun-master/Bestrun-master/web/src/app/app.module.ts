@@ -35,7 +35,6 @@ import { AddFriendComponent } from './components/dashboard/friends/add-friend/ad
 import { FriendRequestsComponent } from './components/dashboard/friends/friend-requests/friend-requests.component';
 import { TimeComparatorComponent } from './components/dashboard/friends/time-comparator/time-comparator.component';
 import { ProfileComponent } from './components/dashboard/profile/profile.component';
-import { ProfileRoutingModule } from './components/dashboard/profile/profile-routing.module';
 
 
 let config = new AuthServiceConfig([

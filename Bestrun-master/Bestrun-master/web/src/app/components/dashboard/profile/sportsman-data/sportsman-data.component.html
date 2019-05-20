@@ -1,13 +1,116 @@
-<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="account-data-tab">
-    <div class="form-group row">
-        <div class="col-auto">
-            <label for="name" class="col-form-label">Nombre</label>
-            <input class="form-control" type="text" id="name" value="{{user.name}}">
-        </div>
+<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="sportsman-data-tab">
 
-        <div class="col-auto">
-            <label for="surname" class="col-form-label">Apellidos</label>
-            <input type="text" class="form-control" id="surname" value="{{user.surnames}}">
+    <div class="form-group row mt-5 justify-content-center"> 
+        <label for="address" class="col-sm-2 col-form-label">Dirección</label>
+        <div class="col-sm-10">       
+            <input type="text" id="address" class="form-control mx-sm-3 " value="{{user.address}}">
+            <small id="emailHelp" class="form-text text-muted col-sm-12">¡Para nosotros es muy importante que nos indiques tu dirección para que podamos mandarte el dorsal directamente a casa!</small>    
+        </div>        
+    </div>
+
+    <div class="form-group row mt-5 justify-content-center"> 
+        <label for="shirtsize" class="col-sm-2 col-form-label">Talla del dorsal</label>
+        <div class="col-sm-10">       
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1">
+                    <label class="form-check-label" for="exampleRadios1">S</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                <label class="form-check-label" for="exampleRadios2">M</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
+                <label class="form-check-label" for="exampleRadios3">L</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
+                <label class="form-check-label" for="exampleRadios3">XL</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
+                <label class="form-check-label" for="exampleRadios3">XXL</label>
+            </div>
+            <small id="emailHelp" class="form-text text-muted col-sm-12">¡Elige tu talla y nosotros nos ocupamos del resto!</small>    
+        </div>        
+    </div>
+
+    <div class="form-group row mt-5 justify-content-left">         
+        <div class="dropdown col-sm-2 align-self-center">
+            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Métodos de pago
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">              
+                <li *ngIf="!paymentMethods" class="dropdown-item">No tienes métodos de pago.</li>
+                <li *ngFor="let payment of paymentMethods" class="dropdown-item">
+                {{payment.name}}
+                </li>
+            </div>
+          </div> 
+
+        <div class="col-sm-2 text-center">
+            <div class="add-payment" (click)="openModal(content)" placement="top" ngbTooltip="Añadir nuevo método de pago">
+                <fa-icon [icon]="faPlus"></fa-icon>
+            </div>
         </div>
     </div>
 </div>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-title">Agregar método de pago</h4>
+        <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+                <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="paymentMethodForm">
+            <div class="form-group row mt-3 justify-content-left">        
+                <label for="name" class="col-sm-2 col-form-label">Nombre del método de pago</label>
+                <div class="col-sm-9">
+                    <input type="text" formControlName="name" id="name" class="form-control mx-sm-3" [(ngModel)]="newPaymentMethod.name"
+                    [class.is-invalid]="!paymentMethodForm.controls['name'].valid && (!paymentMethodForm.controls['name'].pristine)"
+                    [class.is-valid]="paymentMethodForm.controls['name'].valid && (!paymentMethodForm.controls['name'].pristine)" value="Nueva tarjeta">
+                </div>        
+            </div>
+            
+            <div class="form-group row mt-3 justify-content-left">        
+                <label for="creditnumber" class="col-sm-2 col-form-label">Nº de tarjeta</label>
+                <div class="col-sm-9">
+                    <input type="text" id="creditnumber" class="form-control mx-sm-3" formControlName="creditnumber" [(ngModel)]="newPaymentMethod.cardNumber"
+                    [class.is-invalid]="!paymentMethodForm.controls['creditnumber'].valid && (!paymentMethodForm.controls['creditnumber'].pristine)"
+                    [class.is-valid]="paymentMethodForm.controls['creditnumber'].valid && (!paymentMethodForm.controls['creditnumber'].pristine)">
+                </div>        
+            </div>
+
+            <div class="form-group row mt-5 justify-content-left">        
+                <label for="monthExpire" class=" col-sm-2 col-form-label">Fecha de caducidad</label>
+                <div class="col-sm-4">
+                    <select class="form-control"  formControlName="monthExpire" [ngModel]="newPaymentMethod.monthExpire">
+                        <option *ngFor="let month of months" [ngValue]="month.id">{{month.name}}</option>
+                    </select>
+                </div>
+                /
+                <div class="col-sm-4">
+                    <select class="form-control" formControlName="yearExpire" [ngModel]="newPaymentMethod.yearExpire">
+                        <option *ngFor="let year of years" [ngValue]="year" >{{year}}</option>
+                    </select>
+                </div>            
+            </div>
+
+            <div class="form-group row mt-3 justify-content-left">        
+                <label for="CVC" class="col-sm-2 col-form-label">CVC</label>
+                <div class="col-sm-9">
+                    <input type="text" formControlName="CVC" id="CVC" class="form-control mx-sm-3" [(ngModel)]="newPaymentMethod.CVC"
+                    [class.is-invalid]="!paymentMethodForm.controls['CVC'].valid && (!paymentMethodForm.controls['CVC'].pristine)"
+                    [class.is-valid]="paymentMethodForm.controls['CVC'].valid && (!paymentMethodForm.controls['CVC'].pristine)">
+                </div>                 
+            </div>
+                
+        </form>           
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-primary" (click)="addPaymentMethod()" [disabled]="!paymentMethodForm.valid">Agregar método de pago</button>
+        <button type="button" class="btn btn-outline-secondary" (click)="modal.close()">Cancelar</button>
+    </div>
+</ng-template>

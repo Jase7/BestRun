@@ -90,6 +90,9 @@
     <Compile Include="controllers\profile.controller.js">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="models\payment_method.model.js">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="routes\api\profile.route.js">
       <SubType>Code</SubType>
     </Compile>

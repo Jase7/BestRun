@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProfileRoutingModule } from './profile-routing.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { NgbTooltipModule} from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
     declarations: [      
@@ -17,9 +18,10 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     imports: [
         CommonModule,        
         ProfileRoutingModule,
-        ReactiveFormsModule,
+        ReactiveFormsModule.withConfig({warnOnNgModelWithFormControl: 'never'}),
         FormsModule,
-        FontAwesomeModule
+        FontAwesomeModule,
+        NgbTooltipModule
     ],
     exports: [
         

@@ -67,3 +67,36 @@ exports.setNewPassword = async function (req, res, next) {
 exports.deleteUser = async function (req, res, next) {
     return res.json({ status: httpStatus.BAD_REQUEST, data: "" }); 
 };
+
+exports.getPaymentMethod = async function (req, res, next) {
+
+    try {
+
+        var userid = req.params.userid ? new ObjectId(req.params.userid) : null;
+        var paymentMethods = await profileService.getPaymentMethod(userid);
+
+        return res.json(httpStatus.OK, { data: paymentMethods });
+    }
+
+    catch (e) {
+        return res.status(400).json({ error: e.message });
+    }
+
+
+};
+
+exports.setPaymentMethod = async function (req, res, next) {
+
+    try {
+        var userid = req.params.userid ? new ObjectId(req.params.userid) : null;
+        var paymentMethod = req.body.paymentMethod ? req.body.paymentMethod : null;
+
+        var userData = await profileService.setPaymentMethod(userid, paymentMethod);
+
+        return res.json({ status: httpStatus.OK, data: userData });
+    }
+
+    catch (e) {
+        return res.status(400).json({ error: e.message });
+    }
+}

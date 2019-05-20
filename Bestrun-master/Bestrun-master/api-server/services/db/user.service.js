@@ -1,6 +1,7 @@
 var User = require('../../models/user.model');
 var passwordService = require('../password.service');
-_this = this
+var PaymentMethod = require('../../models/payment_method.model');
+_this = this;
 
 exports.getUserByEmail = async function (email) {
     try {

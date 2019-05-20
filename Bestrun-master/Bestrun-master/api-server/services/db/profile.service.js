@@ -1,4 +1,5 @@
 ﻿var User = require('../../models/user.model');
+var Payment = require('../../models/payment_method.model');
 var passwordService = require('./../password.service');
 
 exports.getMyData = async function (userid) {
@@ -67,3 +68,28 @@ exports.deleteUser = async function (userid) {
         throw Error(e.message);
     }
 };
+
+exports.getPaymentMethod = async function (userid) {
+
+    try {
+        var userData = await User.findOne({ _id: userid }).select("paymentMethods");
+        return userData;
+    }
+
+    catch (e) {
+        throw Error(e.message);
+    }
+}
+
+exports.setPaymentMethod = async function (userid, paymentMethod) {
+
+    try {
+        var p = new Payment(paymentMethod);
+        p.save();
+        var userData = await User.findOneAndUpdate({ _id: userid }, { $push: { paymentMethods: p }});
+        return userData;
+    }
+    catch (e) {
+        throw Error(e.message);
+    }
+}

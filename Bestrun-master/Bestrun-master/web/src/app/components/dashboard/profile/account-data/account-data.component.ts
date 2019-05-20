@@ -1,4 +1,4 @@
-import { Component, VERSION } from '@angular/core';
+import { Component } from '@angular/core';
 import { ProfileComponent } from '../profile.component';
 import { Title } from '@angular/platform-browser';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
@@ -6,8 +6,8 @@ import { ProfileService } from 'src/app/services/api/profile.service';
 import { StorageService } from 'src/app/services/storage.service';
 import { Router } from '@angular/router';
 import { DashboardComponent } from '../../dashboard.component';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
-import { NotificationType, NotificationsService } from 'angular2-notifications';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { NotificationType } from 'angular2-notifications';
 import { NotifyService } from 'src/app/services/notify.service';
 
 @Component({
@@ -37,13 +37,14 @@ export class AccountDataComponent extends ProfileComponent {
         });
     }
 
-    ngOnInit() {     
+    async ngOnInit() {     
         this.getMyData()
     }
+    
 
-    getMyData() {
-        this._profileService.getMyData().subscribe((res : any ) => {
-            this.user = res
+    async getMyData() {
+        this._profileService.getMyData().subscribe(async (res : any ) => {
+            this.user = res            
         });
     }
 

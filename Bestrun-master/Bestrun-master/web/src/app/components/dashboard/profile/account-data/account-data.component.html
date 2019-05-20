@@ -15,7 +15,7 @@
     <!--PHOTO-->
     <div class="row form-group justify-content-center mt-5">
             <div class="hovereffect" (click)="file.click()">
-                <img class="img-responsive" src="{{user.photo}}" id="photo" alt="" #InputPhoto>
+                <img class="img-responsive" src="{{user.photo}}" id="photo" alt="Click para cambiar la imagen" #InputPhoto>
                     <div class="overlay">
                         <p>Cambiar imagen</p>
                         <input type="file" (change)="readImage($event);" hidden #file>
