@@ -52,6 +52,10 @@
   width:75px;
 }
 
+.avatar {
+  cursor: pointer;
+}
+
 @media screen and (max-width: 768px) {
   .nav.navbar-nav.pull-right {
     float: none !important;

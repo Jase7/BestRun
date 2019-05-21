@@ -3,7 +3,7 @@
     <div class="form-group row mt-5 justify-content-center"> 
         <label for="address" class="col-sm-2 col-form-label">Dirección</label>
         <div class="col-sm-10">       
-            <input type="text" id="address" class="form-control mx-sm-3 " value="{{user.address}}">
+            <input type="text" id="address" class="form-control mx-sm-3 " value="{{user.address}}" [(ngModel)]="user.address">
             <small id="emailHelp" class="form-text text-muted col-sm-12">¡Para nosotros es muy importante que nos indiques tu dirección para que podamos mandarte el dorsal directamente a casa!</small>    
         </div>        
     </div>
@@ -12,26 +12,26 @@
         <label for="shirtsize" class="col-sm-2 col-form-label">Talla del dorsal</label>
         <div class="col-sm-10">       
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1">
-                    <label class="form-check-label" for="exampleRadios1">S</label>
+                <input class="form-check-input" type="radio" name="shirtsize" id="exampleRadios1" value="S" [(ngModel)]="user.shirtsize">
+                <label class="form-check-label" for="exampleRadios1">S</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                <input class="form-check-input" type="radio" name="shirtsize" id="exampleRadios2" value="M" [(ngModel)]="user.shirtsize">
                 <label class="form-check-label" for="exampleRadios2">M</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
+                <input class="form-check-input" type="radio" name="shirtsize" id="exampleRadios3" value="L" [(ngModel)]="user.shirtsize">
                 <label class="form-check-label" for="exampleRadios3">L</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
+                <input class="form-check-input" type="radio" name="shirtsize" id="exampleRadios3" value="XL" [(ngModel)]="user.shirtsize">
                 <label class="form-check-label" for="exampleRadios3">XL</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
+                <input class="form-check-input" type="radio" name="shirtsize" id="exampleRadios3" value="XXL" [(ngModel)]="user.shirtsize">
                 <label class="form-check-label" for="exampleRadios3">XXL</label>
             </div>
-            <small id="emailHelp" class="form-text text-muted col-sm-12">¡Elige tu talla y nosotros nos ocupamos del resto!</small>    
+            <small id="shirtHelp" class="form-text text-muted col-sm-12">¡Elige tu talla y nosotros nos ocupamos del resto!</small>    
         </div>        
     </div>
 
@@ -41,9 +41,12 @@
               Métodos de pago
             </button>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">              
-                <li *ngIf="!paymentMethods" class="dropdown-item">No tienes métodos de pago.</li>
-                <li *ngFor="let payment of paymentMethods" class="dropdown-item">
-                {{payment.name}}
+                <li *ngIf="paymentMethods.length == 0" class="dropdown-item">No tienes métodos de pago.</li>
+                <li *ngFor="let payment of paymentMethods" class="dropdown-item" #PID attr.data-pid="{{payment._id}}">
+                    <span class="col-sm-4 paymentDescription">{{payment.name}} / #{{payment.cardNumber}}</span>
+                    <span class="col-sm-2 paymentDelete" placement="top" ngbTooltip="Borrar método de pago">
+                        <fa-icon [icon]="faTrash" (click)="deletePaymentMethod(PID)"></fa-icon>
+                    </span>
                 </li>
             </div>
           </div> 
@@ -54,8 +57,13 @@
             </div>
         </div>
     </div>
+
+    <div class="row justify-content-end mt-3 mb-5">        
+        <button type="submit" class="btn btn-outline-primary" role="button" aria-pressed="true" (click)="saveData()" #DataSubmit>Guardar datos</button>
+    </div>
 </div>
 
+<!-- NG template-->
 <ng-template #content let-modal>
     <div class="modal-header">
         <h4 class="modal-title" id="modal-title">Agregar método de pago</h4>
@@ -86,13 +94,13 @@
             <div class="form-group row mt-5 justify-content-left">        
                 <label for="monthExpire" class=" col-sm-2 col-form-label">Fecha de caducidad</label>
                 <div class="col-sm-4">
-                    <select class="form-control"  formControlName="monthExpire" [ngModel]="newPaymentMethod.monthExpire">
+                    <select class="form-control"  formControlName="monthExpire" [(ngModel)]="newPaymentMethod.monthExpire">
                         <option *ngFor="let month of months" [ngValue]="month.id">{{month.name}}</option>
                     </select>
                 </div>
                 /
                 <div class="col-sm-4">
-                    <select class="form-control" formControlName="yearExpire" [ngModel]="newPaymentMethod.yearExpire">
+                    <select class="form-control" formControlName="yearExpire" [(ngModel)]="newPaymentMethod.yearExpire">
                         <option *ngFor="let year of years" [ngValue]="year" >{{year}}</option>
                     </select>
                 </div>            

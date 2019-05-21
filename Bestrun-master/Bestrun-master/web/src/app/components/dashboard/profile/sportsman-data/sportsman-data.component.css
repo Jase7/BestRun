@@ -3,3 +3,16 @@
     cursor: pointer;
     font-size: 2em;
 }
+
+.dropdown-item:hover {
+    background-color: #0069d9;
+}
+
+.dropdown-item:hover span {
+    color: white;
+}
+
+.paymentDelete:hover fa-icon {
+    color: red;
+    cursor: pointer;
+}

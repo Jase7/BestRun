@@ -35,6 +35,7 @@ import { AddFriendComponent } from './components/dashboard/friends/add-friend/ad
 import { FriendRequestsComponent } from './components/dashboard/friends/friend-requests/friend-requests.component';
 import { TimeComparatorComponent } from './components/dashboard/friends/time-comparator/time-comparator.component';
 import { ProfileComponent } from './components/dashboard/profile/profile.component';
+import { ProfileService } from './services/api/profile.service';
 
 
 let config = new AuthServiceConfig([
@@ -96,7 +97,8 @@ export function provideConfig() {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
-    }
+    },
+    ProfileService
   ],
   bootstrap: [AppComponent]
 })

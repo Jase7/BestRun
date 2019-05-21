@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var mongoosePaginate = require('mongoose-paginate');
+var deepPopulate = require('mongoose-deep-populate')(mongoose);
 
 const UserSchema = new mongoose.Schema({
     name: {
@@ -67,16 +68,12 @@ const UserSchema = new mongoose.Schema({
         type: String,
         enum: ['S', 'M', 'L', 'XL', 'XXL']
     }, 
-    paymentMethods: [{
-        paymentMethod: {
-            type: Schema.Types.ObjectId,
-            ref: "PaymentMethod"
-        }
-    }]
+    paymentMethods: [{type: Schema.Types.ObjectId, ref: "PaymentMethod"}]
 
 });
 
 UserSchema.path('events').index({sparse: true});
 UserSchema.plugin(mongoosePaginate);
+UserSchema.plugin(deepPopulate);
 const User = mongoose.model('User', UserSchema);
 module.exports = User;

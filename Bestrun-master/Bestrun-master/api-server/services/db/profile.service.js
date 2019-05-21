@@ -2,6 +2,7 @@
 var Payment = require('../../models/payment_method.model');
 var passwordService = require('./../password.service');
 
+
 exports.getMyData = async function (userid) {
 
     try {
@@ -72,24 +73,59 @@ exports.deleteUser = async function (userid) {
 exports.getPaymentMethod = async function (userid) {
 
     try {
-        var userData = await User.findOne({ _id: userid }).select("paymentMethods");
+        var query = { _id: userid };
+        var options = {};
+        options.populate = [
+            {
+                path: "paymentMethods"
+            }
+        ];
+
+        var userData = await User.paginate(query, options);
+
         return userData;
     }
 
     catch (e) {
         throw Error(e.message);
     }
-}
+};
 
 exports.setPaymentMethod = async function (userid, paymentMethod) {
 
     try {
         var p = new Payment(paymentMethod);
         p.save();
-        var userData = await User.findOneAndUpdate({ _id: userid }, { $push: { paymentMethods: p }});
+        var userData = await User.findOneAndUpdate({ _id: userid }, { $push: { paymentMethods: p } });
         return userData;
     }
     catch (e) {
+        throw Error(e.message);
+    }
+};
+
+exports.deletePaymentMethod = async function (userid, pid) {
+
+    try {
+
+        var userData = await Payment.findOneAndDelete({ _id: pid });
+        userData = await User.findOneAndUpdate({ _id: userid }, { $pull: { paymentMethods: pid } });
+
+        return userData;
+    }
+
+    catch (e) {
+        throw Error(e.message);
+    }
+};
+
+exports.setAddressAndShirtsize = async function (userid, address, shirtsize) {
+
+    try {
+        var data = await User.findByIdAndUpdate({ _id: userid }, { address: address, shirtsize: shirtsize });
+        return data;
+
+    } catch (e) {
         throw Error(e.message);
     }
 }

@@ -1,5 +1,6 @@
 ﻿const httpStatus = require('http-status');
 const profileService = require('../services/db/profile.service');
+const userService = require('../services/db/user.service');
 const ObjectId = require('mongoose').Types.ObjectId;
 
 exports.getMyData = async function (req, res, next) {
@@ -65,7 +66,16 @@ exports.setNewPassword = async function (req, res, next) {
 };
 
 exports.deleteUser = async function (req, res, next) {
-    return res.json({ status: httpStatus.BAD_REQUEST, data: "" }); 
+
+    try {
+        var userid = req.params.userid ? new ObjectId(req.params.userid) : null;
+
+        var userData = await userService.deleteUser(userid);
+        return res.json({ status: httpStatus.BAD_REQUEST, data: userData }); 
+    }
+    catch (e) {
+        res.status(400).json({ error: e.message });
+    }
 };
 
 exports.getPaymentMethod = async function (req, res, next) {
@@ -99,4 +109,36 @@ exports.setPaymentMethod = async function (req, res, next) {
     catch (e) {
         return res.status(400).json({ error: e.message });
     }
-}
+};
+
+exports.deletePaymentMethod = async function (req, res, next) {
+
+    try {
+        var userid = req.params.userid ? new ObjectId(req.params.userid) : null;
+        var paymentID = req.params.pid ? req.params.pid : null;
+
+        var userData = await profileService.deletePaymentMethod(userid, paymentID);
+
+        return res.json({ status: httpStatus.OK, data: userData });
+    }
+
+    catch (e) {
+        return res.status(400).json({ error: e.message });
+    }
+};
+
+exports.setAddressAndShirtsize = async function (req, res, next) {
+
+    try {
+        var userid = req.params.userid ? new ObjectId(req.params.userid) : null;
+        var address = req.body.address ? req.body.address : null;
+        var shirtsize = req.body.shirtsize ? req.body.shirtsize : null;
+
+        var data = await profileService.setAddressAndShirtsize(userid, address, shirtsize);
+
+        return res.json({ status: httpStatus.OK, data: data });
+    }
+    catch (e) {
+        return res.status(400).json({ error: e.message });
+    }
+};

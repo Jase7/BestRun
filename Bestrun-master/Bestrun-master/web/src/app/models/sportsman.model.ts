@@ -9,4 +9,6 @@ export class Sportsman {
   role: string = 'Admin';
   active: boolean = true;
   createdAt:String = new Date().toISOString();
+  address: String = "";
+  shirtsize: String = "";
 }

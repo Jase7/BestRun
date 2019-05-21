@@ -7,8 +7,8 @@
             <li class="nav-item">
                 <a class="nav-link" routerLink="sportsman-data" id="sportsman-data-tab" routerLinkActive="active" data-toggle="tab" role="tab" aria-controls="home">Datos de corredor</a>
             </li>
-            <li class="nav-item danger">
-                    <a class="nav-link " routerLink="delete-account" routerLinkActive="active">Borrar cuenta</a>
+            <li class="nav-item">
+                    <a class="nav-link text-danger" routerLink="delete-account" routerLinkActive="active" (click)="openModal(content)">Borrar cuenta</a>
             </li>
         </ul>
     </div>
@@ -21,3 +21,19 @@
           </div>
     </div>
 </div>
+
+<ng-template #content let-modal>
+        <div class="modal-header">
+                <h4 class="modal-title" id="modal-title">¿Estás seguro de borrar tu cuenta?</h4>
+                <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+                        <span aria-hidden="true">&times;</span>
+                </button>
+        </div>
+        <div class="modal-body">
+            <p>Borrar tu cuenta te <strong>impidirá el acceso a BestRun</strong>. El proceso será <strong>irreversible</strong></p>                
+        </div>
+        <div class="modal-footer">
+                <button type="button" class="btn btn-danger" (click)="deleteAccount()">Sí, quiero borrar mi cuenta</button>
+                <button type="button" class="btn btn-outline-secondary" (click)="modal.close()">No, lo he pensado mejor</button>
+        </div>
+</ng-template>

@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProfileRoutingModule } from './profile-routing.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbTooltipModule} from "@ng-bootstrap/ng-bootstrap";
+import { ProfileService } from 'src/app/services/api/profile.service';
 
 @NgModule({
     declarations: [      
@@ -25,6 +26,9 @@ import { NgbTooltipModule} from "@ng-bootstrap/ng-bootstrap";
     ],
     exports: [
         
+    ],
+    providers: [
+        ProfileService
     ]
 })
 export class ProfileModule {}

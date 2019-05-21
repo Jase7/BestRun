@@ -29,7 +29,7 @@ export class AuthenticationService implements CanActivate {
   signIn(passwordCredentials: PasswordCredentials) {
     return this.http.post(`${this.authUrl}/signin`, passwordCredentials)
       .pipe(map((data: any) => {
-        console.log(data);
+        
         this.storageService.add(this.token_key, data.token);
         this.storageService.add(this.role, data.role);
         this.storageService.add(this.userid, data.userid);
@@ -47,7 +47,7 @@ export class AuthenticationService implements CanActivate {
   }
 
   signInGoogle(googleToken){
-    console.log(googleToken);
+
     return this.http.post(`${this.authUrl}/google`, {code:googleToken})
       .pipe(map((data: any) => {
         this.storageService.add(this.token_key, data.data.token);

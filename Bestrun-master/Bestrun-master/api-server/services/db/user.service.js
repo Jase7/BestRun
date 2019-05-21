@@ -144,9 +144,9 @@ exports.deleteUser = async function (id) {
 
     try {
         var deleted = await User.findByIdAndRemove(id);
-        return deleted
+        return deleted;
     } catch (e) {
-        throw Error("Error Occured while Deleting the User")
+        throw Error("Error Occured while Deleting the User");
     }
 };
 
