@@ -5,6 +5,7 @@ const sportsmanController = require('../../controllers/sportsman.controller.js')
 var AuthorizationController = require('../../controllers/authorization.controller');
 
 router.get('/my-events', sportsmanController.getMyEvents);
+router.get('/events/:myID/:friendID', sportsmanController.getEventsTimeComparator);
 router.get('/', AuthorizationController.anyAdmin, sportsmanController.getAllSportsman);
 router.post('/', AuthorizationController.anyAdmin, sportsmanController.createSportsman);
 router.get('/:id', AuthorizationController.anyAdmin, sportsmanController.getSportsman);

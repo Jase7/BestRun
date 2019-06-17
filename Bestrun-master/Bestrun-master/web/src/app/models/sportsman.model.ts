@@ -3,7 +3,7 @@ export class Sportsman {
   name: string = "";
   surnames: string = "";
   email: string = "";
-  mobileNumber: string = "";
+  phone: string = "";
   photo: string;
   password: string = "";
   role: string = 'Admin';
@@ -11,4 +11,8 @@ export class Sportsman {
   createdAt:String = new Date().toISOString();
   address: String = "";
   shirtsize: String = "";
+  poblation: String; 
+  county: String;
+  sex: String = "hombre";
+  zipcode : String = "";
 }

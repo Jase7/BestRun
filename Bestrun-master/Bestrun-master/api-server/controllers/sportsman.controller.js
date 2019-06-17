@@ -6,6 +6,8 @@ const logService = require('../services/db/logs.service');
 const participantService = require('../services/db/participant.service');
 const fileService = require('../services/files.service');
 const PasswordService = require('../services/password.service');
+const EventService = require("../services/db/event.service");
+var ObjectId = require('mongoose').Types.ObjectId
 
 exports.getAllSportsman = async function (req, res, next) {
     var page = req.query.page ? req.query.page : 1;
@@ -18,11 +20,11 @@ exports.getAllSportsman = async function (req, res, next) {
     if (term) {
         query = {
             $or: [
-                {name: {$regex: term, $options: 'i'}},
-                {surnames: {$regex: term, $options: 'i'}},
-                {email: {$regex: term, $options: 'i'}},
-                {mobileNumber: {$regex: term, $options: 'i'}},
-                {"$where": `function() { return this._id.toString().match(/${term}/) != null;}`}]
+                { name: { $regex: term, $options: 'i' } },
+                { surnames: { $regex: term, $options: 'i' } },
+                { email: { $regex: term, $options: 'i' } },
+                { mobileNumber: { $regex: term, $options: 'i' } },
+                { "$where": `function() { return this._id.toString().match(/${term}/) != null;}` }]
         }
     }
 
@@ -32,12 +34,12 @@ exports.getAllSportsman = async function (req, res, next) {
         sportsmans.docs = sportsmans.docs.map((sportsman) => {
             return formatSportsman(sportsman);
         });
-        return res.status(httpStatus.OK).json({status: httpStatus.OK, data: sportsmans});
+        return res.status(httpStatus.OK).json({ status: httpStatus.OK, data: sportsmans });
     } catch (e) {
-        return res.status(httpStatus.BAD_REQUEST).json({status: httpStatus.BAD_REQUEST, message: e.message});
+        return res.status(httpStatus.BAD_REQUEST).json({ status: httpStatus.BAD_REQUEST, message: e.message });
     }
 }
-;
+    ;
 
 exports.createSportsman = async function (req, res, next) {
 
@@ -45,11 +47,11 @@ exports.createSportsman = async function (req, res, next) {
         const errors = await ValidationService.sportsmanCreateValidate(req.body);
         if (errors) {
             let err = extractMessageErrors(errors);
-            return res.status(httpStatus.BAD_REQUEST).json({status: httpStatus.BAD_REQUEST, message: err});
+            return res.status(httpStatus.BAD_REQUEST).json({ status: httpStatus.BAD_REQUEST, message: err });
         }
 
         req.body.role = 'Sportsman';
-        req.body.accessProvider= 'Password';
+        req.body.accessProvider = 'Password';
         req.body.password = await PasswordService.generateHash(req.body.password);
         var newSportsman = await UserService.createUser(req.body);
         logService.createLog({
@@ -62,7 +64,7 @@ exports.createSportsman = async function (req, res, next) {
             message: "Succesfully Created Sportsman"
         });
     } catch (e) {
-        return res.status(httpStatus.BAD_REQUEST).json({status: httpStatus.BAD_REQUEST, message: e.message});
+        return res.status(httpStatus.BAD_REQUEST).json({ status: httpStatus.BAD_REQUEST, message: e.message });
     }
 };
 
@@ -72,10 +74,10 @@ exports.getSportsman = async function (req, res, next) {
     try {
         var savedSportsman = await UserService.getUser(id);
         if (!savedSportsman)
-            return res.status(httpStatus.NOT_FOUND).json({status: httpStatus.NOT_FOUND, message: "User not found"});
-        return res.status(httpStatus.OK).json({status: httpStatus.OK, data: formatSportsman(savedSportsman)});
+            return res.status(httpStatus.NOT_FOUND).json({ status: httpStatus.NOT_FOUND, message: "User not found" });
+        return res.status(httpStatus.OK).json({ status: httpStatus.OK, data: formatSportsman(savedSportsman) });
     } catch (e) {
-        return res.status(httpStatus.NOT_FOUND).json({status: httpStatus.NOT_FOUND, message: e.message});
+        return res.status(httpStatus.NOT_FOUND).json({ status: httpStatus.NOT_FOUND, message: e.message });
     }
 };
 
@@ -84,15 +86,15 @@ exports.updateSportsman = async function (req, res, next) {
         const errors = await ValidationService.sportsmanUpdateValidate(req.body);
         if (errors) {
             let err = extractMessageErrors(errors);
-            return res.status(httpStatus.BAD_REQUEST).json({status: httpStatus.BAD_REQUEST, message: err});
+            return res.status(httpStatus.BAD_REQUEST).json({ status: httpStatus.BAD_REQUEST, message: err });
         }
 
         var savedSportsman = await UserService.getUser(id);
         if (!savedSportsman) {
-            return res.status(httpStatus.NOT_FOUND).json({status: httpStatus.NOT_FOUND, message: "User not found"});
+            return res.status(httpStatus.NOT_FOUND).json({ status: httpStatus.NOT_FOUND, message: "User not found" });
         }
         if (savedSportsman.role !== "Sportsman") {
-            return res.status(httpStatus.BAD_REQUEST).json({status: httpStatus.BAD_REQUEST, message: "User is Admin"});
+            return res.status(httpStatus.BAD_REQUEST).json({ status: httpStatus.BAD_REQUEST, message: "User is Admin" });
         }
 
         var sportsman = {
@@ -111,9 +113,9 @@ exports.updateSportsman = async function (req, res, next) {
             description: `Actualizado usuario ${updatedSportsman.name} (${updatedSportsman._id}) 
         por ${req.authUser.role}: ${req.authUser.name} ${req.authUser.surnames}`
         });
-        return res.status(httpStatus.OK).json({status: httpStatus.OK, data: formatSportsman(updatedSportsman)});
+        return res.status(httpStatus.OK).json({ status: httpStatus.OK, data: formatSportsman(updatedSportsman) });
     } catch (e) {
-        return res.status(httpStatus.BAD_REQUEST).json({status: httpStatus.BAD_REQUEST, message: e.message})
+        return res.status(httpStatus.BAD_REQUEST).json({ status: httpStatus.BAD_REQUEST, message: e.message })
     }
 };
 
@@ -122,24 +124,31 @@ exports.removeSportsman = async function (req, res, next) {
     var id = req.params.id;
 
     try {
+
         var savedSportsman = await UserService.getUser(id);
+
         if (savedSportsman.role !== "Sportsman") {
-            return res.status(httpStatus.BAD_REQUEST).json({status: httpStatus.BAD_REQUEST, message: "User is Admin"});
+            return res.status(httpStatus.BAD_REQUEST).json({ status: httpStatus.BAD_REQUEST, message: "User is Admin" });
         }
 
         var deleted = await UserService.deleteUser(id);
-        if (deleted)
+
+        if (deleted) {
             logService.createLog({
                 description: `Eliminado usuario ${deleted.name} (${deleted._id}) 
         por ${req.authUser.role}: ${req.authUser.name} ${req.authUser.surnames}`
             });
-        return res.status(httpStatus.NO_CONTENT).json({
-            status: httpStatus.NO_CONTENT,
-            message: "Succesfully User Deleted"
-        });
-        return res.status(httpStatus.NOT_FOUND).json({status: httpStatus.NOT_FOUND, message: "User not found"});
+            return res.status(httpStatus.NO_CONTENT).json({
+                status: httpStatus.NO_CONTENT,
+                message: "Succesfully User Deleted"
+            });
+        }
+        else {
+            return res.status(httpStatus.NOT_FOUND).json({ status: httpStatus.NOT_FOUND, message: "User not found" });
+        }
+
     } catch (e) {
-        return res.status(httpStatus.BAD_REQUEST).json({status: httpStatus.BAD_REQUEST, message: e.message})
+        return res.status(httpStatus.BAD_REQUEST).json({ status: httpStatus.BAD_REQUEST, message: e.message })
     }
 };
 
@@ -151,9 +160,9 @@ exports.getMyEvents = async function (req, res, next) {
     var term = req.query.search ? req.query.search : null;
     var type = req.query.type ? req.query.type : null;
 
-    var query = {user: {$eq: user.id}};
+    var query = { user: { $eq: user.id } };
     if (term) {
-        query.$and = {tittleEvent: {$regex: term, $options: 'i'}};
+        query.$and = { tittleEvent: { $regex: term, $options: 'i' } };
     }
 
     var options = {
@@ -164,10 +173,10 @@ exports.getMyEvents = async function (req, res, next) {
     if (type)
         options.populate = [{
             path: 'event',
-            match: {typeEvent: {$ne: type}}
+            match: { typeEvent: { $ne: type } }
         }];
     else
-        options.populate='event';
+        options.populate = 'event';
 
 
     try {
@@ -175,15 +184,32 @@ exports.getMyEvents = async function (req, res, next) {
         participants.docs = participants.docs.map((participant) => {
             return formatParticipant(participant);
         });
-        return res.status(httpStatus.OK).json({status: httpStatus.OK, data: participants});
+        return res.status(httpStatus.OK).json({ status: httpStatus.OK, data: participants });
     } catch (e) {
-        return res.status(httpStatus.BAD_REQUEST).json({status: httpStatus.BAD_REQUEST, message: e.message});
+        return res.status(httpStatus.BAD_REQUEST).json({ status: httpStatus.BAD_REQUEST, message: e.message });
+    }
+};
+
+exports.getEventsTimeComparator = async function (req, res, next) {
+
+    try {
+
+        var myID = req.params.myID ? new ObjectId(req.params.myID) : null;
+        var friendID = req.params.friendID ? new ObjectId(req.params.friendID) : null;
+
+        var eventData = await EventService.getEventsTimecomparator(myID, friendID);
+
+        return res.status(httpStatus.OK).json({ eventData });
+    }
+
+    catch (e) {
+        return res.status(httpStatus.BAD_REQUEST).json({ error: e })
     }
 };
 
 function extractMessageErrors(errors) {
     let err = errors.details.map((o) => {
-        return o.message
+        return o.message;
     });
     return err;
 }
@@ -205,7 +231,7 @@ function formatSportsman(sportsman) {
 function formatParticipant(participant) {
     return {
         participantId: participant._id,
-        event: participant.event?formatEvent(participant.event):null,
+        event: participant.event ? formatEvent(participant.event) : null,
         dorsal: participant.dorsal,
         time: participant.time,
         category: participant.category,

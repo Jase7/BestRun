@@ -39,4 +39,12 @@ export class EventsService {
       })
     );
   }
+
+  getEventsTimeComparator(myID : String, friendID : String ) {
+     return this.http.get(`${this.api_url}/sportsman/events/${myID}/${friendID}`).pipe(
+        map(res => {
+           return res["eventData"]
+        })
+     )
+  }
 }

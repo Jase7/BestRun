@@ -21,6 +21,7 @@ export class ProfileService {
     getMyData() : Observable<Sportsman> {
         return this.http.get(`${this.api_url}/${this.storage.get("userid")}`).pipe(map((res : any) => {
             this.user = res.data
+            console.log(this.user)
             return res.data as Sportsman
         }));
     }
@@ -72,8 +73,8 @@ export class ProfileService {
         }));
     }
 
-    saveAddressAndShirtSize(address : String, shirtsize : String) {
+    saveData(user : Sportsman) {
 
-        return this.http.put(`${this.api_url}/addressandshirt/${this.storage.get("userid")}`, {address: address, shirtsize: shirtsize}).pipe()
+        return this.http.put(`${this.api_url}/profileData/${this.storage.get("userid")}`, {modelUser: user}).pipe()
     }
  }

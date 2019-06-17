@@ -20,7 +20,7 @@ exports.getAllFriends = async function (query, page, limit, next) {
 
     try {
 
-        var allFriends = await Friends.paginate(query, options);
+    var allFriends = await Friends.paginate(query, options);
         return allFriends;
 
     } catch (err) {

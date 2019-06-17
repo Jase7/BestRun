@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="h-100">
 <head>
   <meta charset="utf-8">
   <title></title>
   <base href="/">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/x-icon" href="./favicon.ico">
   <script>
     window.fbAsyncInit = function() {
       FB.init({
@@ -22,8 +22,8 @@
   <script src="https://apis.google.com/js/platform.js" async defer></script>
   <meta name="google-signin-client_id" content="592124169403-th6kuk6rk3rue80p8htkh5j7le36j4i6.apps.googleusercontent.com">
 </head>
-<body>
-  <app-root></app-root>
+<body class="d-flex flex-column h-100">
+  <app-root class="d-flex flex-column h-100"></app-root>
   <script>
     function onSuccess(googleUser) {
       console.log('Logged in as: ' + googleUser.getBasicProfile().getName());

@@ -6,6 +6,10 @@ const PaymentMethodSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    ownerName: {
+        type: String,
+        required: true
+    },
     type: {
         type: String,
         default: "MasterCard"

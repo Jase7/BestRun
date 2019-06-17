@@ -8,12 +8,13 @@ import {ShowEventComponent} from "./components/dashboard/event/show-event/show-e
 import {AuthenticationService} from "./services/api/authentication.service";
 import {MyEventsComponent} from "./components/dashboard/my-events/my-events.component";
 import {MyTimesComponent} from "./components/dashboard/my-times/my-times.component";
-import { CanActivate } from '@angular/router/src/utils/preactivation';
 import { FriendsComponent } from './components/dashboard/friends/friends.component';
 import { AddFriendComponent } from './components/dashboard/friends/add-friend/add-friend.component';
 import { FriendRequestsComponent } from './components/dashboard/friends/friend-requests/friend-requests.component';
 import { TimeComparatorComponent } from './components/dashboard/friends/time-comparator/time-comparator.component';
 import { ProfileComponent } from './components/dashboard/profile/profile.component';
+import { SportsmanDataComponent } from './components/dashboard/profile/sportsman-data/sportsman-data.component';
+import { FriendsListComponent } from './components/dashboard/friends/friends-list/friends-list.component';
 
 
 const routes: Routes = [
@@ -36,7 +37,7 @@ const routes: Routes = [
       {
         path: 'event/:id',
         component: ShowEventComponent
-      },
+      },      
       {
         path: 'my-events',
         canActivate: [AuthenticationService],
@@ -54,7 +55,11 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            component: AddFriendComponent
+            component: FriendsListComponent
+          },
+          {
+            path: 'friends-list',
+            component: FriendsListComponent
           },
           {
             path: 'add-friend',
@@ -65,7 +70,7 @@ const routes: Routes = [
             component: FriendRequestsComponent
           }, 
           {
-            path: 'time-comparator',
+            path: 'time-comparator/:myID/:friendID',
             component: TimeComparatorComponent
           }
         ]
@@ -73,6 +78,7 @@ const routes: Routes = [
       {
         path: 'profile',
         component: ProfileComponent,
+        canActivate: [AuthenticationService],
         loadChildren: 'src/app/components/dashboard/profile/profile.module#ProfileModule'
       }
     ]

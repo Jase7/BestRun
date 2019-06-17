@@ -10,6 +10,9 @@ import { ProfileRoutingModule } from './profile-routing.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NgbTooltipModule} from "@ng-bootstrap/ng-bootstrap";
 import { ProfileService } from 'src/app/services/api/profile.service';
+import { SearchNavbarService } from 'src/app/services/search-navbar.service';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { TokenInterceptor } from 'src/app/services/token-interceptor.service';
 
 @NgModule({
     declarations: [      
@@ -28,7 +31,12 @@ import { ProfileService } from 'src/app/services/api/profile.service';
         
     ],
     providers: [
-        ProfileService
+        ProfileService, 
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: TokenInterceptor,
+            multi: true
+        }
     ]
 })
 export class ProfileModule {}

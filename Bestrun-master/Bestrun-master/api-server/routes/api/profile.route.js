@@ -8,7 +8,7 @@ router.delete('/deleteAccount/:userid', profileController.deleteUser);
 router.put('/photo/:userid', profileController.setNewPhoto);
 router.put('/email/:userid', profileController.setNewEmail);
 router.put('/password/:userid', profileController.setNewPassword);
-router.put('/addressandshirt/:userid', profileController.setAddressAndShirtsize);
+router.put('/profileData/:userid', profileController.saveProfileData);
 router.get('/paymentMethod/:userid', profileController.getPaymentMethod);
 router.post('/paymentMethod/:userid', profileController.setPaymentMethod);
 router.delete('/paymentMethod/:userid/:pid', profileController.deletePaymentMethod);

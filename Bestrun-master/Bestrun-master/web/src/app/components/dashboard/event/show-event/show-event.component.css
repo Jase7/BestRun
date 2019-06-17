@@ -92,6 +92,26 @@ label {
   font-size: 400%;color:#086AC7
 }
 
+/* Inscription data Tab */
+.add-payment fa-icon {
+   color: #0069d9;
+   cursor: pointer;
+   font-size: 2em;
+}
+
+.dropdown-item:hover {
+   background-color: #0069d9;
+}
+
+.dropdown-item:hover span {
+   color: white;
+}
+
+.paymentDelete:hover fa-icon {
+   color: red;
+   cursor: pointer;
+}
+
 @media screen and (max-width: 768px) {
   .nav.navbar-nav.pull-right {
     float: none !important;

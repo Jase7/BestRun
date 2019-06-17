@@ -68,6 +68,16 @@ const UserSchema = new mongoose.Schema({
         type: String,
         enum: ['S', 'M', 'L', 'XL', 'XXL']
     }, 
+    poblation: {
+        type: String
+    },
+    county: {
+        type: String        
+    },
+    sex: {
+        type: String,
+        enum: ['Hombre', 'Mujer']
+    },
     paymentMethods: [{type: Schema.Types.ObjectId, ref: "PaymentMethod"}]
 
 });

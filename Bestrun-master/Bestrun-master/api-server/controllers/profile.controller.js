@@ -127,18 +127,21 @@ exports.deletePaymentMethod = async function (req, res, next) {
     }
 };
 
-exports.setAddressAndShirtsize = async function (req, res, next) {
+exports.saveProfileData = async function (req, res, next) {
 
     try {
+
         var userid = req.params.userid ? new ObjectId(req.params.userid) : null;
-        var address = req.body.address ? req.body.address : null;
-        var shirtsize = req.body.shirtsize ? req.body.shirtsize : null;
+        var user = req.body.modelUser ? req.body.modelUser : null;
 
-        var data = await profileService.setAddressAndShirtsize(userid, address, shirtsize);
-
-        return res.json({ status: httpStatus.OK, data: data });
+        if (user !== null) {
+            var userData = await profileService.saveProfileData(userid, user);
+            return res.status(httpStatus.OK).json({ data: userData });
+        }
+        else res.status(400).json({ error: "No se han facilitado datos para guardar" });
     }
+
     catch (e) {
-        return res.status(400).json({ error: e.message });
+        res.status(400).json({ error: e.message });
     }
-};
+}

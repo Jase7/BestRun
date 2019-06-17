@@ -43,6 +43,25 @@ export class FriendsService {
         }))
     }
 
+    getFriends() : Observable<UsersFriends> {
+
+      return this.http.get(`${this.strFriendsApiUrl}/${this._storage.get('userid')}`).pipe(map((res : any) => {
+
+         console.log(res)
+
+         var result =  res.data.docs.filter((user) => {
+            
+            
+             if (user.isFriendship) {
+                 return user as UsersFriends
+             }
+         })
+         
+
+         return result
+     }));
+    }
+
     getDataFromPendRequests() : Observable<UsersFriends> {
         return this.http.get(`${this.strFriendsApiUrl}/${this._storage.get('userid')}`).pipe(map((res : any) => {
 

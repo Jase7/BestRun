@@ -23,13 +23,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(){    
 
-    this.profileImage = this.storageService.get("profile_image")
-
-    //If we're not logged in, redirect to the login form
-    if (!this.storageService.get("token_auth") || !this.storageService.get("user_role")) {
-        this.router.navigate(["/login"])
-    }
-
+    this.profileImage = this.storageService.get("profile_image")  
   }
 
   buttonSearchChange(){

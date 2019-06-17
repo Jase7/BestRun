@@ -24,6 +24,11 @@ h2,h3,h4,h5,h6,p,span{
   border-radius: 3px;
 }
 
+.footer {
+  background-color: #086AC7;
+  color: white;
+}
+
 @media screen and (min-width: 992px) {
   .btn-autosize {
     padding: 10px 16px;

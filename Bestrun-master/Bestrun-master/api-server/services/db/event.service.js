@@ -1,4 +1,5 @@
 var Event = require('../../models/event.model');
+var Participant = require('../../models/participant.model');
 _this = this
 
 exports.createEvent = async function (event) {
@@ -148,6 +149,17 @@ exports.addParticipant = async function (idEvent, idUser) {
         throw Error("Error while adding participant to Event");
     }
 };
+
+exports.getEventsTimecomparator = async function (myID, friendID) {
+
+    try {
+        var rtn = await Participant.find({ user: myID }, { $or: [{ user: friendID }] }).populate('event')
+        return rtn;
+    }
+    catch (e) {
+        throw Error("Error while getting events");
+    }
+}
 
 function manageErrors(e) {
     let err;

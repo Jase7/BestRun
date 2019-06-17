@@ -23,11 +23,10 @@ export class FriendRequestsComponent implements OnInit{
 
             this._users = []
             this._users[0] = data[0]
-
-            console.log(this._users)
         })
     }
 
+    //TODO: usar notify 
     acceptFriendship(id: string) {
         console.log(id)
         this._friendsService.acceptFriendship(id).subscribe((data: any) => {
@@ -35,8 +34,8 @@ export class FriendRequestsComponent implements OnInit{
         })
     }
 
+    //TODO: usar notify
     rejectFriendship(id: string) {
-        console.log(id)
 
         this._friendsService.rejectFriendship(id).subscribe((data: any) => {
             console.log(data)

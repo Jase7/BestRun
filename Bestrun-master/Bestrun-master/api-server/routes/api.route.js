@@ -30,7 +30,7 @@ router.use('/logs', AuthorizationController.onlySuperadmin);
 router.use('/logs', LogsController.getAllLogs);
 router.use('/friends', AuthController.authenticated);
 router.use('/friends', friends);
-//router.use('/profile', AuthController.authenticated);
+router.use('/profile', AuthController.authenticated);
 router.use('/profile', profile);
 
 module.exports = router;

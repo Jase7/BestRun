@@ -1,16 +1,39 @@
 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="sportsman-data-tab">
 
     <div class="form-group row mt-5 justify-content-center"> 
+        <label for="name" class="col-sm-2">Nombre</label>
+        <div class="col-sm-4">       
+            <input type="text" id="name" class="form-control" [(ngModel)]="user.name" value="{{user.name}}">    
+        </div>
+
+        <label for="surnames" class="col-sm-2">Apellidos</label>
+        <div class="col-sm-4">
+            <input type="text" id="surnames" class="form-control" [(ngModel)]="user.surnames" value="{{user.surnames}}">
+        </div>
+    </div>
+
+    <div class="form-group row mt-5 justify-content-center"> 
         <label for="address" class="col-sm-2 col-form-label">Dirección</label>
         <div class="col-sm-10">       
-            <input type="text" id="address" class="form-control mx-sm-3 " value="{{user.address}}" [(ngModel)]="user.address">
-            <small id="emailHelp" class="form-text text-muted col-sm-12">¡Para nosotros es muy importante que nos indiques tu dirección para que podamos mandarte el dorsal directamente a casa!</small>    
+            <input type="text" id="address" class="form-control" value="{{user.address}}" [(ngModel)]="user.address">
+            <small id="emailHelp" class="form-text text-muted">¡Para nosotros es muy importante que nos indiques tu dirección para que podamos mandarte el dorsal directamente a casa!</small>    
         </div>        
     </div>
 
     <div class="form-group row mt-5 justify-content-center"> 
+        <label for="poblation" class="col-sm-2 col-form-label">Población</label>
+        <div class="col-sm-4">       
+            <input type="text" id="poblation" class="form-control" value="{{user.poblation}}" [(ngModel)]="user.poblation">            
+        </div>        
+        <label for="county" class="col-sm-2 col-form-label">Provincia</label>
+        <div class="col-sm-4">       
+            <input type="text" id="county" class="form-control" value="{{user.county}}" [(ngModel)]="user.county">            
+        </div>        
+    </div>
+
+    <div class="form-group row mt-5 justify-content-start"> 
         <label for="shirtsize" class="col-sm-2 col-form-label">Talla del dorsal</label>
-        <div class="col-sm-10">       
+        <div class="col-sm-4">       
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" name="shirtsize" id="exampleRadios1" value="S" [(ngModel)]="user.shirtsize">
                 <label class="form-check-label" for="exampleRadios1">S</label>
@@ -31,8 +54,24 @@
                 <input class="form-check-input" type="radio" name="shirtsize" id="exampleRadios3" value="XXL" [(ngModel)]="user.shirtsize">
                 <label class="form-check-label" for="exampleRadios3">XXL</label>
             </div>
-            <small id="shirtHelp" class="form-text text-muted col-sm-12">¡Elige tu talla y nosotros nos ocupamos del resto!</small>    
+            <small id="shirtHelp" class="form-text text-muted">¡Elige tu talla y nosotros nos ocupamos del resto!</small>    
         </div>        
+
+        <label for="sex" class="col-sm-2">Sexo</label>
+        <div class="col-sm-4">       
+            <select name="sex" id="sex" class="form-control" [(ngModel)]="user.sex">
+                <option value="hombre" selected>Hombre</option>
+                <option value="mujer">Mujer</option>
+            </select>   
+        </div>       
+    </div> 
+
+    <div class="row justify-content-start mt-5">  
+        <label for="phone" class="col-sm-2">Teléfono</label>      
+        <div class="col-sm-5">
+            <input type="tel" id="phone" class="form-control" [(ngModel)]="user.mobileNumber" value="{{user.phone}}">
+            <small id="emailHelp" class="form-text text-muted">Facilitándonos un número de teléfono te podremos avisar si surge algún imprevisto con los eventos</small>    
+        </div>
     </div>
 
     <div class="form-group row mt-5 justify-content-left">         
@@ -73,25 +112,34 @@
     </div>
     <div class="modal-body">
         <form [formGroup]="paymentMethodForm">
-            <div class="form-group row mt-3 justify-content-left">        
+            <div class="form-group row mt-3 justify-content-start">        
                 <label for="name" class="col-sm-2 col-form-label">Nombre del método de pago</label>
                 <div class="col-sm-9">
-                    <input type="text" formControlName="name" id="name" class="form-control mx-sm-3" [(ngModel)]="newPaymentMethod.name"
+                    <input type="text" formControlName="name" id="name" class="form-control" [(ngModel)]="newPaymentMethod.name"
                     [class.is-invalid]="!paymentMethodForm.controls['name'].valid && (!paymentMethodForm.controls['name'].pristine)"
                     [class.is-valid]="paymentMethodForm.controls['name'].valid && (!paymentMethodForm.controls['name'].pristine)" value="Nueva tarjeta">
                 </div>        
             </div>
+
+            <div class="form-group row mt-3 justify-content-start">        
+                    <label for="name" class="col-sm-2 col-form-label">Nombre del titular</label>
+                    <div class="col-sm-9">
+                        <input type="text" formControlName="ownerName" id="ownerName" class="form-control" [(ngModel)]="newPaymentMethod.ownerName"
+                        [class.is-invalid]="!paymentMethodForm.controls['ownerName'].valid && (!paymentMethodForm.controls['ownerName'].pristine)"
+                        [class.is-valid]="paymentMethodForm.controls['ownerName'].valid && (!paymentMethodForm.controls['ownerName'].pristine)">
+                    </div>        
+                </div>
             
-            <div class="form-group row mt-3 justify-content-left">        
+            <div class="form-group row mt-3 justify-content-start">        
                 <label for="creditnumber" class="col-sm-2 col-form-label">Nº de tarjeta</label>
                 <div class="col-sm-9">
-                    <input type="text" id="creditnumber" class="form-control mx-sm-3" formControlName="creditnumber" [(ngModel)]="newPaymentMethod.cardNumber"
+                    <input type="text" id="creditnumber" class="form-control" formControlName="creditnumber" [(ngModel)]="newPaymentMethod.cardNumber"
                     [class.is-invalid]="!paymentMethodForm.controls['creditnumber'].valid && (!paymentMethodForm.controls['creditnumber'].pristine)"
                     [class.is-valid]="paymentMethodForm.controls['creditnumber'].valid && (!paymentMethodForm.controls['creditnumber'].pristine)">
                 </div>        
             </div>
 
-            <div class="form-group row mt-5 justify-content-left">        
+            <div class="form-group row mt-5 justify-content-start">        
                 <label for="monthExpire" class=" col-sm-2 col-form-label">Fecha de caducidad</label>
                 <div class="col-sm-4">
                     <select class="form-control"  formControlName="monthExpire" [(ngModel)]="newPaymentMethod.monthExpire">
@@ -106,10 +154,10 @@
                 </div>            
             </div>
 
-            <div class="form-group row mt-3 justify-content-left">        
+            <div class="form-group row mt-3 justify-content-start">        
                 <label for="CVC" class="col-sm-2 col-form-label">CVC</label>
                 <div class="col-sm-9">
-                    <input type="text" formControlName="CVC" id="CVC" class="form-control mx-sm-3" [(ngModel)]="newPaymentMethod.CVC"
+                    <input type="text" formControlName="CVC" id="CVC" class="form-control" [(ngModel)]="newPaymentMethod.CVC"
                     [class.is-invalid]="!paymentMethodForm.controls['CVC'].valid && (!paymentMethodForm.controls['CVC'].pristine)"
                     [class.is-valid]="paymentMethodForm.controls['CVC'].valid && (!paymentMethodForm.controls['CVC'].pristine)">
                 </div>                 
