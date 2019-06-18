@@ -1,5 +1,13 @@
+a:not([href]):not([tabindex]) {
+   color: #333;
+}
+
+a:not([href]):hover {
+   color: white;
+}
+
 .navbar {
-  background-color: #086AC7 !important;
+  background-color: #086AC7;
 }
 
 #search-button{
@@ -43,10 +51,6 @@
   display: none;
 }
 
-.dropdown-item {
-  cursor: pointer;
-}
-
 .profileImage {
   max-width: 100%;
   width:75px;
@@ -54,6 +58,27 @@
 
 .avatar {
   cursor: pointer;
+}
+
+.dropdown-menu {
+   background-color:#F5D900;
+}
+
+.dropdown-item {
+   cursor: pointer;
+}
+
+.dropdown-item:hover{
+   background-color: #086AC7;
+   color: white;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+   color: white;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+   color: rgba(255, 255, 255, .6)
 }
 
 @media screen and (max-width: 768px) {

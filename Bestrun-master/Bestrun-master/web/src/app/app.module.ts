@@ -39,6 +39,7 @@ import { ProfileService } from './services/api/profile.service';
 import { SportsmanDataComponent } from './components/dashboard/profile/sportsman-data/sportsman-data.component';
 import { FriendsListComponent } from './components/dashboard/friends/friends-list/friends-list.component';
 import { FooterComponent } from './components/dashboard/footer/footer.component';
+import { ErrorComponent } from './components/error/error.component';
 
 
 let config = new AuthServiceConfig([
@@ -71,7 +72,7 @@ export function provideConfig() {
     AddFriendComponent,
     FriendRequestsComponent,
     TimeComparatorComponent, 
-    ProfileComponent, FriendsListComponent, FooterComponent,
+    ProfileComponent, FriendsListComponent, FooterComponent, ErrorComponent,
   ],
   imports: [
     CommonModule,

@@ -15,6 +15,7 @@ import { TimeComparatorComponent } from './components/dashboard/friends/time-com
 import { ProfileComponent } from './components/dashboard/profile/profile.component';
 import { SportsmanDataComponent } from './components/dashboard/profile/sportsman-data/sportsman-data.component';
 import { FriendsListComponent } from './components/dashboard/friends/friends-list/friends-list.component';
+import { ErrorComponent } from './components/error/error.component';
 
 
 const routes: Routes = [
@@ -80,6 +81,12 @@ const routes: Routes = [
         component: ProfileComponent,
         canActivate: [AuthenticationService],
         loadChildren: 'src/app/components/dashboard/profile/profile.module#ProfileModule'
+      },
+      {
+         path: '**',
+         component: ErrorComponent,
+         canActivate: [AuthenticationService]
+
       }
     ]
   },
