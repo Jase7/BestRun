@@ -1,8 +1,8 @@
 <div class="d-flex justify-content-between">
   <h2>{{sportsman.name}}  <small>({{sportsman.active?'activo':'inactivo'}})</small></h2>
   <div>
-    <button type="button" class="btn btn-warning btn-sm mr-2" routerLink="/sportsman/edit/{{sportsman.id}}" *ngIf="sportsman.role==='Sportsman'">Editar</button>
-    <button type="button" class="btn btn-warning btn-sm" (click)="modalRemove(content)"  *ngIf="sportsman.role==='Sportsman'">Eliminar</button>
+    <button type="button" class="btn btn-warning btn-sm mr-2" routerLink="/sportsman/edit/{{sportsman.id}}" *ngIf="sportsman.role==='Sportsman' || sportsman.role === 'Admin'">Editar</button>
+    <button type="button" class="btn btn-warning btn-sm" (click)="modalRemove(content)"  *ngIf="sportsman.role==='Sportsman' || sportsman.role === 'Admin'">Eliminar</button>
   </div>
 </div>
 <div class="row mt-4">

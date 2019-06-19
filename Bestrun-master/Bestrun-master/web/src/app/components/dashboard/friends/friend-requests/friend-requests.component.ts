@@ -28,7 +28,6 @@ export class FriendRequestsComponent implements OnInit{
 
     //TODO: usar notify 
     acceptFriendship(id: string) {
-        console.log(id)
         this._friendsService.acceptFriendship(id).subscribe((data: any) => {
             console.log(data)
         })

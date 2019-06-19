@@ -3,17 +3,16 @@
      Eventos
    </button>
    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      <div class="dropdown-item" *ngFor="let event of events" attr.data-eid="{{event.event._id}}">{{event.event.tittle}}</div>
+      <div class="dropdown-item" *ngFor="let event of events" attr.data-eid="{{event.event._id}}" (click)="getTimes(event.event._id)">{{event.event.tittle}}</div>
    </div>
  </div>
 
- <table class="table">
+ <table class="table mt-3">
       <thead>
         <tr>
-          <th scope="col">#</th>
-          <th scope="col">First</th>
-          <th scope="col">Last</th>
-          <th scope="col">Handle</th>
+          <th scope="col">Tu tiempo</th>
+          <th scope="col">Comparación</th>
+          <th scope="col">Su tiempo</th>
         </tr>
       </thead>
       <tbody>
@@ -21,19 +20,16 @@
           <th scope="row">1</th>
           <td>Mark</td>
           <td>Otto</td>
-          <td>@mdo</td>
         </tr>
         <tr>
           <th scope="row">2</th>
           <td>Jacob</td>
           <td>Thornton</td>
-          <td>@fat</td>
         </tr>
         <tr>
           <th scope="row">3</th>
           <td>Larry</td>
           <td>the Bird</td>
-          <td>@twitter</td>
         </tr>
       </tbody>
     </table>

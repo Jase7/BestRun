@@ -37,13 +37,12 @@ export class MyEventsComponent implements OnInit {
   getMyEvents() {
     this.eventsService.getMyEvents(this.searchEvent).subscribe(
       (data) => {
-        console.log(data);
+         
         this.myEvents = this.myEvents.concat(data.docs);
         this.searchEvent.page = Number(data.page);
         this.searchEvent.pages = data.pages;
         this.searchEvent.totalItems = data.total;
         this.empty = this.searchEvent.page === this.searchEvent.pages;
-        console.log(this.searchEvent.page);
       }
     );
   }

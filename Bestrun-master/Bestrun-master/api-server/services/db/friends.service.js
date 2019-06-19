@@ -20,13 +20,31 @@ exports.getAllFriends = async function (query, page, limit, next) {
 
     try {
 
-    var allFriends = await Friends.paginate(query, options);
+        var allFriends = await Friends.paginate(query, options);
         return allFriends;
 
     } catch (err) {
         throw Error(err);
     }
 };
+
+exports.getPendRequests = async function (query, page, limit) {
+
+    try {
+
+        var options = {
+            page: page,
+            limit: limit,
+            populate: 'userSent'
+        };
+
+        var pendRequests = Friends.paginate(query, options);
+        return pendRequests;
+
+    } catch (e) {
+        throw Error(e);
+    }
+}
 
 exports.setPendFriendship = async function (user1, user2) {
 

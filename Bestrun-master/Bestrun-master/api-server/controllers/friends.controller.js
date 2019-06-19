@@ -10,7 +10,16 @@ exports.getAllFriends = async function (req, res, next) {
         var limit = req.query.limit ? req.query.limit : 15;
         var term = req.params.userid ? req.params.userid : "";
 
-        var query = { userTo: new ObjectId(term) };
+        //Get the friendships in sent and to
+        var query = {            
+            $or: [
+                { userTo: new ObjectId(term) },
+                { userSent: new ObjectId(term) }
+            ],
+            $and: [
+                {isFriendship: true}
+            ]
+        };
 
         var friends = await friendsService.getAllFriends(query, page, limit);
 
@@ -26,6 +35,36 @@ exports.getAllFriends = async function (req, res, next) {
     }
 
 };
+
+exports.getPendRequests = async function (req, res, next) {
+
+    try {
+
+        var page = req.query.page ? req.query.page : 1;
+        var limit = req.query.limit ? req.query.limit : 15;
+        var term = req.params.userid ? req.params.userid : "";
+
+        //Get the friendships in sent and to
+        var query = {
+            userTo: new ObjectId(term),
+            $and: [
+                { isFriendship: false }
+            ]
+        };
+
+        var friends = await friendsService.getPendRequests(query, page, limit);
+
+        friends.docs = friends.docs.map((friend) => {
+            return friend;
+        });
+
+        return res.status(httpStatus.OK).json({ status: httpStatus.OK, data: friends });
+    }
+
+    catch (e) {
+        return res.status(httpStatus.BAD_REQUEST).json({ error: e });
+    }
+}
 
 //METHOD: POST
 //Create a new friendship/friend request

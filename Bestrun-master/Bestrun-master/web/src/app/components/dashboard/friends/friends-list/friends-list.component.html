@@ -1,8 +1,8 @@
-<div class="mb-2 mt-12" *ngIf="_users[0]">
+<div class="mb-2 mt-12" *ngIf="_users">
    <div class="card" style="width: 16rem;" *ngFor="let user of _users" attr.data-uid="{{user._id}}">
-      <img class="card-img-top" src="{{user.userSent.photo}}" alt="">
+      <img class="card-img-top" src="{{user.photo}}" alt="">
       <div class="card-body">
-         <p class="card-text text-center">{{user.userSent.name}} {{user.userSent.surnames}}</p>
+         <p class="card-text text-center">{{user.name}} {{user.surnames}}</p>
       </div>
       <div class="card-footer">              
          <div class="btn btn-outline-info w-50" role="button" aria-pressed="true" [routerLink]="['/friends/time-comparator', myID, user._id]">Comparar tiempos</div>    

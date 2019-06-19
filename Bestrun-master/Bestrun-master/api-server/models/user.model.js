@@ -78,7 +78,10 @@ const UserSchema = new mongoose.Schema({
         type: String,
         enum: ['Hombre', 'Mujer']
     },
-    paymentMethods: [{type: Schema.Types.ObjectId, ref: "PaymentMethod"}]
+    paymentMethods: [{ type: Schema.Types.ObjectId, ref: "PaymentMethod" }],
+    zipcode: {
+        type: String
+    }
 
 });
 

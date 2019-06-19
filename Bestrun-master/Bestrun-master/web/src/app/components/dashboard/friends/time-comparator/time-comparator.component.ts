@@ -23,7 +23,7 @@ export class TimeComparatorComponent implements OnInit {
          this.friendID = param.friendID;
 
          this.getEvents(this.myID, this.friendID)
-      })
+      });
    }
 
    getEvents(myID, friendID) {
@@ -32,5 +32,9 @@ export class TimeComparatorComponent implements OnInit {
          console.log(res)
          this.events = res;
       })
+   }
+
+   getTimes(eventID) {
+ 
    }
 }

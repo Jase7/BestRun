@@ -153,7 +153,7 @@ exports.addParticipant = async function (idEvent, idUser) {
 exports.getEventsTimecomparator = async function (myID, friendID) {
 
     try {
-        var rtn = await Participant.find({ user: myID }, { $or: [{ user: friendID }] }).populate('event')
+        var rtn = await Participant.find({ $or: [{ user: myID }, { user: friendID }] }, '_id tittleEvent time').populate('event', ["_id", "tittle"]).populate('user', ['_id', 'name', 'surnames']);
         return rtn;
     }
     catch (e) {

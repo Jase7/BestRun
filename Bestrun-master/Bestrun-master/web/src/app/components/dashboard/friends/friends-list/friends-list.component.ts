@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UsersFriends } from 'src/app/models/users_friends.model';
 import { FriendsService } from 'src/app/services/api/friends.service';
 import { StorageService } from 'src/app/services/storage.service';
+import { Sportsman } from 'src/app/models/sportsman.model';
 
 @Component({
   selector: 'app-friends-list',
@@ -10,7 +11,7 @@ import { StorageService } from 'src/app/services/storage.service';
 })
 export class FriendsListComponent implements OnInit {
 
-   private _users : UsersFriends[] = [];
+   private _users : Sportsman[] = [];
    private myID : String = ""
 
    constructor(private _friendsService : FriendsService, private _storage : StorageService) { }
@@ -23,12 +24,11 @@ export class FriendsListComponent implements OnInit {
 
    getFriendsships() {
 
-      this._friendsService.getFriends().subscribe((data : UsersFriends) => {
+      this._friendsService.getFriends().subscribe((data : any) => {
 
             this._users = []
-            this._users[0] = data[0]
-      })
-     
+            this._users = data   
+      })  
    }
 
 }
