@@ -8,7 +8,7 @@
           <p>Identifícate en Bestrun o <a id="create-count" routerLink="/register">crea una cuenta</a></p>
         </div>
         <div class="form-group row">
-          <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 mt-3">
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-3">
             <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
               <div class="input-group-lg mb-3">
                 <input type="email" class="form-control input-lg" placeholder="Email" aria-label="email"
@@ -28,7 +28,7 @@
               </div>
             </form>
           </div>
-          <div class="col-lg-2 col-md-2 separator-vertical">
+          <!-- <div class="col-lg-2 col-md-2 separator-vertical">
             <div class="d-flex justify-content-center w-100">
               <div class="flex-column">
                 <div class="line-vertical"></div>
@@ -52,7 +52,8 @@
             <a class="btn btn-lg btn-social btn-google mt-3" style="color:white;" id="customBtn" (click)="signInWithGoogle()">
               <span class="fab fa-google" style="padding-top: 6px"></span>Identifícate con Google
             </a>
-          </div>
+          </div> -->
+
         </div>
       </div>
     </div>

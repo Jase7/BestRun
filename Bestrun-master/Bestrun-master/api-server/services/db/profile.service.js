@@ -125,7 +125,8 @@ exports.saveProfileData = async function (userid, user) {
         var modelUser = new User(user);
         var data = await User.findByIdAndUpdate({ _id: userid }, {
             name: modelUser.name, surnames: modelUser.surnames, mobileNumber: modelUser.mobileNumber,
-            address: modelUser.address, shirtsize: modelUser.shirtsize, poblation: modelUser.poblation, county: modelUser.county, sex: modelUser.sex
+            address: modelUser.address, shirtsize: modelUser.shirtsize, poblation: modelUser.poblation,
+            county: modelUser.county, sex: modelUser.sex, zipcode: modelUser.zipcode
         });
 
         return data;

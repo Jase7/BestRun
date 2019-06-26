@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {PasswordCredentials} from "../../models/password-credentials.model";
 import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from "@angular/router";
 import {StorageService} from "../storage.service";
@@ -27,6 +27,7 @@ export class AuthenticationService implements CanActivate {
   }
 
   signIn(passwordCredentials: PasswordCredentials) {
+
     return this.http.post(`${this.authUrl}/signin`, passwordCredentials)
       .pipe(map((data: any) => {
         

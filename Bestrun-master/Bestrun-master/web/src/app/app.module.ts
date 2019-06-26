@@ -86,7 +86,7 @@ export function provideConfig() {
     NgbDatepickerModule,
     ShareButtonModule,
     FontAwesomeModule,
-    SocialLoginModule.initialize(config), 
+    SocialLoginModule, 
     NgbModalModule,
   ],
   providers: [
@@ -101,6 +101,10 @@ export function provideConfig() {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
       multi: true
+    },
+    {
+      provide: AuthServiceConfig,
+      useFactory: provideConfig
     },
     ProfileService
   ],

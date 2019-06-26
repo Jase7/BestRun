@@ -1,11 +1,13 @@
 const jwt = require('jsonwebtoken');
 
 exports.generateJWT = function (name, surnames, id, email, role, active) {
-    const today = new Date();
-    const expirationDate = new Date(today);
-    expirationDate.setDate(today.getDate() + 60);
 
-    return jwt.sign({
+    try {
+        const today = new Date();
+        const expirationDate = new Date(today);
+        expirationDate.setDate(today.getDate() + 60);
+
+        return jwt.sign({
             name: name,
             surnames: surnames,
             email: email,
@@ -13,7 +15,12 @@ exports.generateJWT = function (name, surnames, id, email, role, active) {
             role: role,
             exp: parseInt(expirationDate.getTime() / 1000, 10)
         },
-        process.env.JWT_KEY);
+            process.env.JWT_KEY);
+    }
+    catch (e) {
+        throw Error(e);
+    }
+    
 };
 
 exports.getData = async function (headers) {

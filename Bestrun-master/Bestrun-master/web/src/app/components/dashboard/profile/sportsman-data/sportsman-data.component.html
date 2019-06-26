@@ -22,13 +22,17 @@
 
     <div class="form-group row mt-5 justify-content-center"> 
         <label for="poblation" class="col-sm-2 col-form-label">Población</label>
-        <div class="col-sm-4">       
+        <div class="col-sm-2">       
             <input type="text" id="poblation" class="form-control" value="{{user.poblation}}" [(ngModel)]="user.poblation">            
         </div>        
         <label for="county" class="col-sm-2 col-form-label">Provincia</label>
-        <div class="col-sm-4">       
+        <div class="col-sm-2">       
             <input type="text" id="county" class="form-control" value="{{user.county}}" [(ngModel)]="user.county">            
-        </div>        
+        </div>
+        <label for="poblation" class="col-sm-2 col-form-label">Código postal</label>
+      <div class="col-sm-2">       
+          <input type="text" id="zipcode" class="form-control" value="{{user.zipcode}}" [(ngModel)]="user.zipcode">            
+      </div>          
     </div>
 
     <div class="form-group row mt-5 justify-content-start"> 
