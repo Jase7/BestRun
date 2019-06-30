@@ -16,7 +16,7 @@ var LogsController = require('../controllers/logs.controller');
 
 router.use('/auth', auth);
 router.use('/users', AuthController.authenticated);
-router.use('/users', AuthorizationController.anyAdmin);
+//router.use('/users', AuthorizationController.anyAdmin);
 router.use('/users', users);
 router.use('/admins', AuthController.authenticated);
 router.use('/admins', AuthorizationController.onlySuperadmin);

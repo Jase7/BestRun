@@ -1,35 +1,23 @@
 <div class="dropdown">
-   <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-     Eventos
+   <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+      aria-haspopup="true" aria-expanded="false">
+      Eventos
    </button>
    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-      <div class="dropdown-item" *ngFor="let event of events" attr.data-eid="{{event.event._id}}" (click)="getTimes(event.event._id)">{{event.event.tittle}}</div>
+      <div class="dropdown-item" *ngFor="let event of uniqueEvents" attr.data-eid="{{event._id}}"
+         (click)="getTimes(event._id, event.tittle)">{{event.tittle}}</div>
    </div>
- </div>
+</div>
 
- <table class="table mt-3">
-      <thead>
-        <tr>
-          <th scope="col">Tu tiempo</th>
-          <th scope="col">Comparación</th>
-          <th scope="col">Su tiempo</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>Otto</td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-        </tr>
-        <tr>
-          <th scope="row">3</th>
-          <td>Larry</td>
-          <td>the Bird</td>
-        </tr>
-      </tbody>
-    </table>
+<table class="table mt-3">
+   <caption class="captionTable" #captionTable>{{caption}}</caption> 
+   <thead>
+      <tr>
+         <th scope="col">Tu tiempo</th>
+         <th scope="col">Comparación</th>
+         <th scope="col">Su tiempo</th>
+      </tr>
+   </thead>
+   <tbody #tableBody class="tableBody">
+   </tbody>
+</table>

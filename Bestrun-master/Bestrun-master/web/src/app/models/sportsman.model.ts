@@ -1,5 +1,5 @@
 export class Sportsman {
-  id:string;
+  _id:string;
   name: string = "";
   surnames: string = "";
   email: string = "";

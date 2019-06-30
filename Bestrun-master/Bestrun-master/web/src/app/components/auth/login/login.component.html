@@ -1,34 +1,40 @@
 <div class="auth">
-  <div class="container h-100">
-    <div class="row d-flex h-100 justify-content-center login">
-      <!--<img src="../../../assets/logo/LOGOTIPO%20PRINCIPAL%203X.png">-->
-      <div class="col-12">
-        <div style="text-align: center;align-content: center;">
-          <h1>Hola</h1>
-          <p>Identifícate en Bestrun o <a id="create-count" routerLink="/register">crea una cuenta</a></p>
-        </div>
-        <div class="form-group row">
-          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-3">
-            <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
-              <div class="input-group-lg mb-3">
-                <input type="email" class="form-control input-lg" placeholder="Email" aria-label="email"
-                       formControlName="email"
-                       [class.is-invalid]="!signInForm.controls['email'].valid && (!signInForm.controls['email'].pristine)"
-                       [class.is-valid]="signInForm.controls['email'].valid && (!signInForm.controls['email'].pristine)">
-              </div>
-              <div class="input-group-lg mb-3">
-                <input type="password" class="form-control" placeholder="Contraseña" aria-label="password"
-                       formControlName="password"
-                       [class.is-invalid]="!signInForm.controls['password'].valid && (!signInForm.controls['password'].pristine)"
-                       [class.is-valid]="signInForm.controls['password'].valid && (!signInForm.controls['password'].pristine)">
-              </div>
-              <div class="d-flex justify-content-end">
-                <button type="submit" class="btn btn-warning btn-lg" [disabled]="!signInForm.valid">Identifícate
-                </button>
-              </div>
-            </form>
-          </div>
-          <!-- <div class="col-lg-2 col-md-2 separator-vertical">
+      <div class="d-flex justify-content-center login">
+         <div class="mt-5">
+         <img src="../../../../assets/LOGOTIPO%20PRINCIPAL%203X.png">
+         <div class="col-12">
+            <div style="text-align: center;align-content: center;">
+               <h1>Hola</h1>
+               <p>Identifícate en Bestrun o <a id="create-count" routerLink="/register">crea una cuenta</a></p>
+            </div>
+            <div class="form-group row">
+               <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mt-3">
+                  <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+                     <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                           <span class="input-group-text" id="basic-addon1"><i class="fas fa-at"></i></span>
+                        </div>
+                        <input type="email" class="form-control" placeholder="Email" aria-label="email"
+                           formControlName="email"
+                           [class.is-invalid]="!signInForm.controls['email'].valid && (!signInForm.controls['email'].pristine)"
+                           [class.is-valid]="signInForm.controls['email'].valid && (!signInForm.controls['email'].pristine)">
+                     </div>
+                     <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                           <span class="input-group-text" id="basic-addon2"><i class="fas fa-unlock"></i></span>
+                        </div>
+                        <input type="password" class="form-control" placeholder="Contraseña" aria-label="password"
+                           formControlName="password"
+                           [class.is-invalid]="!signInForm.controls['password'].valid && (!signInForm.controls['password'].pristine)"
+                           [class.is-valid]="signInForm.controls['password'].valid && (!signInForm.controls['password'].pristine)">
+                     </div>
+                     <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-warning btn-lg" [disabled]="!signInForm.valid">Identifícate
+                        </button>
+                     </div>
+                  </form>
+               </div>
+               <!-- <div class="col-lg-2 col-md-2 separator-vertical">
             <div class="d-flex justify-content-center w-100">
               <div class="flex-column">
                 <div class="line-vertical"></div>
@@ -54,8 +60,9 @@
             </a>
           </div> -->
 
-        </div>
+            </div>
+         </div>
       </div>
-    </div>
-  </div>
+      </div>
+   
 </div>

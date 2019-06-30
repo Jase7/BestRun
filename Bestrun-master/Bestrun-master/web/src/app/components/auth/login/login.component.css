@@ -1,15 +1,7 @@
 .auth{
-  /*background-color: #81b1d5!important;*/
-  height: 100vh;
-}
-
-/*.input-group-prepend {*/
-  /*width: 36px!important;*/
-/*}*/
-
-.login{
-  padding-top: 250px;
-}
+   background-color: #81b1d5!important;
+   min-height: 94vh;
+ }
 
 a#create-count{
   text-decoration: underline!important;
@@ -43,6 +35,11 @@ a:active, a:link{
 .separator-horizontal{
   display: none;
 }
+
+.input-group-prepend {
+   width: 36px!important;
+ }
+ 
 
 @media (max-width: 768px) {
   .login{

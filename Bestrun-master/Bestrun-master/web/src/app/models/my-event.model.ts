@@ -1,4 +1,5 @@
 import {Event} from "./event.model";
+import { Sportsman } from './sportsman.model';
 
 export class MyEvent {
   participantId: string;
@@ -7,4 +8,6 @@ export class MyEvent {
   event: Event;
   position: string;
   time: string;
+  tittleEvent : string;
+  user: Sportsman;
 }
