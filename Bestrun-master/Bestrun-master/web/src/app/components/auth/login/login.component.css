@@ -4,13 +4,14 @@
  }
 
 a#create-count{
-  text-decoration: underline!important;
-  text-decoration-color:black!important;
-  cursor: pointer;
+   cursor: pointer;
+   text-decoration: underline!important;
+   text-decoration-color:black!important;
 }
 
 a:active, a:link{
-  color:#81b1d5!important;
+  color: #fffcc8;
+  font-weight: 500;
 }
 
 .login-email{

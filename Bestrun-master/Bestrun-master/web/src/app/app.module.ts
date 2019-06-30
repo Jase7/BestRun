@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {LOCALE_ID, NgModule} from '@angular/core';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -28,7 +28,7 @@ import {MyTimesComponent} from './components/dashboard/my-times/my-times.compone
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {ShareButtonModule} from "@ngx-share/button";
 import {FriendsComponent} from './components/dashboard/friends/friends.component';
-
+import { registerLocaleData } from '@angular/common';
 import {SocialLoginModule, AuthServiceConfig, FacebookLoginProvider} from "angularx-social-login";
 import { GoogleLoginProvider} from "angularx-social-login";
 import { AddFriendComponent } from './components/dashboard/friends/add-friend/add-friend.component';
@@ -36,11 +36,12 @@ import { FriendRequestsComponent } from './components/dashboard/friends/friend-r
 import { TimeComparatorComponent } from './components/dashboard/friends/time-comparator/time-comparator.component';
 import { ProfileComponent } from './components/dashboard/profile/profile.component';
 import { ProfileService } from './services/api/profile.service';
-import { SportsmanDataComponent } from './components/dashboard/profile/sportsman-data/sportsman-data.component';
 import { FriendsListComponent } from './components/dashboard/friends/friends-list/friends-list.component';
 import { FooterComponent } from './components/dashboard/footer/footer.component';
 import { ErrorComponent } from './components/error/error.component';
+import localeEsAr from '@angular/common/locales/es-AR';
 
+registerLocaleData(localeEsAr, 'es-ES')
 
 let config = new AuthServiceConfig([
   {
@@ -105,6 +106,10 @@ export function provideConfig() {
     {
       provide: AuthServiceConfig,
       useFactory: provideConfig
+    },
+    {
+      provide: LOCALE_ID, 
+      useValue: 'es-ES'
     },
     ProfileService
   ],

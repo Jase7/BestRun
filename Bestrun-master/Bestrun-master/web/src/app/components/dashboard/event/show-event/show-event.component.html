@@ -27,13 +27,15 @@
             <div
                class="d-flex flex-md-row flex-lg-row flex-column justify-content-md-between justify-content-lg-between">
                <p class="location-event">{{event.location}}</p>
-               <p class="location-event">Celebración: {{event.celebrationDate | date}}</p>
+               <p class="location-event">Celebración: 
+                  <strong>{{event.celebrationDate | date: 'dd MMMM yyyy'}}</strong>
+               </p>
             </div>
             <div
                class="d-flex flex-md-row flex-lg-row flex-column justify-content-md-between justify-content-lg-between">
                <span class="location-event">Categorias: <strong>{{event.categories}}</strong></span>
                <p class="location-event" *ngIf="event.closeInscriptions">Cierre:
-                  <strong>{{event.closeInscriptions | date}}</strong></p>
+                  <strong>{{event.closeInscriptions | date: 'dd MMMM yyyy'}}</strong></p>
             </div>
             <div class="d-flex justify-content-start mb-2">
                <span class="location-event">Distancia: <strong>{{event.distance}}</strong></span>
@@ -45,7 +47,7 @@
             <share-button button="facebook" theme="circles-dark" [icon]="['fab', 'facebook-square']" (opened)="open()">
             </share-button>
             <share-button button="twitter" theme="circles-dark" [icon]="['fab', 'twitter-square']"
-               [title]="'Unete conmigo al evento '+event.tittle+'!'"
+               [title]="'Unete conmigo al evento'+event.tittle+'!'"
                [description]="'Unete conmigo al evento '+event.tittle+'!'" [tags]="event.categories"
                [url]="url+'/'+event.id"></share-button>
             <share-button button="whatsapp" theme="circles-dark" [icon]="['fab', 'whatsapp']"
