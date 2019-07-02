@@ -3,7 +3,7 @@ export class Sportsman {
   name: string = "";
   surnames: string = "";
   email: string = "";
-  phone: string = "";
+  mobileNumber: string = "";
   photo: string;
   password: string = "";
   role: string = 'Admin';
@@ -15,4 +15,6 @@ export class Sportsman {
   county: String;
   sex: String = "hombre";
   zipcode : String = "";
+  dni : String = "";
+  club : String  = "";
 }

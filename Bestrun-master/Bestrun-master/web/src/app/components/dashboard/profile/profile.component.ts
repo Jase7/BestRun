@@ -16,7 +16,7 @@ export class ProfileComponent implements OnInit {
     constructor(private title : Title, protected modal : NgbModal, protected profileService : ProfileService) {}
 
     ngOnInit() {
-        this.title.setTitle("BestRun - PERFIL")
+        this.title.setTitle("Roll&Race - PERFIL")
     }
 
     openModal(content) {

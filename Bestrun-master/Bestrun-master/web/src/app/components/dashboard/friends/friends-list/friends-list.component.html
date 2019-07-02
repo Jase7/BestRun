@@ -5,8 +5,8 @@
          <p class="card-text text-center">{{user.name}} {{user.surnames}}</p>
       </div>
       <div class="card-footer">              
-         <div class="btn btn-outline-info w-50" role="button" aria-pressed="true" [routerLink]="['/friends/time-comparator', myID, user._id]">Comparar tiempos</div>    
-         <div class="btn btn-outline-danger w-50" role="button" aria-pressed="true" (click)="rejectFriendship(user._id)">Borrar amigo</div>
+         <!--<div class="btn btn-outline-info w-50" role="button" aria-pressed="true" [routerLink]="['/friends/time-comparator', myID, user._id]">Comparar tiempos</div>-->
+         <div class="btn btn-outline-danger w-100" role="button" aria-pressed="true" (click)="rejectFriendship(user._id)">Borrar amigo</div>
    </div>
 
    </div>

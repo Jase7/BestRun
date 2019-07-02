@@ -16,7 +16,7 @@ export class FriendsComponent implements OnInit{
     constructor(private searchNavbarService: SearchNavbarService, private _friendsService : FriendsService, private title : Title) {}
 
     ngOnInit() {
-        this.title.setTitle("BestRun - AMIGOS")
+        this.title.setTitle("Roll&Race - AMIGOS")
 
         this._friendsService.getPendRequests().subscribe((res : number) => {
             this.pendRequests = res

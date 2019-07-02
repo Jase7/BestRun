@@ -1,176 +1,224 @@
 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="sportsman-data-tab">
 
-    <div class="form-group row mt-5 justify-content-center"> 
-        <label for="name" class="col-sm-2">Nombre</label>
-        <div class="col-sm-4">       
-            <input type="text" id="name" class="form-control" [(ngModel)]="user.name" value="{{user.name}}">    
-        </div>
+   <form [formGroup]="sportsmanForm">
+      <div class="form-group row mt-5 justify-content-center">
+         <label for="name" class="col-sm-2">Nombre (*)</label>
+         <div class="col-sm-4">
+            <input type="text" formControlName="name" id="name" class="form-control" [(ngModel)]="user.name" value="{{user.name}}"
+            [class.is-invalid]="!sportsmanForm.controls['name'].valid && (!sportsmanForm.controls['name'].pristine)"
+            [class.is-valid]="sportsmanForm.controls['name'].valid && (!sportsmanForm.controls['name'].pristine)">
+         </div>
 
-        <label for="surnames" class="col-sm-2">Apellidos</label>
-        <div class="col-sm-4">
-            <input type="text" id="surnames" class="form-control" [(ngModel)]="user.surnames" value="{{user.surnames}}">
-        </div>
-    </div>
+         <label for="surnames" class="col-sm-2">Apellidos (*)</label>
+         <div class="col-sm-4">
+            <input type="text" formControlName="surnames" id="surnames" class="form-control" [(ngModel)]="user.surnames" value="{{user.surnames}}"
+            [class.is-invalid]="!sportsmanForm.controls['surnames'].valid && (!sportsmanForm.controls['surnames'].pristine)"
+            [class.is-valid]="sportsmanForm.controls['surnames'].valid && (!sportsmanForm.controls['surnames'].pristine)">
+         </div>
+      </div>
 
-    <div class="form-group row mt-5 justify-content-center"> 
-        <label for="address" class="col-sm-2 col-form-label">Dirección</label>
-        <div class="col-sm-10">       
-            <input type="text" id="address" class="form-control" value="{{user.address}}" [(ngModel)]="user.address">
-            <small id="emailHelp" class="form-text text-muted">¡Para nosotros es muy importante que nos indiques tu dirección para que podamos mandarte el dorsal directamente a casa!</small>    
-        </div>        
-    </div>
+      <div class="form-group row mt-5 justify-content-center">
+         <label for="address" class="col-sm-2 col-form-label">Dirección (*)</label>
+         <div class="col-sm-10">
+            <input type="text" formControlName="address" id="address" class="form-control" value="{{user.address}}" [(ngModel)]="user.address"
+            [class.is-invalid]="!sportsmanForm.controls['address'].valid && (!sportsmanForm.controls['address'].pristine)"
+            [class.is-valid]="sportsmanForm.controls['address'].valid && (!sportsmanForm.controls['address'].pristine)">
+            <small id="emailHelp" class="form-text text-muted">¡Para nosotros es muy importante que nos indiques tu
+               dirección para que podamos mandarte el dorsal directamente a casa!</small>
+         </div>
+      </div>
 
-    <div class="form-group row mt-5 justify-content-center"> 
-        <label for="poblation" class="col-sm-2 col-form-label">Población</label>
-        <div class="col-sm-2">       
-            <input type="text" id="poblation" class="form-control" value="{{user.poblation}}" [(ngModel)]="user.poblation">            
-        </div>        
-        <label for="county" class="col-sm-2 col-form-label">Provincia</label>
-        <div class="col-sm-2">       
-            <input type="text" id="county" class="form-control" value="{{user.county}}" [(ngModel)]="user.county">            
-        </div>
-        <label for="poblation" class="col-sm-2 col-form-label">Código postal</label>
-      <div class="col-sm-2">       
-          <input type="text" id="zipcode" class="form-control" value="{{user.zipcode}}" [(ngModel)]="user.zipcode">            
-      </div>          
-    </div>
+      <div class="form-group row mt-5 justify-content-center">
+         <label for="poblation" class="col-sm-2 col-form-label">Población (*)</label>
+         <div class="col-sm-2">
+            <input type="text" formControlName="poblation" id="poblation" class="form-control" value="{{user.poblation}}"
+               [(ngModel)]="user.poblation"
+               [class.is-invalid]="!sportsmanForm.controls['poblation'].valid && (!sportsmanForm.controls['poblation'].pristine)"
+               [class.is-valid]="sportsmanForm.controls['poblation'].valid && (!sportsmanForm.controls['poblation'].pristine)">
+         </div>
+         <label for="county" class="col-sm-2 col-form-label">Provincia (*)</label>
+         <div class="col-sm-2">
+            <input type="text" formControlName="county" id="county" class="form-control" value="{{user.county}}" [(ngModel)]="user.county"
+            [class.is-invalid]="!sportsmanForm.controls['county'].valid && (!sportsmanForm.controls['county'].pristine)"
+            [class.is-valid]="sportsmanForm.controls['county'].valid && (!sportsmanForm.controls['county'].pristine)">
+         </div>
+         <label for="poblation" class="col-sm-2 col-form-label">Código postal (*)</label>
+         <div class="col-sm-2">
+            <input type="text" formControlName="zipcode" id="zipcode" class="form-control" value="{{user.zipcode}}" [(ngModel)]="user.zipcode"
+            [class.is-invalid]="!sportsmanForm.controls['zipcode'].valid && (!sportsmanForm.controls['zipcode'].pristine)"
+            [class.is-valid]="sportsmanForm.controls['zipcode'].valid && (!sportsmanForm.controls['zipcode'].pristine)">
+         </div>
+      </div>
 
-    <div class="form-group row mt-5 justify-content-start"> 
-        <label for="shirtsize" class="col-sm-2 col-form-label">Talla</label>
-        <div class="col-sm-4">       
+      <div class="form-group row mt-5 justify-content-start">
+         <label for="shirtsize" class="col-sm-2 col-form-label">Talla (*)</label>
+         <div class="col-sm-4">
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="shirtsize" id="exampleRadios1" value="S" [(ngModel)]="user.shirtsize">
-                <label class="form-check-label" for="exampleRadios1">S</label>
+               <input class="form-check-input" type="radio" formControlName="shirtsize" name="shirtsize" id="exampleRadios1" value="S"
+                  [(ngModel)]="user.shirtsize">
+               <label class="form-check-label" for="exampleRadios1">S</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="shirtsize" id="exampleRadios2" value="M" [(ngModel)]="user.shirtsize">
-                <label class="form-check-label" for="exampleRadios2">M</label>
+               <input class="form-check-input" type="radio" formControlName="shirtsize" name="shirtsize" id="exampleRadios2" value="M"
+                  [(ngModel)]="user.shirtsize">
+               <label class="form-check-label" for="exampleRadios2">M</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="shirtsize" id="exampleRadios3" value="L" [(ngModel)]="user.shirtsize">
-                <label class="form-check-label" for="exampleRadios3">L</label>
+               <input class="form-check-input" type="radio" formControlName="shirtsize" name="shirtsize" id="exampleRadios3" value="L"
+                  [(ngModel)]="user.shirtsize">
+               <label class="form-check-label" for="exampleRadios3">L</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="shirtsize" id="exampleRadios3" value="XL" [(ngModel)]="user.shirtsize">
-                <label class="form-check-label" for="exampleRadios3">XL</label>
+               <input class="form-check-input" type="radio" formControlName="shirtsize" name="shirtsize" id="exampleRadios3" value="XL"
+                  [(ngModel)]="user.shirtsize">
+               <label class="form-check-label" for="exampleRadios3">XL</label>
             </div>
             <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" name="shirtsize" id="exampleRadios3" value="XXL" [(ngModel)]="user.shirtsize">
-                <label class="form-check-label" for="exampleRadios3">XXL</label>
+               <input class="form-check-input" type="radio" formControlName="shirtsize" name="shirtsize" id="exampleRadios3" value="XXL"
+                  [(ngModel)]="user.shirtsize">
+               <label class="form-check-label" for="exampleRadios3">XXL</label>
             </div>
-            <small id="shirtHelp" class="form-text text-muted">¡Elige tu talla y nosotros nos ocupamos del resto!</small>    
-        </div>        
+            <small id="shirtHelp" class="form-text text-muted">¡Elige tu talla y nosotros nos ocupamos del
+               resto!</small>
+         </div>
 
-        <label for="sex" class="col-sm-2">Sexo</label>
-        <div class="col-sm-4">       
-            <select name="sex" id="sex" class="form-control" [(ngModel)]="user.sex">
-                <option value="hombre" selected>Hombre</option>
-                <option value="mujer">Mujer</option>
-            </select>   
-        </div>       
-    </div> 
+         <label for="sex" class="col-sm-2">Sexo (*)</label>
+         <div class="col-sm-4">
+            <select name="sex" formControlName="sex" id="sex" class="form-control" [(ngModel)]="user.sex">
+               <option value="hombre" selected>Hombre</option>
+               <option value="mujer">Mujer</option>
+            </select>
+         </div>
+      </div>
 
-    <div class="row justify-content-start mt-5">  
-        <label for="phone" class="col-sm-2">Teléfono</label>      
-        <div class="col-sm-5">
-            <input type="tel" id="phone" class="form-control" [(ngModel)]="user.mobileNumber" value="{{user.phone}}">
-            <small id="emailHelp" class="form-text text-muted">Facilitándonos un número de teléfono te podremos avisar si surge algún imprevisto con los eventos</small>    
-        </div>
-    </div>
+      <div class="row justify-content-start mt-5">
+         <label for="phone" class="col-sm-2">Teléfono (*)</label>
+         <div class="col-sm-4">
+            <input type="tel" formControlName="phone" id="phone" class="form-control" [(ngModel)]="user.mobileNumber" value="{{user.mobileNumber}}"
+            [class.is-invalid]="!sportsmanForm.controls['phone'].valid && (!sportsmanForm.controls['phone'].pristine)"
+            [class.is-valid]="sportsmanForm.controls['phone'].valid && (!sportsmanForm.controls['phone'].pristine)">
+            <small id="emailHelp" class="form-text text-muted">Facilitándonos un número de teléfono te podremos avisar
+               si surge algún imprevisto con los eventos</small>
+         </div>
 
-    <div class="form-group row mt-5 justify-content-left">         
-        <div class="dropdown col-sm-2 align-self-center">
-            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Métodos de pago
+         <label for="dni" class="col-sm-2">DNI (*)</label>
+         <div class="col-sm-4">
+            <input type="tel" formControlName="dni" id="dni" class="form-control" [(ngModel)]="user.dni" value="{{user.dni}}"
+            [class.is-invalid]="!sportsmanForm.controls['dni'].valid && (!sportsmanForm.controls['dni'].pristine)"
+            [class.is-valid]="sportsmanForm.controls['dni'].valid && (!sportsmanForm.controls['dni'].pristine)">
+         </div>
+      </div>
+
+      <div class="row justify-content-start mt-5">
+         <label for="club" class="col-sm-2">Club</label>
+         <div class="col-sm-5">
+            <input type="tel" formControlName="club" id="club" class="form-control" [(ngModel)]="user.club" value="{{user.club}}">
+            <small id="clubHelp" class="form-text text-muted">¿Perteneces a algún club? ¡Háznoslo saber!</small>
+         </div>
+      </div>
+
+      <div class="form-group row mt-5 justify-content-left">
+         <div class="dropdown col-sm-2 align-self-center">
+            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">
+               Métodos de pago
             </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">              
-                <li *ngIf="paymentMethods.length == 0" class="dropdown-item">No tienes métodos de pago.</li>
-                <li *ngFor="let payment of paymentMethods" class="dropdown-item" #PID attr.data-pid="{{payment._id}}">
-                    <span class="col-sm-4 paymentDescription">{{payment.name}} / #{{payment.cardNumber}}</span>
-                    <span class="col-sm-2 paymentDelete" placement="top" ngbTooltip="Borrar método de pago">
-                        <fa-icon [icon]="faTrash" (click)="deletePaymentMethod(PID)"></fa-icon>
-                    </span>
-                </li>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+               <li *ngIf="paymentMethods.length == 0" class="dropdown-item">No tienes métodos de pago.</li>
+               <li *ngFor="let payment of paymentMethods" class="dropdown-item" #PID attr.data-pid="{{payment._id}}">
+                  <span class="col-sm-4 paymentDescription">{{payment.name}} / #{{payment.cardNumber}}</span>
+                  <span class="col-sm-2 paymentDelete" placement="top" ngbTooltip="Borrar método de pago">
+                     <fa-icon [icon]="faTrash" (click)="deletePaymentMethod(PID)"></fa-icon>
+                  </span>
+               </li>
             </div>
-          </div> 
+         </div>
 
-        <div class="col-sm-2 text-center">
-            <div class="add-payment" (click)="openModal(content)" placement="top" ngbTooltip="Añadir nuevo método de pago">
-                <fa-icon [icon]="faPlus"></fa-icon>
+         <div class="col-sm-2 text-center">
+            <div class="add-payment" (click)="openModal(content)" placement="top"
+               ngbTooltip="Añadir nuevo método de pago">
+               <fa-icon [icon]="faPlus"></fa-icon>
             </div>
-        </div>
-    </div>
+         </div>
+      </div>
 
-    <div class="row justify-content-end mt-3 mb-5">        
-        <button type="submit" class="btn btn-outline-primary" role="button" aria-pressed="true" (click)="saveData()" #DataSubmit>Guardar datos</button>
-    </div>
+      <div class="row justify-content-end mt-3 mb-5">
+         <button type="submit" class="btn btn-outline-primary" role="button" aria-pressed="true" (click)="saveData()" [disabled]="!sportsmanForm.valid"
+            #DataSubmit>Guardar datos</button>
+      </div>
+   </form>
 </div>
 
 <!-- NG template-->
 <ng-template #content let-modal>
-    <div class="modal-header">
-        <h4 class="modal-title" id="modal-title">Agregar método de pago</h4>
-        <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
-                <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body">
-        <form [formGroup]="paymentMethodForm">
-            <div class="form-group row mt-3 justify-content-start">        
-                <label for="name" class="col-sm-2 col-form-label">Nombre del método de pago</label>
-                <div class="col-sm-9">
-                    <input type="text" formControlName="name" id="name" class="form-control" [(ngModel)]="newPaymentMethod.name"
-                    [class.is-invalid]="!paymentMethodForm.controls['name'].valid && (!paymentMethodForm.controls['name'].pristine)"
-                    [class.is-valid]="paymentMethodForm.controls['name'].valid && (!paymentMethodForm.controls['name'].pristine)" value="Nueva tarjeta">
-                </div>        
+   <div class="modal-header">
+      <h4 class="modal-title" id="modal-title">Agregar método de pago</h4>
+      <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
+         <span aria-hidden="true">&times;</span>
+      </button>
+   </div>
+   <div class="modal-body">
+      <form [formGroup]="paymentMethodForm">
+         <div class="form-group row mt-3 justify-content-start">
+            <label for="name" class="col-sm-2 col-form-label">Nombre del método de pago</label>
+            <div class="col-sm-9">
+               <input type="text" formControlName="name" id="name" class="form-control"
+                  [(ngModel)]="newPaymentMethod.name"
+                  [class.is-invalid]="!paymentMethodForm.controls['name'].valid && (!paymentMethodForm.controls['name'].pristine)"
+                  [class.is-valid]="paymentMethodForm.controls['name'].valid && (!paymentMethodForm.controls['name'].pristine)"
+                  value="Nueva tarjeta">
             </div>
+         </div>
 
-            <div class="form-group row mt-3 justify-content-start">        
-                    <label for="name" class="col-sm-2 col-form-label">Nombre del titular</label>
-                    <div class="col-sm-9">
-                        <input type="text" formControlName="ownerName" id="ownerName" class="form-control" [(ngModel)]="newPaymentMethod.ownerName"
-                        [class.is-invalid]="!paymentMethodForm.controls['ownerName'].valid && (!paymentMethodForm.controls['ownerName'].pristine)"
-                        [class.is-valid]="paymentMethodForm.controls['ownerName'].valid && (!paymentMethodForm.controls['ownerName'].pristine)">
-                    </div>        
-                </div>
-            
-            <div class="form-group row mt-3 justify-content-start">        
-                <label for="creditnumber" class="col-sm-2 col-form-label">Nº de tarjeta</label>
-                <div class="col-sm-9">
-                    <input type="text" id="creditnumber" class="form-control" formControlName="creditnumber" [(ngModel)]="newPaymentMethod.cardNumber"
-                    [class.is-invalid]="!paymentMethodForm.controls['creditnumber'].valid && (!paymentMethodForm.controls['creditnumber'].pristine)"
-                    [class.is-valid]="paymentMethodForm.controls['creditnumber'].valid && (!paymentMethodForm.controls['creditnumber'].pristine)">
-                </div>        
+         <div class="form-group row mt-3 justify-content-start">
+            <label for="name" class="col-sm-2 col-form-label">Nombre del titular</label>
+            <div class="col-sm-9">
+               <input type="text" formControlName="ownerName" id="ownerName" class="form-control"
+                  [(ngModel)]="newPaymentMethod.ownerName"
+                  [class.is-invalid]="!paymentMethodForm.controls['ownerName'].valid && (!paymentMethodForm.controls['ownerName'].pristine)"
+                  [class.is-valid]="paymentMethodForm.controls['ownerName'].valid && (!paymentMethodForm.controls['ownerName'].pristine)">
             </div>
+         </div>
 
-            <div class="form-group row mt-5 justify-content-start">        
-                <label for="monthExpire" class=" col-sm-2 col-form-label">Fecha de caducidad</label>
-                <div class="col-sm-4">
-                    <select class="form-control"  formControlName="monthExpire" [(ngModel)]="newPaymentMethod.monthExpire">
-                        <option *ngFor="let month of months" [ngValue]="month.id">{{month.name}}</option>
-                    </select>
-                </div>
-                /
-                <div class="col-sm-4">
-                    <select class="form-control" formControlName="yearExpire" [(ngModel)]="newPaymentMethod.yearExpire">
-                        <option *ngFor="let year of years" [ngValue]="year" >{{year}}</option>
-                    </select>
-                </div>            
+         <div class="form-group row mt-3 justify-content-start">
+            <label for="creditnumber" class="col-sm-2 col-form-label">Nº de tarjeta</label>
+            <div class="col-sm-9">
+               <input type="text" id="creditnumber" class="form-control" formControlName="creditnumber"
+                  [(ngModel)]="newPaymentMethod.cardNumber"
+                  [class.is-invalid]="!paymentMethodForm.controls['creditnumber'].valid && (!paymentMethodForm.controls['creditnumber'].pristine)"
+                  [class.is-valid]="paymentMethodForm.controls['creditnumber'].valid && (!paymentMethodForm.controls['creditnumber'].pristine)">
             </div>
+         </div>
 
-            <div class="form-group row mt-3 justify-content-start">        
-                <label for="CVC" class="col-sm-2 col-form-label">CVC</label>
-                <div class="col-sm-9">
-                    <input type="text" formControlName="CVC" id="CVC" class="form-control" [(ngModel)]="newPaymentMethod.CVC"
-                    [class.is-invalid]="!paymentMethodForm.controls['CVC'].valid && (!paymentMethodForm.controls['CVC'].pristine)"
-                    [class.is-valid]="paymentMethodForm.controls['CVC'].valid && (!paymentMethodForm.controls['CVC'].pristine)">
-                </div>                 
+         <div class="form-group row mt-5 justify-content-start">
+            <label for="monthExpire" class=" col-sm-2 col-form-label">Fecha de caducidad</label>
+            <div class="col-sm-4">
+               <select class="form-control" formControlName="monthExpire" [(ngModel)]="newPaymentMethod.monthExpire">
+                  <option *ngFor="let month of months" [ngValue]="month.id">{{month.name}}</option>
+               </select>
             </div>
-                
-        </form>           
-    </div>
-    <div class="modal-footer">
-        <button type="button" class="btn btn-primary" (click)="addPaymentMethod()" [disabled]="!paymentMethodForm.valid">Agregar método de pago</button>
-        <button type="button" class="btn btn-outline-secondary" (click)="modal.close()">Cancelar</button>
-    </div>
+            /
+            <div class="col-sm-4">
+               <select class="form-control" formControlName="yearExpire" [(ngModel)]="newPaymentMethod.yearExpire">
+                  <option *ngFor="let year of years" [ngValue]="year">{{year}}</option>
+               </select>
+            </div>
+         </div>
+
+         <div class="form-group row mt-3 justify-content-start">
+            <label for="CVC" class="col-sm-2 col-form-label">CVC</label>
+            <div class="col-sm-9">
+               <input type="text" formControlName="CVC" id="CVC" class="form-control" [(ngModel)]="newPaymentMethod.CVC"
+                  [class.is-invalid]="!paymentMethodForm.controls['CVC'].valid && (!paymentMethodForm.controls['CVC'].pristine)"
+                  [class.is-valid]="paymentMethodForm.controls['CVC'].valid && (!paymentMethodForm.controls['CVC'].pristine)">
+            </div>
+         </div>
+
+      </form>
+   </div>
+   <div class="modal-footer">
+      <button type="button" class="btn btn-primary" (click)="addPaymentMethod()"
+         [disabled]="!paymentMethodForm.valid">Agregar método de pago</button>
+      <button type="button" class="btn btn-outline-secondary" (click)="modal.close()">Cancelar</button>
+   </div>
 </ng-template>

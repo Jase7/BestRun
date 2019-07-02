@@ -33,7 +33,7 @@ export class EventComponent implements OnInit {
 
   ngOnInit() {
 
-    this.title.setTitle("BestRun")
+    this.title.setTitle("Roll&Race")
     this.getTypesEvent();
     this.getEvents();
   }

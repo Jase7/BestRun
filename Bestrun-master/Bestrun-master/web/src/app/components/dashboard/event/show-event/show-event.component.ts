@@ -79,7 +79,7 @@ export class ShowEventComponent extends SportsmanDataComponent implements OnInit
       FB.ui({
          method: 'share',
          quote: `Unete al evento ${this.event.tittle}!`,
-         href: `${this.url}/${this.event.id}`,
+         href: `${this.url}/event/${this.event.id}`,
       }, function (response) { });
    } 
 }

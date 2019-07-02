@@ -55,12 +55,24 @@ exports.setPendFriendship = async function (user1, user2) {
             userTo: user2
         });
 
-        return await newFriendship.save();
+        var exists = false;
+
+        //Search if this exists, because that's mean we've a friendship request already
+        await Friends.find({
+            $and: [{ userSent: user2 }, { userTo: user1 }]
+        }, function(err, docs) {
+                if (docs.length && docs.length === 1) {
+                    exists = true;
+                }
+            }
+        );
+
+        if (!exists) return await newFriendship.save();
+        else throw Error("Ya tienes una solicitud de amistad pendiente con esta persona")
 
     }
     catch (e) {
-        throw Error('Error creating friendship');
-
+        throw Error(e.message);
     }
 };
 

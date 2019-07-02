@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FriendsService} from 'src/app/services/api/friends.service';
 import { UsersFriends } from 'src/app/models/users_friends.model';
+import { NotifyService } from 'src/app/services/notify.service';
+import { NotificationType } from 'angular2-notifications';
+import { faAddressCard } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
     selector: 'friend-requests',
@@ -11,7 +14,7 @@ export class FriendRequestsComponent implements OnInit{
 
     private _users : UsersFriends[] = [];
 
-    constructor(private _friendsService : FriendsService) {}
+    constructor(private _friendsService : FriendsService, public notify : NotifyService) {}
 
     ngOnInit(){
         
@@ -26,18 +29,25 @@ export class FriendRequestsComponent implements OnInit{
         })
     }
 
-    //TODO: usar notify 
-    acceptFriendship(id: string) {
-        this._friendsService.acceptFriendship(id).subscribe((data: any) => {
-            console.log(data)
-        })
+    //TODO: quitar ese bloque de la página 
+    acceptFriendship(id: string, card) {
+        this._friendsService.acceptFriendship(id).subscribe(
+           (data: any) => {
+              this.notify.show(NotificationType.Success, "Petición enviada", "Has aceptado la solicitud de amistad");
+              card.remove()
+            },
+            (error) => this.notify.show(NotificationType.Error, "Error", "Ha habido un error aceptado la solicitud de amistad")
+        )
     }
 
-    //TODO: usar notify
-    rejectFriendship(id: string) {
+    //TODO: quitar ese bloque de la página
+    rejectFriendship(id: string, card) {
 
-        this._friendsService.rejectFriendship(id).subscribe((data: any) => {
-            console.log(data)
-        })
+        this._friendsService.rejectFriendship(id).subscribe(
+           (data: any) => {
+              this.notify.show(NotificationType.Success, "Petición enviada", "Has rechazado la solicitud de amistad")
+              card.remove()
+            },
+            (error) => this.notify.show(NotificationType.Error, "Error", "Ha habido un error rechazando la solicitud de amistad"))
     }
 }

@@ -1,12 +1,12 @@
 <div class="mb-2 mt-12" *ngIf="_users[0]">
-    <div class="card" style="width: 16rem;" *ngFor="let user of _users">
+    <div class="card" style="width: 16rem;" *ngFor="let user of _users" #card>
         <img class="card-img-top" src="{{user.userSent.photo}}" alt="">
         <div class="card-body">
             <p class="card-text">{{user.userSent.name}} {{user.userSent.surnames}}</p>
         </div>
         <div class="card-footer">
-                <div class="btn btn-outline-success w-50" role="button" aria-pressed="true" (click)="acceptFriendship(user._id)">Aceptar</div>
-                <div class="btn btn-outline-danger w-50" role="button" aria-pressed="true" (click)="rejectFriendship(user._id)">Rechazar</div>
+                <div class="btn btn-outline-success w-50" role="button" aria-pressed="true" (click)="acceptFriendship(user._id, card)">Aceptar</div>
+                <div class="btn btn-outline-danger w-50" role="button" aria-pressed="true" (click)="rejectFriendship(user._id, card)">Rechazar</div>
         </div>
 
     </div>

@@ -81,6 +81,12 @@ const UserSchema = new mongoose.Schema({
     paymentMethods: [{ type: Schema.Types.ObjectId, ref: "PaymentMethod" }],
     zipcode: {
         type: String
+    },
+    dni: {
+        type: String
+    },
+    club: {
+        type: String
     }
 
 });

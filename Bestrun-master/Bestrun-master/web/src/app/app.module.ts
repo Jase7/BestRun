@@ -40,6 +40,7 @@ import { FriendsListComponent } from './components/dashboard/friends/friends-lis
 import { FooterComponent } from './components/dashboard/footer/footer.component';
 import { ErrorComponent } from './components/error/error.component';
 import localeEsAr from '@angular/common/locales/es-AR';
+import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 
 registerLocaleData(localeEsAr, 'es-ES')
 
@@ -110,6 +111,10 @@ export function provideConfig() {
     {
       provide: LOCALE_ID, 
       useValue: 'es-ES'
+    },
+    {
+       provide: LocationStrategy,
+       useClass:HashLocationStrategy
     },
     ProfileService
   ],

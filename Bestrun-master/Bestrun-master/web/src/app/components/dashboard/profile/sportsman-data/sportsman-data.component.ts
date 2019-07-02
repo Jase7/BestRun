@@ -21,6 +21,7 @@ export class SportsmanDataComponent extends ProfileComponent implements OnInit {
    private paymentMethods: PaymentMethod[] = []
    faPlus = faPlus;
    faTrash = faTrash;
+   sportsmanForm : FormGroup;
    paymentMethodForm: FormGroup;
    months = months
    years: number[] = []
@@ -29,6 +30,20 @@ export class SportsmanDataComponent extends ProfileComponent implements OnInit {
       super(title, modalService, profileService)
 
       this.user = this.profileService.user
+
+      this.sportsmanForm = this.formBuilder.group({
+         name: [, Validators.compose([Validators.minLength(3), Validators.maxLength(64), Validators.required])],
+         surnames: [, Validators.compose([Validators.minLength(3), Validators.maxLength(64), Validators.required])],
+         address: [, Validators.compose([Validators.minLength(3), Validators.maxLength(64), Validators.required])],
+         poblation: [, Validators.compose([Validators.minLength(3), Validators.maxLength(64), Validators.required])],
+         county: [, Validators.compose([Validators.minLength(3), Validators.maxLength(64), Validators.required])],
+         zipcode: [, Validators.compose([Validators.minLength(5), Validators.maxLength(5), Validators.pattern("^[0-9]*$"), Validators.required])],
+         shirtsize: [, Validators.compose([Validators.required])],
+         sex: [, Validators.compose([Validators.required])],
+         phone: [, Validators.compose([Validators.minLength(9), Validators.pattern("^[0-9]*$"), Validators.required])],
+         dni: [, Validators.compose([Validators.minLength(3), Validators.maxLength(64), Validators.required])], 
+         club: []
+      });
 
       this.paymentMethodForm = this.formBuilder.group({
          name: [, Validators.compose([Validators.minLength(3), Validators.maxLength(64), Validators.required])],

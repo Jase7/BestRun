@@ -49,11 +49,11 @@
             <share-button button="twitter" theme="circles-dark" [icon]="['fab', 'twitter-square']"
                [title]="'Unete conmigo al evento'+event.tittle+'!'"
                [description]="'Unete conmigo al evento '+event.tittle+'!'" [tags]="event.categories"
-               [url]="url+'/'+event.id"></share-button>
+               [url]="url+'/event/'+event.id"></share-button>
             <share-button button="whatsapp" theme="circles-dark" [icon]="['fab', 'whatsapp']"
                [title]="'Unete conmigo al evento'+event.tittle+'!'"
                [description]="'Unete conmigo al evento '+event.tittle+'!'" [tags]="event.categories"
-               [url]="url+'/'+event.id"></share-button>
+               [url]="url+'/event/'+event.id"></share-button>
             <div class="d-flex justify-content-end">
                <div class="btn btn-primary btn-lg btn-autosize" (click)="changeActiveTab('inscription')">
                   Reserva tu plaza

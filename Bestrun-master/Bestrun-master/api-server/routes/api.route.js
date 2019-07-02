@@ -16,7 +16,6 @@ var LogsController = require('../controllers/logs.controller');
 
 router.use('/auth', auth);
 router.use('/users', AuthController.authenticated);
-//router.use('/users', AuthorizationController.anyAdmin);
 router.use('/users', users);
 router.use('/admins', AuthController.authenticated);
 router.use('/admins', AuthorizationController.onlySuperadmin);
@@ -28,7 +27,7 @@ router.use('/type-events', typeEvents);
 router.use('/logs', AuthController.authenticated);
 router.use('/logs', AuthorizationController.onlySuperadmin);
 router.use('/logs', LogsController.getAllLogs);
-//router.use('/friends', AuthController.authenticated);
+router.use('/friends', AuthController.authenticated);
 router.use('/friends', friends);
 router.use('/profile', AuthController.authenticated);
 router.use('/profile', profile);
