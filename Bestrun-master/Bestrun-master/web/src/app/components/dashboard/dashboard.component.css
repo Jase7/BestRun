@@ -81,6 +81,10 @@ a:not([href]):hover {
    color: rgba(255, 255, 255, .6)
 }
 
+fa-icon {
+   font-size: 1.2em;
+}
+
 @media screen and (max-width: 768px) {
   .nav.navbar-nav.pull-right {
     float: none !important;

@@ -1,6 +1,7 @@
 <div class="mb-2 mt-12" *ngIf="_users">
    <div class="card" style="width: 16rem;" *ngFor="let user of _users" attr.data-uid="{{user._id}}">
-      <img class="card-img-top" src="{{user.photo}}" alt="">
+      <img *ngIf="user.photo" class="card-img-top" src="{{user.photo}}" alt="">
+      <img *ngIf="!user.photo" class="card-img-top" src="../../../../../assets/dfAvatar.jpg" alt="">
       <div class="card-body">
          <p class="card-text text-center">{{user.name}} {{user.surnames}}</p>
       </div>

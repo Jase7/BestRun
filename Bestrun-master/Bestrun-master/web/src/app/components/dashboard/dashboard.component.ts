@@ -3,9 +3,8 @@ import {SearchNavbarService} from "../../services/search-navbar.service";
 import {AuthenticationService} from "../../services/api/authentication.service";
 import {StorageService} from "../../services/storage.service";
 import {Router} from "@angular/router";
-import { Title } from '@angular/platform-browser';
 import { ProfileService } from 'src/app/services/api/profile.service';
-import { Sportsman } from 'src/app/models/sportsman.model';
+import { faHome } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,6 +16,7 @@ export class DashboardComponent implements OnInit {
   searchBoxResponsive=true;  
 
   private profileImage : string
+  public faHome = faHome;
 
   constructor(private authService:AuthenticationService, private searchNavbarService:SearchNavbarService, private storageService: StorageService, 
     private router: Router, private profileService : ProfileService) {}
