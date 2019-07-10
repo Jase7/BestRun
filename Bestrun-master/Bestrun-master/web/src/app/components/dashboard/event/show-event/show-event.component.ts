@@ -9,7 +9,7 @@ import { data } from '../../../../config/data';
 import { ICON_WHEATHER } from "../../../../models/icon-wheather/icon-wheather";
 import { Sportsman } from 'src/app/models/sportsman.model';
 import { Title } from '@angular/platform-browser';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faSun } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProfileService } from 'src/app/services/api/profile.service';
 import { SportsmanDataComponent } from '../../profile/sportsman-data/sportsman-data.component';
@@ -29,12 +29,14 @@ export class ShowEventComponent extends SportsmanDataComponent implements OnInit
    url: string = data.url;
    activeTab = 'info';
    icons = ICON_WHEATHER;
-   user: Sportsman = new Sportsman();   
+   user: Sportsman = new Sportsman();
    faPlus = faPlus;
-   inscription : string = ""
+   inscription: string = ""
+   currentIcon: string = ""
+   currentIconText : string = "";
 
    constructor(private eventsService: EventsService, private notifyService: NotifyService, private route: ActivatedRoute,
-      public share: ShareService, private titleService: Title, private modalService: NgbModal, public profileService: ProfileService, private formBld : FormBuilder) {
+      public share: ShareService, private titleService: Title, private modalService: NgbModal, public profileService: ProfileService, private formBld: FormBuilder) {
 
       super(formBld, titleService, modalService, profileService, notifyService)
 
@@ -45,18 +47,22 @@ export class ShowEventComponent extends SportsmanDataComponent implements OnInit
       this.route.params.subscribe(params => {
          this.id = params['id'];
       });
-      this.getEvent();
 
-   }
-
-   getEvent() {
-      this.eventsService.getEvent(this.id).subscribe(
+      this.getEvent().subscribe(
          (event) => {
             this.event = event;
+            this.currentIcon = this.icons.find(x => x.id == event.iconWeather).icon;
+            this.currentIconText = this.icons.find(x => x.id == event.iconWeather).text;
          },
          (error) => {
             this.notifyService.show(NotificationType.Error, "Error", "Error al obtener en el evento");
-         });
+         }
+      )
+   }
+
+
+   getEvent() {
+      return this.eventsService.getEvent(this.id);
    }
 
    changeActiveTab(tab, inscription) {
@@ -65,9 +71,9 @@ export class ShowEventComponent extends SportsmanDataComponent implements OnInit
 
       if (tab == 'inscriptionData') {
          this.inscription = inscription;
-         this.profileService.getMyData().subscribe((res : any ) => {              
-            this.user = this.profileService.user    
-        });
+         this.profileService.getMyData().subscribe((res: any) => {
+            this.user = this.profileService.user
+         });
       }
 
       if (tab == 'resume') {
@@ -81,5 +87,5 @@ export class ShowEventComponent extends SportsmanDataComponent implements OnInit
          quote: `Unete al evento ${this.event.tittle}!`,
          href: `${this.url}/event/${this.event.id}`,
       }, function (response) { });
-   } 
+   }
 }

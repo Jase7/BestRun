@@ -63,7 +63,14 @@ export class SportsmanDataComponent extends ProfileComponent implements OnInit {
 
    ngOnInit() {
       this.getPaymentMethods();
+      this.getMyData();
    }
+
+  getMyData() {
+      this.profileService.getMyData().subscribe((res : any ) => {              
+          this.user = this.profileService.user    
+      });
+  }
 
    openModal(content) {
       this.modal.open(content, { ariaLabelledBy: 'modal-basic-title', size: "lg" });

@@ -163,7 +163,7 @@ exports.getMyEvents = async function (req, res, next) {
         var term = req.query.search ? req.query.search : null;
         var type = req.query.type ? req.query.type : null;
 
-        var query = { user: { $eq: user._id } };
+        var query = { user: { $eq: user.id } };
 
         if (term) {
             query.$and = { tittleEvent: { $regex: term, $options: 'i' } };

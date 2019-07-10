@@ -28,9 +28,17 @@ const SportsmanCreateSchema = Joi.object().keys({
     name: Joi.string().min(4).max(40).required(),
     surnames: Joi.string().min(4).max(40).required(),
     email: Joi.string().email({minDomainAtoms: 2}).required(),
-    mobileNumber: Joi.string(),
+    mobileNumber: Joi.string().allow(''),
     password: Joi.string().min(8).required(),
-    active: Joi.boolean()
+    active: Joi.boolean(),
+    sex: Joi.string().allow(''),
+    role: Joi.string().allow(''),
+    shirtsize: Joi.string().allow(''),
+    club: Joi.string().allow(''),
+    createdAt: Joi.date().format('YYYY-MM-DDTHH:mm:ss.sssZ').allow(null),
+    address: Joi.string().allow(''),
+    zipcode: Joi.string().allow(''),
+    dni: Joi.string().allow('')
 });
 
 const SportsmanUpdateSchema = Joi.object().keys({
@@ -38,7 +46,7 @@ const SportsmanUpdateSchema = Joi.object().keys({
     name: Joi.string().min(4).max(40).required(),
     surnames: Joi.string().min(4).max(40).required(),
     email: Joi.string().email({minDomainAtoms: 2}).required(),
-    mobileNumber: Joi.string(),
+    mobileNumber: Joi.string().allow(''),
     password: Joi.string().min(8),
     active: Joi.boolean()
 });

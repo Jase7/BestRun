@@ -1,283 +1,298 @@
 <div class="row">
-  <div class="col-12">
-    <h2>Edita {{editEventForm.controls['tittle'].value}}</h2>
-    <form [formGroup]="editEventForm" (ngSubmit)="onSubmit()">
-      <div class="d-flex justify-content-end my-3">
-        <div class="custom-control custom-switch">
-          <input type="checkbox" class="custom-control-input" id="customSwitch1" formControlName="active">
-          <label class="custom-control-label" for="customSwitch1">{{editEventForm.controls['active'].value?'Habilitado':'Deshabilitado'}}</label>
-        </div>
-      </div>
-      <div class="form-group row">
-        <div class="col-lg-4 col-md-4 mb-2">
-          <label for="InputTittle">Título (Obligatorio)</label>
-          <input type="text" class="form-control" id="InputTittle" placeholder="Introduce un título"
-                 formControlName="tittle"
-                 [class.is-invalid]="!editEventForm.controls['tittle'].valid && (!editEventForm.controls['tittle'].pristine)"
-                 [class.is-valid]="editEventForm.controls['tittle'].valid && (!editEventForm.controls['tittle'].pristine)">
-        </div>
-        <div class="col-lg-3 col-md-3 mb-2">
-          <label for="InputDate">Fecha</label>
-          <div class="input-group">
-            <input class="form-control" id="InputDate"
-                   formControlName="celebrationDate" ngbDatepicker #celebrationDate="ngbDatepicker" readonly>
-            <div class="input-group-append">
-              <button class="btn btn-outline-secondary calendar" (click)="celebrationDate.toggle()"
-                      type="button"></button>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-3 mb-2">
-          <label for="InputHour">Hora</label>
-          <ngb-timepicker id="InputHour" formControlName="celebrationHour"></ngb-timepicker>
-        </div>
-        <div class="col-lg-2 col-md-2 mb-2">
-          <div class="custom-control custom-checkbox" style="margin-top: 38px!important;">
-            <input type="checkbox" class="custom-control-input" id="InputSponsored" formControlName="sponsored">
-            <label class="custom-control-label" for="InputSponsored">{{editEventForm.controls['sponsored'].value?'Patrocinado':'No patrocinado'}}</label>
-          </div>
-        </div>
-      </div>
-      <div class="form-group row">
-        <div class="col-lg-2 col-md-2 mb-2">
-          <label for="InputCity">Ciudad</label>
-          <input type="text" class="form-control" id="InputCity" placeholder="Introduce la ciudad"
-                 formControlName="city">
-        </div>
-        <div class="col-lg-4 col-md-4 mb-2">
-          <label for="InputLocation">Localización Detallada</label>
-          <input type="text" class="form-control" id="InputLocation" placeholder="Introduce la localización"
-                 formControlName="location">
-        </div>
-        <div class="col-lg-3 col-md-3 mb-2">
-          <label for="InputType">Tipo de Evento</label>
-          <div class="input-group">
-            <select class="custom-select" id="InputType" aria-label="Selecciona un tipo" formControlName="typeEvent">
-              <option *ngFor="let te of typeEvents" [ngValue]="te.id">{{te.name}}</option>
-            </select>
-            <div class="input-group-append">
-              <button class="btn btn-outline-secondary" type="button" (click)="openModal(addTypeEventModal)">Añadir
-                Tipo
-              </button>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-3 mb-2">
-          <label for="InputDistance">Distancia</label>
-          <input type="text" class="form-control" id="InputDistance" placeholder="Introduce la distancia"
-                 formControlName="distance">
-        </div>
-
-      </div>
-      <div class="form-group row">
-        <div class="col-lg-3 col-md-3 mb-2">
-          <label for="InputDateClose">Cierre de incripciones</label>
-          <div class="input-group">
-            <input class="form-control" id="InputDateClose"
-                   formControlName="closeInscriptions" ngbDatepicker #closeInscriptions="ngbDatepicker" readonly>
-            <div class="input-group-append">
-              <button class="btn btn-outline-secondary calendar" (click)="closeInscriptions.toggle()"
-                      type="button"></button>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-3 mb-2">
-          <label for="InputHourClose">Hora</label>
-          <ngb-timepicker id="InputHourClose" formControlName="closeInscriptionsHour"></ngb-timepicker>
-        </div>
-        <div class="col-lg-3 col-md-3 mb-2">
-          <label for="InputLimit">Limite de inscripciones</label>
-          <input type="number" class="form-control" id="InputLimit" formControlName="limitInscriptions">
-        </div>
-        <div class="col-lg-9 col-md-9 mb-2">
-          <label for="InputCategories">Categorías</label>
-          <input type="text" class="form-control" id="InputCategories" placeholder="Introduce las categorías"
-                 formControlName="categories">
-        </div>
-        <div class="col-lg-12 col-md-12 my-3">
-          <textarea type="tel" class="form-control" id="InputDescription" rows="8"
-                    placeholder="Introduce la descripción"
-                    formControlName="description"></textarea>
-        </div>
-      </div>
-      <div class="form-group row">
-        <div class="col-lg-3 col-md-3 mb-2">
-          <label for="InputTemperature">Temperatura</label>
-          <input type="number" class="form-control" id="InputTemperature" placeholder="0"
-                 formControlName="temperature">
-        </div>
-        <div class="col-lg-3 col-md-3 mb-2">
-          <label for="InputTemperatureMax">Temperatura Máx.</label>
-          <input type="number" class="form-control" id="InputTemperatureMax" placeholder="0"
-                 formControlName="temperatureMax">
-        </div>
-        <div class="col-lg-3 col-md-3 mb-2">
-          <label for="InputTemperatureMin">Temperatura Mín.</label>
-          <input type="number" class="form-control" id="InputTemperatureMin" placeholder="0"
-                 formControlName="temperatureMin">
-        </div>
-        <div class="col-lg-3 col-md-3 mb-2">
-          <label for="InputChanceRain">Probabilidad lluvia</label>
-          <input type="number" class="form-control" id="InputChanceRain" placeholder="0"
-                 formControlName="chanceRain">
-        </div>
-      </div>
-      <div class="form-group row">
-        <div class="col-lg-6 col-md-6 mb-2">
-          <label for="InputOverallStatus">Estado general</label>
-          <input type="text" class="form-control" id="InputOverallStatus" placeholder="Introduce el estado"
-                 formControlName="overallStatus">
-        </div>
-        <div class="col-lg-3 col-md-3 mb-2">
-          <label for="InputIcon">Icono del tiempo</label>
-          <div class="btn-group" id="InputIcon" style="display: block">
-            <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
-              <i [class.icon-hidden]="iconWeather!==0">&#xf185;</i>
-              <i [class.icon-hidden]="iconWeather!==1">&#xf186;</i>
-              <i [class.icon-hidden]="iconWeather!==2">&#xf6c4;</i>
-              <i [class.icon-hidden]="iconWeather!==3">&#xf6c3;</i>
-              <i [class.icon-hidden]="iconWeather!==4">&#xf743;</i>
-              <i [class.icon-hidden]="iconWeather!==5">&#xf73c;</i>
-              <i [class.icon-hidden]="iconWeather!==6">&#xf73d;</i>
-              <i [class.icon-hidden]="iconWeather!==7">&#xf2dc;</i>
-              <span *ngIf="!iconWeather && iconWeather!==0">Selecciona <span class="caret"></span></span></a>
-            <ul class="dropdown-menu">
-              <li class="dropdown-item px-2" *ngFor="let i of icons"><a (click)="setIconWeather(i.id)">{{i.text}} <i
-                class="fas fa-lg {{i.icon}}"></i></a></li>
-            </ul>
-          </div>
-        </div>
-        <div class="col-lg-3 col-md-3 mb-2">
-          <label for="InputIcon">Mostrar el tiempo</label>
-          <div class="custom-control custom-switch">
-            <input type="checkbox" class="custom-control-input" id="customSwitch5" formControlName="showWeather">
-            <label class="custom-control-label" for="customSwitch5">{{editEventForm.controls['showWeather'].value?'Visible':'No visible'}}</label>
-          </div>
-        </div>
-      </div>
-      <div class="form-group row mt-5 mb-2">
-        <div class="col-lg-12 col-md-12">
-          <h5>Tipos de inscripciones</h5>
-          <div class="line"></div>
-        </div>
-      </div>
-      <div class="form-group row">
-        <div class="col-lg-12 col-md-12 table-responsive mt-2">
-          <table class="table table-bordered">
-            <thead>
-            <tr>
-              <th scope="col">Id</th>
-              <th scope="col">Título</th>
-              <th scope="col">Descripción</th>
-              <th scope="col">Iva</th>
-              <th scope="col">Precio</th>
-              <th scope="col">Estado</th>
-              <th scope="col" colspan="2">Acciones</th>
-            </thead>
-            <tbody>
-            <tr *ngFor="let inscription of event.typeInscription;let i= index;">
-              <td>{{inscription._id?inscription._id:"Nuevo"}}</td>
-              <td>{{inscription.tittle}}</td>
-              <td><a *ngIf="inscription.description" placement="top" container="body" ngbTooltip="{{inscription.description}}">{{inscription.description.substring(0,20)}} ...</a>
-              </td>
-              <td>{{inscription.taxPercentage}}</td>
-              <td>{{inscription.price}}</td>
-              <td>
-                <div class="custom-control custom-switch">
-                  <input type="checkbox" class="custom-control-input" id="{{'customSwitch2' + i}}" (change)="changeState(i)"
-                         [checked]="inscription.active">
-                  <label class="custom-control-label"
-                         for="{{'customSwitch2' + i}}">{{inscription.active?'Activo':'Inactivo'}}</label>
-                </div>
-              </td>
-              <td style="cursor: pointer" (click)="editInscription(i)">Editar</td>
-              <td style="cursor: pointer" (click)="removeInscription(i)">Eliminar</td>
-            </tr>
-            <tr *ngIf="event.typeInscription.length===0">
-              <td colspan="5">No hay tipos de inscripción</td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div class="form-group row mb-0">
-        <div class="col-lg-12 col-md-12 mb-0">
-          <h6>{{updatedInscription?"Editar inscripción":"Añadir inscripción"}}</h6>
-        </div>
-      </div>
-      <form [formGroup]="newInscriptionForm">
-        <div class="form-group row mb-2">
-          <div class="col-lg-4 col-md-4">
-            <label for="InputInscriptionTittle">Título (obligatorio)</label>
-            <input type="text" class="form-control" id="InputInscriptionTittle" formControlName="tittle">
-          </div>
-          <div class="col-lg-2 col-md-2">
-            <label for="InputTax">IVA</label>
-            <input type="number" class="form-control" id="InputTax" placeholder="0" formControlName="taxPercentage">
-          </div>
-          <div class="col-lg-2 col-md-2">
-            <label for="InputPrice">Precio total (obligatorio)</label>
-            <input type="number" class="form-control" id="InputPrice" placeholder="0" formControlName="price">
-          </div>
-          <div class="col-lg-4 col-md-4">
-            <label for="customSwitch3">Estado</label>
+   <div class="col-12">
+      <h2>Edita {{editEventForm.controls['tittle'].value}}</h2>
+      <form [formGroup]="editEventForm" (ngSubmit)="onSubmit()">
+         <div class="d-flex justify-content-end my-3">
             <div class="custom-control custom-switch">
-              <input type="checkbox" class="custom-control-input" id="customSwitch3" formControlName="active">
-              <label class="custom-control-label" for="customSwitch3">{{newInscriptionForm.controls['active'].value?'Activo':'Inactivo'}}</label>
+               <input type="checkbox" class="custom-control-input" id="customSwitch1" formControlName="active">
+               <label class="custom-control-label"
+                  for="customSwitch1">{{editEventForm.controls['active'].value?'Habilitado':'Deshabilitado'}}</label>
             </div>
-          </div>
-        </div>
-        <div class="form-group row mb-5">
-          <div class="col-lg-10 col-md-10">
-            <label for="InputDescription2">Descripción</label>
-            <input type="text" class="form-control" id="InputDescription2" formControlName="description">
-          </div>
-          <div class="col-lg-2 col-md-2">
-            <button type="submit" class="btn btn-warning btn-sm" style="margin-top: 32px!important;"
-                    [disabled]="!newInscriptionForm.valid" (click)="manageInscription()">{{updatedInscription?"Editar inscripción":"Añadir inscripción"}}
-            </button>
-            <button type="submit" class="btn btn-warning btn-sm ml-2" style="margin-top: 32px!important;"
-                    *ngIf="updatedInscription" (click)="cancelEdit()">Cancelar
-            </button>
-          </div>
-        </div>
+         </div>
+         <div class="form-group row">
+            <div class="col-lg-4 col-md-4 mb-2">
+               <label for="InputTittle">Título (Obligatorio)</label>
+               <input type="text" class="form-control" id="InputTittle" placeholder="Introduce un título"
+                  formControlName="tittle"
+                  [class.is-invalid]="!editEventForm.controls['tittle'].valid && (!editEventForm.controls['tittle'].pristine)"
+                  [class.is-valid]="editEventForm.controls['tittle'].valid && (!editEventForm.controls['tittle'].pristine)">
+            </div>
+            <div class="col-lg-3 col-md-3 mb-2">
+               <label for="InputDate">Fecha</label>
+               <div class="input-group">
+                  <input class="form-control" id="InputDate" formControlName="celebrationDate" ngbDatepicker
+                     #celebrationDate="ngbDatepicker" readonly>
+                  <div class="input-group-append">
+                     <button class="btn btn-outline-secondary calendar" (click)="celebrationDate.toggle()"
+                        type="button"></button>
+                  </div>
+               </div>
+            </div>
+            <div class="col-lg-3 col-md-3 mb-2">
+               <label for="InputHour">Hora</label>
+               <ngb-timepicker id="InputHour" formControlName="celebrationHour"></ngb-timepicker>
+            </div>
+            <div class="col-lg-2 col-md-2 mb-2">
+               <div class="custom-control custom-checkbox" style="margin-top: 38px!important;">
+                  <input type="checkbox" class="custom-control-input" id="InputSponsored" formControlName="sponsored">
+                  <label class="custom-control-label"
+                     for="InputSponsored">{{editEventForm.controls['sponsored'].value?'Patrocinado':'No patrocinado'}}</label>
+               </div>
+            </div>
+         </div>
+         <div class="form-group row">
+            <div class="col-lg-2 col-md-2 mb-2">
+               <label for="InputCity">Ciudad</label>
+               <input type="text" class="form-control" id="InputCity" placeholder="Introduce la ciudad"
+                  formControlName="city">
+            </div>
+            <div class="col-lg-4 col-md-4 mb-2">
+               <label for="InputLocation">Localización Detallada</label>
+               <input type="text" class="form-control" id="InputLocation" placeholder="Introduce la localización"
+                  formControlName="location">
+            </div>
+            <div class="col-lg-3 col-md-3 mb-2">
+               <label for="InputType">Tipo de Evento</label>
+               <div class="input-group">
+                  <select class="custom-select" id="InputType" aria-label="Selecciona un tipo"
+                     formControlName="typeEvent">
+                     <option *ngFor="let te of typeEvents" [ngValue]="te.id">{{te.name}}</option>
+                  </select>
+                  <div class="input-group-append">
+                     <button class="btn btn-outline-secondary" type="button"
+                        (click)="openModal(addTypeEventModal)">Añadir
+                        Tipo
+                     </button>
+                  </div>
+               </div>
+            </div>
+            <div class="col-lg-3 col-md-3 mb-2">
+               <label for="InputDistance">Distancia</label>
+               <input type="text" class="form-control" id="InputDistance" placeholder="Introduce la distancia"
+                  formControlName="distance">
+            </div>
+
+         </div>
+         <div class="form-group row">
+            <div class="col-lg-3 col-md-3 mb-2">
+               <label for="InputDateClose">Cierre de incripciones</label>
+               <div class="input-group">
+                  <input class="form-control" id="InputDateClose" formControlName="closeInscriptions" ngbDatepicker
+                     #closeInscriptions="ngbDatepicker" readonly>
+                  <div class="input-group-append">
+                     <button class="btn btn-outline-secondary calendar" (click)="closeInscriptions.toggle()"
+                        type="button"></button>
+                  </div>
+               </div>
+            </div>
+            <div class="col-lg-3 col-md-3 mb-2">
+               <label for="InputHourClose">Hora</label>
+               <ngb-timepicker id="InputHourClose" formControlName="closeInscriptionsHour"></ngb-timepicker>
+            </div>
+            <div class="col-lg-3 col-md-3 mb-2">
+               <label for="InputLimit">Limite de inscripciones</label>
+               <input type="number" class="form-control" id="InputLimit" formControlName="limitInscriptions">
+            </div>
+            <div class="col-lg-9 col-md-9 mb-2">
+               <label for="InputCategories">Categorías</label>
+               <input type="text" class="form-control" id="InputCategories" placeholder="Introduce las categorías"
+                  formControlName="categories">
+            </div>
+            <div class="col-lg-12 col-md-12 my-3">
+               <textarea type="tel" class="form-control" id="InputDescription" rows="8"
+                  placeholder="Introduce la descripción" formControlName="description"></textarea>
+            </div>
+         </div>
+         <div class="form-group row">
+            <div class="col-lg-3 col-md-3 mb-2">
+               <label for="InputTemperature">Temperatura</label>
+               <input type="number" class="form-control" id="InputTemperature" placeholder="0"
+                  formControlName="temperature">
+            </div>
+            <div class="col-lg-3 col-md-3 mb-2">
+               <label for="InputTemperatureMax">Temperatura Máx.</label>
+               <input type="number" class="form-control" id="InputTemperatureMax" placeholder="0"
+                  formControlName="temperatureMax">
+            </div>
+            <div class="col-lg-3 col-md-3 mb-2">
+               <label for="InputTemperatureMin">Temperatura Mín.</label>
+               <input type="number" class="form-control" id="InputTemperatureMin" placeholder="0"
+                  formControlName="temperatureMin">
+            </div>
+            <div class="col-lg-3 col-md-3 mb-2">
+               <label for="InputChanceRain">Probabilidad lluvia</label>
+               <div class="input-group">
+                  <input type="number" class="form-control" id="InputChanceRain" placeholder="0"
+                     formControlName="chanceRain">
+                  <div class="input-group-append">
+                     <span class="input-group-text form-control">%</span>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="form-group row">
+            <div class="col-lg-6 col-md-6 mb-2">
+               <label for="InputOverallStatus">Estado general</label>
+               <input type="text" class="form-control" id="InputOverallStatus" placeholder="Introduce el estado"
+                  formControlName="overallStatus">
+            </div>
+            <div class="col-lg-3 col-md-3 mb-2">
+               <label for="InputIcon">Icono del tiempo</label>
+               <div class="btn-group" id="InputIcon" style="display: block">
+                  <a class="btn btn-primary dropdown-toggle" data-toggle="dropdown" href="#">
+                     <i [class.icon-hidden]="iconWeather!==0">&#xf185;</i>
+                     <i [class.icon-hidden]="iconWeather!==1">&#xf186;</i>
+                     <i [class.icon-hidden]="iconWeather!==2">&#xf6c4;</i>
+                     <i [class.icon-hidden]="iconWeather!==3">&#xf6c3;</i>
+                     <i [class.icon-hidden]="iconWeather!==4">&#xf743;</i>
+                     <i [class.icon-hidden]="iconWeather!==5">&#xf73c;</i>
+                     <i [class.icon-hidden]="iconWeather!==6">&#xf73d;</i>
+                     <i [class.icon-hidden]="iconWeather!==7">&#xf2dc;</i>
+                     <span *ngIf="!iconWeather && iconWeather!==0">Selecciona <span class="caret"></span></span></a>
+                  <ul class="dropdown-menu">
+                     <li class="dropdown-item px-2" *ngFor="let i of icons"><a (click)="setIconWeather(i.id)">{{i.text}}
+                           <i class="fas fa-lg {{i.icon}}"></i></a></li>
+                  </ul>
+               </div>
+            </div>
+            <div class="col-lg-3 col-md-3 mb-2">
+               <label for="InputIcon">Mostrar el tiempo</label>
+               <div class="custom-control custom-switch">
+                  <input type="checkbox" class="custom-control-input" id="customSwitch5" formControlName="showWeather">
+                  <label class="custom-control-label"
+                     for="customSwitch5">{{editEventForm.controls['showWeather'].value?'Visible':'No visible'}}</label>
+               </div>
+            </div>
+         </div>
+         <div class="form-group row mt-5 mb-2">
+            <div class="col-lg-12 col-md-12">
+               <h5>Tipos de inscripciones</h5>
+               <div class="line"></div>
+            </div>
+         </div>
+         <div class="form-group row">
+            <div class="col-lg-12 col-md-12 table-responsive mt-2">
+               <table class="table table-bordered">
+                  <thead>
+                     <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Título</th>
+                        <th scope="col">Descripción</th>
+                        <th scope="col">Iva</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col" colspan="2">Acciones</th>
+                  </thead>
+                  <tbody>
+                     <tr *ngFor="let inscription of event.typeInscription;let i= index;">
+                        <td>{{inscription._id?inscription._id:"Nuevo"}}</td>
+                        <td>{{inscription.tittle}}</td>
+                        <td><a *ngIf="inscription.description" placement="top" container="body"
+                              ngbTooltip="{{inscription.description}}">{{inscription.description.substring(0,20)}}
+                              ...</a>
+                        </td>
+                        <td>{{inscription.taxPercentage}}</td>
+                        <td>{{inscription.price}}</td>
+                        <td>
+                           <div class="custom-control custom-switch">
+                              <input type="checkbox" class="custom-control-input" id="{{'customSwitch2' + i}}"
+                                 (change)="changeState(i)" [checked]="inscription.active">
+                              <label class="custom-control-label"
+                                 for="{{'customSwitch2' + i}}">{{inscription.active?'Activo':'Inactivo'}}</label>
+                           </div>
+                        </td>
+                        <td style="cursor: pointer" (click)="editInscription(i)">Editar</td>
+                        <td style="cursor: pointer" (click)="removeInscription(i)">Eliminar</td>
+                     </tr>
+                     <tr *ngIf="event.typeInscription.length===0">
+                        <td colspan="5">No hay tipos de inscripción</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+         <div class="form-group row mb-0">
+            <div class="col-lg-12 col-md-12 mb-0">
+               <h6>{{updatedInscription?"Editar inscripción":"Añadir inscripción"}}</h6>
+            </div>
+         </div>
+         <form [formGroup]="newInscriptionForm">
+            <div class="form-group row mb-2">
+               <div class="col-lg-4 col-md-4">
+                  <label for="InputInscriptionTittle">Título (obligatorio)</label>
+                  <input type="text" class="form-control" id="InputInscriptionTittle" formControlName="tittle">
+               </div>
+               <div class="col-lg-2 col-md-2">
+                  <label for="InputTax">IVA</label>
+                  <input type="number" class="form-control" id="InputTax" placeholder="0"
+                     formControlName="taxPercentage">
+               </div>
+               <div class="col-lg-2 col-md-2">
+                  <label for="InputPrice">Precio total (obligatorio)</label>
+                  <input type="number" class="form-control" id="InputPrice" placeholder="0" formControlName="price">
+               </div>
+               <div class="col-lg-4 col-md-4">
+                  <label for="customSwitch3">Estado</label>
+                  <div class="custom-control custom-switch">
+                     <input type="checkbox" class="custom-control-input" id="customSwitch3" formControlName="active">
+                     <label class="custom-control-label"
+                        for="customSwitch3">{{newInscriptionForm.controls['active'].value?'Activo':'Inactivo'}}</label>
+                  </div>
+               </div>
+            </div>
+            <div class="form-group row mb-5">
+               <div class="col-lg-10 col-md-10">
+                  <label for="InputDescription2">Descripción</label>
+                  <input type="text" class="form-control" id="InputDescription2" formControlName="description">
+               </div>
+               <div class="col-lg-2 col-md-2">
+                  <button type="submit" class="btn btn-warning btn-sm" style="margin-top: 32px!important;"
+                     [disabled]="!newInscriptionForm.valid"
+                     (click)="manageInscription()">{{updatedInscription?"Editar inscripción":"Añadir inscripción"}}
+                  </button>
+                  <button type="submit" class="btn btn-warning btn-sm ml-2" style="margin-top: 32px!important;"
+                     *ngIf="updatedInscription" (click)="cancelEdit()">Cancelar
+                  </button>
+               </div>
+            </div>
+         </form>
+         <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-warning btn-lg" [disabled]="!editEventForm.valid">Editar
+               Evento</button>
+         </div>
       </form>
-      <div class="d-flex justify-content-end">
-        <button type="submit" class="btn btn-warning btn-lg" [disabled]="!editEventForm.valid">Editar Evento</button>
-      </div>
-    </form>
-  </div>
+   </div>
 
-  <ng-template #addTypeEventModal let-modal>
-    <div class="modal-header">
-      <h4 class="modal-title">Tipos de eventos</h4>
-      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
+   <ng-template #addTypeEventModal let-modal>
+      <div class="modal-header">
+         <h4 class="modal-title">Tipos de eventos</h4>
+         <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+         </button>
+      </div>
+      <div class="modal-body">
 
-      <h5>Eventos</h5>
-      <div class="table-responsive" style="height:250px;overflow-y: scroll">
-        <table class="table table-sm">
-          <tbody>
-          <tr *ngFor="let te of typeEvents">
-            <td>{{te.name}}</td>
-            <td><a (click)="removeTypeEvent(te.id)"><i class="fas fa-trash"></i></a></td>
-          </tr>
-          </tbody>
-        </table>
+         <h5>Eventos</h5>
+         <div class="table-responsive" style="height:250px;overflow-y: scroll">
+            <table class="table table-sm">
+               <tbody>
+                  <tr *ngFor="let te of typeEvents">
+                     <td>{{te.name}}</td>
+                     <td><a (click)="removeTypeEvent(te.id)"><i class="fas fa-trash"></i></a></td>
+                  </tr>
+               </tbody>
+            </table>
+         </div>
+         <div class="mt-5">
+            <label for="InputNameType">Nuevo tipo evento</label>
+            <input type="text" class="form-control" id="InputNameType" placeholder="Introduce un nombre" #nameType>
+         </div>
       </div>
-      <div class="mt-5">
-        <label for="InputNameType">Nuevo tipo evento</label>
-        <input type="text" class="form-control" id="InputNameType" placeholder="Introduce un nombre" #nameType>
+      <div class="modal-footer">
+         <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Cancelar</button>
+         <button type="button" class="btn btn-primary" (click)="addTypeEvent(nameType.value);modal.close()"
+            [disabled]="nameType.value===''">Añadir
+         </button>
       </div>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Cancelar</button>
-      <button type="button" class="btn btn-primary" (click)="addTypeEvent(nameType.value);modal.close()"
-              [disabled]="nameType.value===''">Añadir
-      </button>
-    </div>
-  </ng-template>
+   </ng-template>
 </div>

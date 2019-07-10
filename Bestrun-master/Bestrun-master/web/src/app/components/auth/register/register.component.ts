@@ -5,6 +5,7 @@ import {StorageService} from "../../../services/storage.service";
 import {Router} from "@angular/router";
 import {NotificationType} from "angular2-notifications";
 import {AuthenticationService} from "../../../services/api/authentication.service";
+import { Sportsman } from 'src/app/models/sportsman.model';
 
 @Component({
   selector: 'app-register',
@@ -30,8 +31,15 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
-    console.warn(this.signUpForm.value);
-    this.authService.register(this.signUpForm.value)
+
+   var sportsmanCreate : Sportsman = new Sportsman();
+   sportsmanCreate.active = true;
+   sportsmanCreate.name = this.signUpForm.value.name;
+   sportsmanCreate.surnames = this.signUpForm.value.surnames;
+   sportsmanCreate.email = this.signUpForm.value.email;
+   sportsmanCreate.password = this.signUpForm.value.password;
+
+    this.authService.register(sportsmanCreate)
       .subscribe((data: any) => {
           this.router.navigate(['']);
         },
