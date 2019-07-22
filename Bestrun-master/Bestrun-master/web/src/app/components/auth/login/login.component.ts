@@ -13,6 +13,7 @@ import {AuthService, FacebookLoginProvider, GoogleLoginProvider} from "angularx-
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+
   signInForm: FormGroup;
   page: any = "";
 

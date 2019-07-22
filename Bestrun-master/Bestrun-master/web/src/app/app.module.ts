@@ -41,6 +41,9 @@ import { FooterComponent } from './components/dashboard/footer/footer.component'
 import { ErrorComponent } from './components/error/error.component';
 import localeEsAr from '@angular/common/locales/es-AR';
 import {LocationStrategy, HashLocationStrategy} from '@angular/common';
+import { TerminosComponent } from './components/dashboard/terminos/terminos.component';
+import { ContactoComponent } from './components/dashboard/contacto/contacto.component';
+import { QuienesSomosComponent } from './components/dashboard/quienes-somos/quienes-somos.component';
 
 registerLocaleData(localeEsAr, 'es-ES')
 
@@ -74,7 +77,13 @@ export function provideConfig() {
     AddFriendComponent,
     FriendRequestsComponent,
     TimeComparatorComponent, 
-    ProfileComponent, FriendsListComponent, FooterComponent, ErrorComponent,
+    ProfileComponent, 
+    FriendsListComponent,
+    FooterComponent, 
+    ErrorComponent, 
+    TerminosComponent, 
+    ContactoComponent, 
+    QuienesSomosComponent,
   ],
   imports: [
     CommonModule,

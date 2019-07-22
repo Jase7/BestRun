@@ -1,0 +1,29 @@
+.condiciones-text {
+   text-align: center;
+}
+
+.condiciones ol {
+   counter-reset: item;
+}
+
+.condiciones ol > li {
+   display: block;
+   position: relative;
+}
+
+.condiciones ol > li:before {
+   counter-increment: item;
+   content: counters(item, ".")".";
+   position: absolute;
+   margin-right: 100%;
+   right: 10px; /* space between number and text */
+}
+
+.condiciones .no-ordered li {
+   list-style-type: none;
+   counter-increment: step-counter;
+ }
+ 
+.condiciones .no-ordered li:before {
+   content: counter(step-counter, lower-alpha);
+ }

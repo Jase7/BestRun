@@ -8,4 +8,5 @@ router.get('/pending/:userid', friendsController.getPendRequests);
 router.post('/', friendsController.sendFriendship);
 router.put('/', friendsController.acceptFriendship);
 router.delete('/:id', friendsController.rejectFriendship);
+router.delete('/friend/:myID/:fID', friendsController.deleteFriendship);
 module.exports = router;

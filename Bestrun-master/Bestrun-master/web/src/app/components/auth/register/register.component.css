@@ -60,4 +60,8 @@ a:active, a:link{
   .separator-horizontal{
     display: block;
   }
+
+  .btn-register {
+     width: 100%;
+  }
 }

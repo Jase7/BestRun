@@ -125,3 +125,27 @@ exports.rejectFriendship = async function (req, res, next) {
         return res.status(httpStatus.BAD_REQUEST).json({ status: httpStatus.BAD_REQUEST, message: e.message });
     }
 };
+
+exports.deleteFriendship = async function (req, res, next) {
+
+    try {
+
+        var myID = req.params.myID ? req.params.myID : null;
+        var fID = req.params.fID ? req.params.fID : null;
+
+        if (!myID || !fID) {
+            throw Error("A parameter is missing");
+        }
+        else {
+            myID = new ObjectId(myID);
+            fID = new ObjectId(fID);
+            var data = await friendsService.deleteFriendship(myID, fID);
+
+            return res.status(httpStatus.OK).json({ data });
+        }
+    }
+
+    catch (e) {
+        return res.status(httpStatus.BAD_REQUEST).json({ status: httpStatus.BAD_REQUEST, message: e.message });
+    }
+}

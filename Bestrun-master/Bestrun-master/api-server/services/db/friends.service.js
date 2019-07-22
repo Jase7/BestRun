@@ -99,3 +99,13 @@ exports.rejectFriendship = async function (id) {
         throw Error(e.message);
     }
 };
+
+exports.deleteFriendship = async function (myID, fID) {
+
+    try {
+        return Friends.findOneAndDelete({ $or: [{ userSent: myID, userTo: fID }, { userSent: fID, userTo: myID }] });
+    }
+    catch (e) {
+        throw Error(e.message);
+    }
+}

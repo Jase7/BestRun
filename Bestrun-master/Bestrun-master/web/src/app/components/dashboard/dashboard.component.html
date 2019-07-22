@@ -15,7 +15,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarResponsive">
-      <ul class="navbar-nav ml-auto justify-content-end align-items-center">  
+      <ul class="navbar-nav ml-auto align-items-center">  
          <li class="nav-item col-sm-2">
             <a class="nav-link" routerLink="/">
                <fa-icon [icon]="faHome"></fa-icon>               
@@ -46,12 +46,9 @@
           </div>
         </li>
         <li class="nav-item user-profile-responsive">
-          <a class="nav-link">Perfil
+          <a class="nav-link" routerLink="/profile/sportsman-data">Perfil
           </a>
-        </li>
-        <li class="nav-item user-profile-responsive">
-          <a class="nav-link">Configuración</a>
-        </li>
+         </li>
         <li class="nav-item user-profile-responsive">
           <a class="nav-link" (click)="signOut()">Salir</a>
         </li>
@@ -61,5 +58,5 @@
 </nav>
 
 <div class="container">
- <router-outlet></router-outlet>
+   <router-outlet></router-outlet>
 </div>

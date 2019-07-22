@@ -2,7 +2,7 @@
 
     <!--PHOTO-->
     <div class="row form-group justify-content-center mt-5">
-            <div class="hovereffect" (click)="file.click()">
+            <div class="hovereffect col-10 col-lg-3" (click)="file.click()">
                 <img *ngIf="user.photo" class="img-responsive" src="{{user.photo}}" id="photo" alt="Click para cambiar la imagen" #InputPhoto>
                 <img *ngIf="!user.photo" class="img-responsive" src="https://mdbootstrap.com/img/Photos/Avatars/avatar.jpg" id="photo" alt="Click para cambiar la imagen" #InputPhoto>
                     <div class="overlay">
@@ -10,6 +10,8 @@
                         <input type="file" (change)="readImage($event);" hidden #file>
                     </div>
             </div>
+
+            <div class="small col-11 img-small mt-3">¡Pincha o toca en la imagen para seleccionar la imagen que quieres cambiar!</div>
         </div>
 
     <div class="row justify-content-end mt-3 mb-5">        

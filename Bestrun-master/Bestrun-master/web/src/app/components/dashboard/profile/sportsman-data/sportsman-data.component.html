@@ -9,7 +9,7 @@
             [class.is-valid]="sportsmanForm.controls['name'].valid && (!sportsmanForm.controls['name'].pristine)">
          </div>
 
-         <label for="surnames" class="col-sm-2">Apellidos (*)</label>
+         <label for="surnames" class="col-sm-2 mt-5">Apellidos (*)</label>
          <div class="col-sm-4">
             <input type="text" formControlName="surnames" id="surnames" class="form-control" [(ngModel)]="user.surnames" value="{{user.surnames}}"
             [class.is-invalid]="!sportsmanForm.controls['surnames'].valid && (!sportsmanForm.controls['surnames'].pristine)"
@@ -36,13 +36,13 @@
                [class.is-invalid]="!sportsmanForm.controls['poblation'].valid && (!sportsmanForm.controls['poblation'].pristine)"
                [class.is-valid]="sportsmanForm.controls['poblation'].valid && (!sportsmanForm.controls['poblation'].pristine)">
          </div>
-         <label for="county" class="col-sm-2 col-form-label">Provincia (*)</label>
+         <label for="county" class="col-sm-2 col-form-label mt-5">Provincia (*)</label>
          <div class="col-sm-2">
             <input type="text" formControlName="county" id="county" class="form-control" value="{{user.county}}" [(ngModel)]="user.county"
             [class.is-invalid]="!sportsmanForm.controls['county'].valid && (!sportsmanForm.controls['county'].pristine)"
             [class.is-valid]="sportsmanForm.controls['county'].valid && (!sportsmanForm.controls['county'].pristine)">
          </div>
-         <label for="poblation" class="col-sm-2 col-form-label">Código postal (*)</label>
+         <label for="poblation" class="col-sm-2 col-form-label mt-5">Código postal (*)</label>
          <div class="col-sm-2">
             <input type="text" formControlName="zipcode" id="zipcode" class="form-control" value="{{user.zipcode}}" [(ngModel)]="user.zipcode"
             [class.is-invalid]="!sportsmanForm.controls['zipcode'].valid && (!sportsmanForm.controls['zipcode'].pristine)"
@@ -82,7 +82,7 @@
                resto!</small>
          </div>
 
-         <label for="sex" class="col-sm-2">Sexo (*)</label>
+         <label for="sex" class="col-sm-2 mt-5">Sexo (*)</label>
          <div class="col-sm-4">
             <select name="sex" formControlName="sex" id="sex" class="form-control" [(ngModel)]="user.sex">
                <option value="hombre" selected>Hombre</option>
@@ -101,7 +101,7 @@
                si surge algún imprevisto con los eventos</small>
          </div>
 
-         <label for="dni" class="col-sm-2">DNI (*)</label>
+         <label for="dni" class="col-sm-2 mt-5">DNI (*)</label>
          <div class="col-sm-4">
             <input type="tel" formControlName="dni" id="dni" class="form-control" [(ngModel)]="user.dni" value="{{user.dni}}"
             [class.is-invalid]="!sportsmanForm.controls['dni'].valid && (!sportsmanForm.controls['dni'].pristine)"
@@ -118,7 +118,7 @@
       </div>
 
       <div class="form-group row mt-5 justify-content-left">
-         <div class="dropdown col-sm-2 align-self-center">
+         <div class="dropdown col-7 col-lg-2 align-self-center">
             <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
                aria-haspopup="true" aria-expanded="false">
                Métodos de pago
@@ -134,7 +134,7 @@
             </div>
          </div>
 
-         <div class="col-sm-2 text-center">
+         <div class="col-2 col-lg-2 text-center">
             <div class="add-payment" (click)="openModal(content)" placement="top"
                ngbTooltip="Añadir nuevo método de pago">
                <fa-icon [icon]="faPlus"></fa-icon>
@@ -181,24 +181,29 @@
          </div>
 
          <div class="form-group row mt-3 justify-content-start">
-            <label for="creditnumber" class="col-sm-2 col-form-label">Nº de tarjeta</label>
+            <div class="col-lg-2">
+               <label for="creditnumber" class="col-form-label">Nº de tarjeta</label>
+               <img class="col-3 col-lg-6" src="../../../../../assets/visa.png">
+               <img class="col-3 col-lg-6" src="../../../../../assets/mastercard.png">
+            </div>
             <div class="col-sm-9">
                <input type="text" id="creditnumber" class="form-control" formControlName="creditnumber"
                   [(ngModel)]="newPaymentMethod.cardNumber"
                   [class.is-invalid]="!paymentMethodForm.controls['creditnumber'].valid && (!paymentMethodForm.controls['creditnumber'].pristine)"
                   [class.is-valid]="paymentMethodForm.controls['creditnumber'].valid && (!paymentMethodForm.controls['creditnumber'].pristine)">
+                  <div class="text-danger" [hidden]="paymentMethodForm.controls['creditnumber'].valid && (!paymentMethodForm.controls['creditnumber'].pristine)">Sólo se permite una tarjeta MasterCard o Visa</div>
             </div>
          </div>
 
          <div class="form-group row mt-5 justify-content-start">
             <label for="monthExpire" class=" col-sm-2 col-form-label">Fecha de caducidad</label>
-            <div class="col-sm-4">
+            <div class="col-6 col-sm-4">
                <select class="form-control" formControlName="monthExpire" [(ngModel)]="newPaymentMethod.monthExpire">
                   <option *ngFor="let month of months" [ngValue]="month.id">{{month.name}}</option>
                </select>
             </div>
             /
-            <div class="col-sm-4">
+            <div class="col-5 col-sm-4">
                <select class="form-control" formControlName="yearExpire" [(ngModel)]="newPaymentMethod.yearExpire">
                   <option *ngFor="let year of years" [ngValue]="year">{{year}}</option>
                </select>

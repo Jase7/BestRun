@@ -29,6 +29,10 @@ export class FriendsService {
       return this.http.delete<any>(`${this.strFriendsApiUrl}/${id}`).pipe()
    }
 
+   deleteFriend(id : string) {
+      return this.http.delete<any>(`${this.strFriendsApiUrl}/friend/${this._storage.get("userid")}/${id}`).pipe();
+   }
+
    //GET: Number of the pend request for the badge
    getPendRequests(): Observable<number> {
 

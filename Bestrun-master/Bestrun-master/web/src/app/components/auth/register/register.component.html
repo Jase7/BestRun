@@ -39,7 +39,7 @@
                          [class.is-valid]="signUpForm.controls['rptpassword'].valid && (!signUpForm.controls['rptpassword'].pristine) && signUpForm.controls['rptpassword'].value == signUpForm.controls['password'].value">
                </div>
               <div class="d-flex justify-content-end">
-                <button type="submit" class="btn btn-warning btn-lg" [disabled]="!signUpForm.valid">Registrarse
+                <button type="submit" class="btn btn-warning btn-lg btn-register" [disabled]="!signUpForm.valid">Registrarse
                 </button>
               </div>
             </form>

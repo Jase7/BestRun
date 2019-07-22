@@ -16,3 +16,10 @@
     color: red;
     cursor: pointer;
 }
+
+@media (max-width: 768px) {
+
+   button[type="submit"] {
+      width: 100%;
+   }
+}

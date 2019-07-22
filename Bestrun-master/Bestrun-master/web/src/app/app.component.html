@@ -1,4 +1,4 @@
 <simple-notifications [options]="{'position':['top','right']}"></simple-notifications>
 <router-outlet class="flex-shrink-0"></router-outlet>
 
-<app-footer class="mt-auto"></app-footer>
+<app-footer *ngIf="headerFooter" class="mt-auto"></app-footer>

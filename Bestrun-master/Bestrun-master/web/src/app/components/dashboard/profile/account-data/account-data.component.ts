@@ -71,9 +71,14 @@ export class AccountDataComponent extends ProfileComponent {
 
     cambiarImagen(newPhotoString : string) {
 
-        this.profileService.setNewProfilePhoto(newPhotoString).subscribe();
-        this.storageService.change("profile_image", newPhotoString);
-        this.dashboard.ngOnInit();
+        this.profileService.setNewProfilePhoto(newPhotoString).subscribe((data) => {
+            this.notify.show(NotificationType.Info, "Imagen subida", "La imagen que has seleccionado se ha subido correctamente a tu perfil")
+            this.storageService.change("profile_image", newPhotoString);
+            this.dashboard.ngOnInit();
+        }, 
+        (error) => {
+           this.notify.show(NotificationType.Error, "Error", "Hubo un error al subir la imagen seleccionada.")
+        });
     }
 
     setNewEmail(newEmail) {

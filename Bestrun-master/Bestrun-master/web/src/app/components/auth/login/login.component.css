@@ -1,6 +1,6 @@
 .auth{
    background-color: #81b1d5!important;
-   min-height: 94vh;
+   min-height: 100vh;
  }
 
 a#create-count{
@@ -39,13 +39,21 @@ a:active, a:link{
 
 .input-group-prepend {
    width: 36px!important;
+ } 
+
+ .footer {
+    display: none !important;
  }
- 
 
 @media (max-width: 768px) {
-  .login{
-    padding-top: 130px;
-  }
+
+   html, body {
+      height: 100vh;
+   }
+
+   .auth {
+      height: 100vh;
+   }
 
   .separator-vertical {
     display: none;
@@ -57,5 +65,9 @@ a:active, a:link{
 
   .separator-horizontal{
     display: block;
+  }
+
+  .btn-login {
+     width: 100%;
   }
 }

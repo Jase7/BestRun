@@ -4,5 +4,27 @@ a {
 }
 
 footer {
-   height: 6vh;
+   height: 10vh;
+}
+
+fa-icon {
+   font-size: 1.5em;
+}
+
+@media (max-width: 768px) {
+   
+   footer {
+      font-size: .8em;
+      height: auto;
+   }
+
+   a {
+      font-size: .8em;
+      margin: 0 .5em;
+   }
+
+   fa-icon {
+      font-size: 2.5em;
+      margin: 0 .5em;
+   }
 }

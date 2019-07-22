@@ -16,6 +16,10 @@ import { ProfileComponent } from './components/dashboard/profile/profile.compone
 import { SportsmanDataComponent } from './components/dashboard/profile/sportsman-data/sportsman-data.component';
 import { FriendsListComponent } from './components/dashboard/friends/friends-list/friends-list.component';
 import { ErrorComponent } from './components/error/error.component';
+import { TerminosComponent } from './components/dashboard/terminos/terminos.component';
+import { ContactoComponent } from './components/dashboard/contacto/contacto.component';
+import { FooterComponent } from './components/dashboard/footer/footer.component';
+import { QuienesSomosComponent } from './components/dashboard/quienes-somos/quienes-somos.component';
 
 
 const routes: Routes = [
@@ -81,6 +85,18 @@ const routes: Routes = [
         component: ProfileComponent,
         canActivate: [AuthenticationService],
         loadChildren: 'src/app/components/dashboard/profile/profile.module#ProfileModule'
+      },
+      {
+         path: 'terminos',
+         component: TerminosComponent
+      }, 
+      {
+         path: 'contacto',
+         component: ContactoComponent
+      },
+      {
+         path: 'quienes-somos',
+         component:QuienesSomosComponent
       },
       {
          path: '**',

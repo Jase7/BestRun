@@ -5,6 +5,8 @@ var api = require('./routes/api.route');
 var bluebird = require('bluebird');
 var User = require('./models/user.model');
 var app = express();
+var bodyparser = require('body-parser');
+
 require('dotenv').config();
 
 var mongoose = require('mongoose');
@@ -30,7 +32,7 @@ var user = new User({
 
 User.find({ email: user.email }, function (err, docs) {
 
-    if (!docs.length) user.save()
+    if (!docs.length) user.save();
 });
 
 app.use(function (req, res, next) {
@@ -41,8 +43,11 @@ app.use(function (req, res, next) {
 });
 
 app.use(logger('dev'));
-app.use(express.json());
+app.use(express.json({ limit: '2mb' }));
 app.use(express.urlencoded());
+app.use(bodyparser.json({ limit: '2mb' }));
+app.use(bodyparser.urlencoded({ limit: '2mb', extended: true }));
+
 
 app.use(cors({
     origin: '*',

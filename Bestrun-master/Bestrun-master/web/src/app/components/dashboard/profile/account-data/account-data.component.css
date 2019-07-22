@@ -8,6 +8,7 @@
     height: auto;
     float: left;
     overflow: hidden;
+    padding: 0;
     position: relative;
     text-align: center;    
     width: 25%;
@@ -61,4 +62,19 @@
 
 .icon {
     cursor: pointer;
+}
+
+.img-small {
+   display: none;
+}
+
+@media (max-width: 768px) {
+
+   button[role="button"] {
+      width: 100%;
+   }
+
+   .img-small {
+      display: block;
+   }
 }
