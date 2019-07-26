@@ -82,7 +82,8 @@ exports.updateAdmin = async function (req, res, next) {
             email: req.body.email ? req.body.email : null,
             mobileNumber: req.body.mobileNumber ? req.body.mobileNumber : null,
             active: req.body.active,
-            password: req.body.password ? req.body.password : null
+            password: req.body.password ? req.body.password : null,
+            role: req.body.rol ? req.body.rol : "Admin"
         };
 
         var updatedAdmin = await UserService.updateUser(admin);

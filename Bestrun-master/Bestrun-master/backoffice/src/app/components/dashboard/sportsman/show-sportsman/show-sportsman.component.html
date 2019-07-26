@@ -1,64 +1,70 @@
 <div class="d-flex justify-content-between">
-  <h2>{{sportsman.name}}  <small>({{sportsman.active?'activo':'inactivo'}})</small></h2>
-  <div>
-    <button type="button" class="btn btn-warning btn-sm mr-2" routerLink="/sportsman/edit/{{sportsman.id}}" *ngIf="sportsman.role==='Sportsman' || sportsman.role === 'Admin'">Editar</button>
-    <button type="button" class="btn btn-warning btn-sm" (click)="modalRemove(content)"  *ngIf="sportsman.role==='Sportsman' || sportsman.role === 'Admin'">Eliminar</button>
-  </div>
+   <h2>{{sportsman.name}} <small>({{sportsman.active?'activo':'inactivo'}})</small></h2>
+   <div>
+      <button type="button" class="btn btn-warning btn-sm mr-2" routerLink="/sportsman/edit/{{sportsman.id}}"
+         *ngIf="sportsman.role==='Sportsman' || sportsman.role === 'Admin'">Editar</button>
+      <button type="button" class="btn btn-warning btn-sm" (click)="modalRemove(content)"
+         *ngIf="sportsman.role==='Sportsman' || sportsman.role === 'Admin'">Eliminar</button>
+   </div>
 </div>
 <div class="row mt-4">
-  <div class="col-12">
-    <form>
-      <div class="form-group row">
-        <div class="col-lg-4 col-md-4 mb-3">
-          <label for="InputName">Nombre</label>
-         <span id="InputName">{{sportsman.name}}</span>
-        </div>
-        <div class="col-lg-4 col-md-4 mb-3">
-          <label for="InputSurnames">Apellidos</label>
-         <span id="InputSurnames">{{sportsman.surnames}}</span>
-        </div>
-        <div class="col-lg-4 col-md-4 mb-3">
-          <label for="InputId">Identificador</label>
-          <span id="InputId"><strong>{{sportsman.id}}</strong></span>
-        </div>
-      </div>
-      <div class="form-group row">
-        <div class="col-lg-4 col-md-4 mb-3">
-          <label for="InputPhone">Teléfono</label>
-          <span id="InputPhone">{{sportsman.mobileNumber}}</span>
-        </div>
-        <div class="col-lg-4 col-md-4 mb-3">
-          <label for="InputEmail">Email</label>
-          <span id="InputEmail">{{sportsman.email}}</span>
-        </div>
-        <div class="col-lg-4 col-md-4 mb-3">
-          <label for="InputDate">Fecha de creación</label>
-          <span id="InputDate">{{sportsman.createdAt | date:'dd/MM/yyyy'}}</span>
-        </div>
-      </div>
-      <div class="form-group row">
-        <div class="col-lg-4 col-md-4 mb-3">
-          <label for="InputPassword">Contraseña</label>
-          <span id="InputPassword">*********</span>
-        </div>
-      </div>
-    </form>
-  </div>
+   <div class="col-12">
+      <form>
+         <div class="form-group row">
+            <div class="col-lg-4 col-md-4 mb-3">
+               <label for="InputName">Nombre</label>
+               <span id="InputName">{{sportsman.name}}</span>
+            </div>
+            <div class="col-lg-4 col-md-4 mb-3">
+               <label for="InputSurnames">Apellidos</label>
+               <span id="InputSurnames">{{sportsman.surnames}}</span>
+            </div>
+            <div class="col-lg-4 col-md-4 mb-3">
+               <label for="InputId">Identificador</label>
+               <span id="InputId"><strong>{{sportsman.id}}</strong></span>
+            </div>
+         </div>
+         <div class="form-group row">
+            <div class="col-lg-4 col-md-4 mb-3">
+               <label for="InputPhone">Teléfono</label>
+               <span id="InputPhone">{{sportsman.mobileNumber}}</span>
+            </div>
+            <div class="col-lg-4 col-md-4 mb-3">
+               <label for="InputEmail">Email</label>
+               <span id="InputEmail">{{sportsman.email}}</span>
+            </div>
+            <div class="col-lg-4 col-md-4 mb-3">
+               <label for="InputDate">Fecha de creación</label>
+               <span id="InputDate">{{sportsman.createdAt | date:'dd/MM/yyyy'}}</span>
+            </div>
+         </div>
+         <div class="form-group row">
+            <div class="col-lg-4 col-md-4 mb-3">
+               <label for="InputPassword">Contraseña</label>
+               <span id="InputPassword">*********</span>
+            </div>
+
+            <div class="col-lg-4 col-md-4 mb-3">
+               <label for="InputRole">Rol</label>
+               <span id="InputRole">{{sportsman.role}}</span>
+            </div>
+         </div>
+      </form>
+   </div>
 </div>
 
 <ng-template #content let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title">Eliminar usuario</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <p>¿Estás seguro de eliminar al usuario {{sportsman.name}}?</p>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Cancelar</button>
-    <button type="button" class="btn btn-danger" (click)="remove()">Eliminar</button>
-  </div>
+   <div class="modal-header">
+      <h4 class="modal-title">Eliminar usuario</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+         <span aria-hidden="true">&times;</span>
+      </button>
+   </div>
+   <div class="modal-body">
+      <p>¿Estás seguro de eliminar al usuario {{sportsman.name}}?</p>
+   </div>
+   <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Cancelar</button>
+      <button type="button" class="btn btn-danger" (click)="remove()">Eliminar</button>
+   </div>
 </ng-template>
-

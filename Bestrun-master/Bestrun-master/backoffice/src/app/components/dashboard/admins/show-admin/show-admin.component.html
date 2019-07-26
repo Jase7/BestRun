@@ -1,63 +1,68 @@
 <div class="d-flex justify-content-between">
-  <h2>{{admin.name}}  <small>({{admin.active?'activo':'inactivo'}})</small></h2>
-  <div>
-    <button type="button" class="btn btn-warning btn-sm mr-2" routerLink="/admins/edit/{{admin.id}}">Editar</button>
-    <button type="button" class="btn btn-warning btn-sm" (click)="modalRemove(content)" *ngIf="admin.role!=='Superadmin'">Eliminar</button>
-    <button type="button" class="btn btn-warning btn-sm" (click)="modalRemove(content)" *ngIf="admin.role!=='Superadmin'">Eliminar</button>
-  </div>
+   <h2>{{admin.name}} <small>({{admin.active?'activo':'inactivo'}})</small></h2>
+   <div>
+      <button type="button" class="btn btn-warning btn-sm mr-2" routerLink="/admins/edit/{{admin.id}}">Editar</button>
+      <button type="button" class="btn btn-warning btn-sm" (click)="modalRemove(content)"
+         *ngIf="admin.role !=='SuperAdmin'">Eliminar</button>
+   </div>
 </div>
 <div class="row mt-4">
-  <div class="col-12">
-    <form>
-      <div class="form-group row">
-        <div class="col-lg-4 col-md-4 mb-3">
-          <label for="InputName">Nombre</label>
-         <span id="InputName">{{admin.name}}</span>
-        </div>
-        <div class="col-lg-4 col-md-4 mb-3">
-          <label for="InputSurnames">Apellidos</label>
-         <span id="InputSurnames">{{admin.surnames}}</span>
-        </div>
-        <div class="col-lg-4 col-md-4 mb-3">
-          <label for="InputId">Identificador</label>
-          <span id="InputId"><strong>{{admin.id}}</strong></span>
-        </div>
-      </div>
-      <div class="form-group row">
-        <div class="col-lg-4 col-md-4 mb-3">
-          <label for="InputPhone">Teléfono</label>
-          <span id="InputPhone">{{admin.mobileNumber}}</span>
-        </div>
-        <div class="col-lg-4 col-md-4 mb-3">
-          <label for="InputEmail">Email</label>
-          <span id="InputEmail">{{admin.email}}</span>
-        </div>
-        <div class="col-lg-4 col-md-4 mb-3">
-          <label for="InputDate">Fecha de creación</label>
-          <span id="InputDate">{{admin.createdAt | date:'dd/MM/yyyy'}}</span>
-        </div>
-      </div>
-      <div class="form-group row">
-        <div class="col-lg-4 col-md-4 mb-3">
-          <label for="InputPassword">Contraseña</label>
-          <span id="InputPassword">*********</span>
-        </div>
-      </div>
-    </form>
-  </div>
+   <div class="col-12">
+      <form>
+         <div class="form-group row">
+            <div class="col-lg-4 col-md-4 mb-3">
+               <label for="InputName">Nombre</label>
+               <span id="InputName">{{admin.name}}</span>
+            </div>
+            <div class="col-lg-4 col-md-4 mb-3">
+               <label for="InputSurnames">Apellidos</label>
+               <span id="InputSurnames">{{admin.surnames}}</span>
+            </div>
+            <div class="col-lg-4 col-md-4 mb-3">
+               <label for="InputId">Identificador</label>
+               <span id="InputId"><strong>{{admin.id}}</strong></span>
+            </div>
+         </div>
+         <div class="form-group row">
+            <div class="col-lg-4 col-md-4 mb-3">
+               <label for="InputPhone">Teléfono</label>
+               <span id="InputPhone">{{admin.mobileNumber}}</span>
+            </div>
+            <div class="col-lg-4 col-md-4 mb-3">
+               <label for="InputEmail">Email</label>
+               <span id="InputEmail">{{admin.email}}</span>
+            </div>
+            <div class="col-lg-4 col-md-4 mb-3">
+               <label for="InputDate">Fecha de creación</label>
+               <span id="InputDate">{{admin.createdAt | date:'dd/MM/yyyy'}}</span>
+            </div>
+         </div>
+         <div class="form-group row">
+            <div class="col-lg-4 col-md-4 mb-3">
+               <label for="InputPassword">Contraseña</label>
+               <span id="InputPassword">*********</span>
+            </div>
+
+            <div class="col-lg-4 col-md-4 mb-3">
+               <label for="InputRole">Rol</label>
+               <span id="InputRole">{{admin.role}}</span>
+            </div>
+         </div>
+      </form>
+   </div>
 </div>
 <ng-template #content let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title">Eliminar admin</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <p>¿Estás seguro de eliminar el admin {{admin.name}}?</p>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Cancelar</button>
-    <button type="button" class="btn btn-danger" (click)="modal.close('Close click');remove()">Eliminar</button>
-  </div>
+   <div class="modal-header">
+      <h4 class="modal-title">Eliminar admin</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+         <span aria-hidden="true">&times;</span>
+      </button>
+   </div>
+   <div class="modal-body">
+      <p>¿Estás seguro de eliminar el admin {{admin.name}}?</p>
+   </div>
+   <div class="modal-footer">
+      <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Cancelar</button>
+      <button type="button" class="btn btn-danger" (click)="modal.close('Close click');remove()">Eliminar</button>
+   </div>
 </ng-template>

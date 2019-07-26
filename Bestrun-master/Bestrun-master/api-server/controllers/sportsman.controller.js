@@ -82,6 +82,7 @@ exports.getSportsman = async function (req, res, next) {
 };
 
 exports.updateSportsman = async function (req, res, next) {
+
     try {
         const errors = await ValidationService.sportsmanUpdateValidate(req.body);
         if (errors) {
@@ -89,7 +90,7 @@ exports.updateSportsman = async function (req, res, next) {
             return res.status(httpStatus.BAD_REQUEST).json({ status: httpStatus.BAD_REQUEST, message: err });
         }
 
-        var savedSportsman = await UserService.getUser(id);
+        var savedSportsman = await UserService.getUser(req.body.id);
         if (!savedSportsman) {
             return res.status(httpStatus.NOT_FOUND).json({ status: httpStatus.NOT_FOUND, message: "User not found" });
         }
@@ -104,7 +105,8 @@ exports.updateSportsman = async function (req, res, next) {
             email: req.body.email ? req.body.email : null,
             mobileNumber: req.body.mobileNumber ? req.body.mobileNumber : null,
             active: req.body.active,
-            password: req.body.password ? req.body.password : null
+            password: req.body.password ? req.body.password : null,
+            role: req.body.rol ? req.body.rol : 'Sportsman'
         };
 
 

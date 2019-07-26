@@ -43,6 +43,7 @@ export class AdminsService {
   }
 
   editAdmin(admin:Admin){
+     
     return this.http.put(`${this.adminsUrl}`,admin).pipe(
       map(res  => {
         return res["data"] as Admin;

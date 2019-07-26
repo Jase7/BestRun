@@ -44,6 +44,15 @@
                  [class.is-invalid]="!editSportsmanForm.controls['password'].valid && (!editSportsmanForm.controls['password'].pristine)"
                  [class.is-valid]="editSportsmanForm.controls['password'].valid && (!editSportsmanForm.controls['password'].pristine)">
         </div>
+
+        <div class="col-lg-4 col-md-4 mb-3">
+            <label for="InputRol">Permisos</label>
+            <select class="form-control"  id="InputRol" formControlName="rol">
+               <option value="SuperAdmin" >SuperAdmin</option>
+               <option value="Admin">Admin</option>
+               <option value="Sportsman">Sportsman</option>
+            </select>
+         </div>
       </div>
       <div class="d-flex justify-content-end">
         <button type="submit" class="btn btn-warning btn-lg" [disabled]="!editSportsmanForm.valid">Actualizar Usuario</button>

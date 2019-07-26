@@ -38,12 +38,12 @@
   background-color: #e9f0fa;
 }
 
-.box-image {
+/* .box-image {
   max-width: 250px;
-}
+} */
 
 .image-event {
-  width: 250px;
+  /* width: 250px; */
   height: 250px;
   padding: 10px;
 }

@@ -21,7 +21,8 @@ const AdminUpdateSchema = Joi.object().keys({
     email: Joi.string().email({minDomainAtoms: 2}).required(),
     mobileNumber: Joi.string(),
     password: Joi.string().min(8),
-    active: Joi.boolean().required()
+    active: Joi.boolean().required(), 
+    rol: Joi.string()
 });
 
 const SportsmanCreateSchema = Joi.object().keys({
@@ -48,7 +49,8 @@ const SportsmanUpdateSchema = Joi.object().keys({
     email: Joi.string().email({minDomainAtoms: 2}).required(),
     mobileNumber: Joi.string().allow(''),
     password: Joi.string().min(8),
-    active: Joi.boolean()
+    active: Joi.boolean(),
+    rol: Joi.string()
 });
 
 const EventCreateSchema = Joi.object().keys({
