@@ -35,6 +35,7 @@ export class EditEventComponent implements OnInit {
               private typeEventService: TypeEventsService) {
     config.seconds = true;
     config.spinners = false;
+    
     this.editEventForm = this.formBuilder.group({
       tittle: [null, Validators.compose([Validators.required])],
       celebrationDate: [null],
@@ -55,7 +56,8 @@ export class EditEventComponent implements OnInit {
       chanceRain: [null],
       overallStatus: [null],
       sponsored: [false],
-      showWeather: [false]
+      showWeather: [false],
+      organizer: [null]
     });
 
     this.newInscriptionForm = this.formBuilder.group({
@@ -128,7 +130,8 @@ export class EditEventComponent implements OnInit {
       overallStatus: this.event.overallStatus ? this.event.overallStatus : this.editEventForm.controls.overallStatus.value,
       active: this.event.active,
       sponsored: this.event.sponsored,
-      showWeather:this.event.showWeather
+      showWeather:this.event.showWeather,
+      organizer: this.event.organizer  ? this.event.organizer : this.editEventForm.controls.organizer.value
     });
     console.log(this.editEventForm);
   }

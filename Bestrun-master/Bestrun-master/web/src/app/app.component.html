@@ -1,4 +1,14 @@
 <simple-notifications [options]="{'position':['top','right']}"></simple-notifications>
 <router-outlet class="flex-shrink-0"></router-outlet>
 
+<div class="fixed-terms" #fixedterms>
+   <p>
+      Desde Roll&Race recomendamos la lectura de nuestros <a href="/#/terminos">términos y condiciones</a>
+   </p>
+   <p>
+      Si sigues navegando o pulsas en el botón Aceptar entendemos que has leído los términos y condiciones y estás de acuerdo con ellos.
+   </p>
+   <button class="btn btn-info" (click)="acceptTerms()">Aceptar</button>
+</div>
+
 <app-footer *ngIf="headerFooter" class="mt-auto"></app-footer>

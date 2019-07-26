@@ -138,7 +138,8 @@ exports.updateEvent = async function (req, res, next) {
             overallStatus: req.body.overallStatus,
             iconWeather: req.body.iconWeather,
             showWeather: req.body.showWeather,
-            active: req.body.active
+            active: req.body.active,
+            organizer: req.body.organizer
         };
 
         var updatedEvent = await EventService.updateEvent(event);
@@ -169,7 +170,7 @@ exports.removeEvent = async function (req, res, next) {
             status: httpStatus.NO_CONTENT,
             message: "Succesfully Event Deleted"
         })
-        return res.status(httpStatus.NOT_FOUND).json({status: httpStatus.NOT_FOUND, message: "Event not found"});
+        
     } catch (e) {
         return res.status(httpStatus.BAD_REQUEST).json({status: httpStatus.BAD_REQUEST, message: e.message})
     }
@@ -295,6 +296,7 @@ function formatEvent(event) {
         overallStatus: event.overallStatus,
         iconWeather: event.iconWeather,
         showWeather: event.showWeather,
-        createdAt: event.createdAt
+        createdAt: event.createdAt,
+        organizer: event.organizer
     }
 }

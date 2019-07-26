@@ -27,7 +27,7 @@
             <div
                class="d-flex flex-md-row flex-lg-row flex-column justify-content-md-between justify-content-lg-between">
                <p class="location-event"><strong>{{event.location}}</strong></p>
-               <p class="location-event">Celebración: 
+               <p class="location-event">Celebración:
                   <strong>{{event.celebrationDate | date: 'dd MMMM yyyy'}}</strong>
                </p>
             </div>
@@ -37,12 +37,18 @@
                <p class="location-event" *ngIf="event.closeInscriptions">Cierre:
                   <strong>{{event.closeInscriptions | date: 'dd MMMM yyyy'}}</strong></p>
             </div>
+
             <div class="d-flex justify-content-start mb-2">
                <span class="location-event">Distancia: <strong>{{event.distance}}</strong></span>
             </div>
             <p>{{event.description}}</p>
 
-            <hr/>
+            <div
+               class="d-flex flex-md-row flex-lg-row flex-column justify-content-md-between justify-content-lg-between">
+               <span class="organizer">Organizador: <strong>{{event.organizer}}</strong></span>
+            </div>
+
+            <hr />
 
             <p><strong>Información meteorológica</strong></p>
             <div class="row mb-5 mt-5">
@@ -66,7 +72,7 @@
                   <div class="line-vertical"></div>
                </div>
                <div class="col-sm-4 align-self-center justify-content-center">
-                  <div class="temperature">{{event.temperature}} °C</div> 
+                  <div class="temperature">{{event.temperature}} °C</div>
                </div>
             </div>
             <!--<div class="d-flex justify-content-end">-->
@@ -92,7 +98,7 @@
             </div>
 
          </div>
-         
+
          <!-- INSCRIPTIONS TAB -->
          <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab"
             [ngClass]="{'active':activeTab==='inscription','show':activeTab==='inscription'}">
@@ -112,7 +118,8 @@
                      </div>
                      <div style="padding: 10px; max-width: 200px!important;">
                         <h4 class="price-incription" style="color:#00B152">{{i.price}}&euro;
-                           <small>({{i.taxPercentage}}% iva.)</small>
+                           <!--<small>({{i.taxPercentage}}% iva.)</small>-->
+                           <small>(impuestos incluidos)</small>
                         </h4>
                      </div>
                   </div>
@@ -139,7 +146,7 @@
                   <strong>Datos del corredor</strong>
                   <div class="col-sm-12">{{user.name}} {{user.surnames}}</div>
                   <div class="col-sm-12">{{user.address}}</div>
-                  <div class="col-sm-12">{{user.poblation}}, {{user.county}}</div>                  
+                  <div class="col-sm-12">{{user.poblation}}, {{user.county}}</div>
                </div>
 
                <div class="row">
@@ -360,7 +367,7 @@
                </div>
             </ng-template>
 
-            
+
 
          </div>
       </div>

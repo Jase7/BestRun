@@ -1,0 +1,16 @@
+.fixed-terms {
+   background-color: black;
+   bottom: 0;
+   color: white;
+   /* display: none; */
+   left: 0;
+   padding: 2em;
+   position: absolute;
+   opacity: 0.9;
+   width: 100%;
+   z-index: 1;
+}
+
+.fixed-terms p {
+   color: white;
+}

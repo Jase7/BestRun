@@ -19,6 +19,7 @@ export class EventsService {
   }
 
   createEvent(event: Event): Observable<any> {
+     
     return this.http.post(`${this.eventsUrl}`, event).pipe(
       map((res: any) => {
         return res.data as Event;

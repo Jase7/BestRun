@@ -35,6 +35,7 @@ export class NewEventComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.editEventForm = this.formBuilder.group({
       tittle: [null, Validators.compose([Validators.required])],
       celebrationDate: [null],
@@ -55,8 +56,10 @@ export class NewEventComponent implements OnInit {
       chanceRain: [null],
       overallStatus: [null],
       sponsored: [false],
-      showWeather: [false]
+      showWeather: [false],
+      organizer: [null]
     });
+    
     this.newInscriptionForm = this.formBuilder.group({
       tittle: ["", Validators.compose([Validators.required])],
       description:[null],
@@ -68,10 +71,11 @@ export class NewEventComponent implements OnInit {
   }
 
   onSubmit() {
+
     let event = this.editEventForm.value;
-    console.log(event);
     let date = new Date();
 
+    console.log(event)
 
     event.celebrationDate ? date.setFullYear(event.celebrationDate.year, event.celebrationDate.month - 1, event.celebrationDate.day) : null;
     event.celebrationHour && event.celebrationDate ? date.setHours(event.celebrationHour.hour, event.celebrationHour.minute, event.celebrationHour.second) : null;
@@ -82,13 +86,12 @@ export class NewEventComponent implements OnInit {
     event.closeInscriptionsHour && event.closeInscriptions ? date.setHours(event.closeInscriptionsHour.hour, event.closeInscriptionsHour.minute, event.closeInscriptionsHour.second) : null;
     event.closeInscriptions = event.closeInscriptions ? date.toISOString() : null;
     event.typeInscription=this.typesInscription;
-    console.log(event);
     delete event.celebrationHour;
     delete event.closeInscriptionsHour;
     event.iconWeather = this.iconWeather;
+
     this.eventsService.createEvent(event).subscribe((data: any) => {
         // this.router.navigate(['']);
-        console.log(data);
         this.notify.show(NotificationType.Success, "Event created", "Evento creado con éxito");
         this.router.navigate(['/events/show', data.id]);
       },
@@ -114,7 +117,6 @@ export class NewEventComponent implements OnInit {
 
   getTypesEvent() {
     this.typeEventService.getAllTypeEvent().subscribe((data: any) => {
-        console.log(data);
         this.typeEvents = data;
       },
       (error) => {
@@ -149,7 +151,6 @@ export class NewEventComponent implements OnInit {
   }
 
   editInscription(index) {
-    console.log(index);
     this.updatedInscription=true;
     this.inscriptionToUpdated = index;
     this.newInscriptionForm.setValue({

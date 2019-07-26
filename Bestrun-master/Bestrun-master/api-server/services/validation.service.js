@@ -71,7 +71,8 @@ const EventCreateSchema = Joi.object().keys({
     chanceRain: Joi.number().allow(null),
     overallStatus: Joi.string().allow(null),
     iconWeather: Joi.number().allow(null),
-    showWeather: Joi.boolean()
+    showWeather: Joi.boolean(),
+    organizer: Joi.string().allow(null)
 });
 
 const EventUpdateSchema = Joi.object().keys({

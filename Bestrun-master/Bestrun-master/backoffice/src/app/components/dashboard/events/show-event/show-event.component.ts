@@ -117,7 +117,6 @@ export class ShowEventComponent implements OnInit, AfterViewInit {
               //   }
               // ),
               map((response: any) => {
-                console.log(response);
                 this.searchParticipant.page = response.page;
                 this.searchParticipant.pages = response.pages;
                 this.searchParticipant.totalItems = response.total;
@@ -127,7 +126,6 @@ export class ShowEventComponent implements OnInit, AfterViewInit {
         }),
         catchError(error => {
           // this.loader = false;
-          console.log(error);
           this.notify.show(NotificationType.Error, "Error getting participant", error.error.message);
           return of(<any[]>([]));
         }),
@@ -166,7 +164,6 @@ export class ShowEventComponent implements OnInit, AfterViewInit {
     this.eventsService.getEvent(this.id).subscribe(
       (event) => {
         this.event = event;
-        console.log(this.event);
         this.getTypesEvent();
       },
       (error) => {
@@ -197,7 +194,7 @@ export class ShowEventComponent implements OnInit, AfterViewInit {
   }
 
   updateParticipant(participant) {
-    console.log(participant)
+
     this.eventsService.updateParticipant(participant).subscribe(
       (updatedParticipant) => {
         this.notify.show(NotificationType.Success, "Correct updated", `Datos ${updatedParticipant.nameUser} actualizados`);
@@ -228,7 +225,6 @@ export class ShowEventComponent implements OnInit, AfterViewInit {
 
   uploadFile(imageInput: any) {
     const file: File = imageInput.files[0];
-    console.log(file);
 
     this.eventsService.uploadFile(this.event.id, file).subscribe(
       (event) => {
@@ -236,7 +232,6 @@ export class ShowEventComponent implements OnInit, AfterViewInit {
         this.notify.show(NotificationType.Success, "Correct upload", "Documento subido correctamente");
       },
       (error) => {
-        console.log(error);
         this.notify.show(NotificationType.Error, "Error upload", "Tamaño máximo del fichero");
       })
   }
@@ -253,7 +248,7 @@ export class ShowEventComponent implements OnInit, AfterViewInit {
   }
 
   uploadImage(files) {
-    console.log(files);
+
     let file = files[0];
     // const reader = new FileReader();
     // reader.onload = (e: any) => {
@@ -266,7 +261,6 @@ export class ShowEventComponent implements OnInit, AfterViewInit {
         this.notify.show(NotificationType.Success, "Correct upload", "Imagen subida correctamente");
       },
       (error) => {
-        console.log(error);
         this.notify.show(NotificationType.Error, "Error upload", "Tamaño máximo de la imagen (5mb)");
       })
   }
@@ -274,7 +268,7 @@ export class ShowEventComponent implements OnInit, AfterViewInit {
   deleteImage() {
     this.eventsService.deleteImage(this.event.id).subscribe(
       (event) => {
-        console.log(event);
+
         this.event = event;
         this.notify.show(NotificationType.Success, "Correct deleted", "Imagen eliminada correctamente");
       },
@@ -285,7 +279,7 @@ export class ShowEventComponent implements OnInit, AfterViewInit {
 
   getTypesEvent() {
     this.typeEventService.getAllTypeEvent().subscribe((data: any) => {
-        console.log(data);
+       
         let filter = data.filter(te=>{return te.id===this.event.typeEvent});
         if(filter.length>0)
           this.typeEvent=filter[0];

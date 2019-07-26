@@ -115,6 +115,9 @@ const EventSchema = new mongoose.Schema({
     createdAt: {
         type: Date,
         default: Date.now
+    },
+    organizer: {
+        type: String
     }
 });
 

@@ -26,6 +26,7 @@ exports.createEvent = async function (event) {
         iconWeather: event.iconWeather,
         showWeather: event.showWeather,
         createdAt: new Date(),
+        organizer: event.organizer
     });
 
     try {
