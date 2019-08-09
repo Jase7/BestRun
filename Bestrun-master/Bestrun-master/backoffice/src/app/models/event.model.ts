@@ -28,4 +28,5 @@ export class Event {
   createdAt: string = new Date().toISOString();
   showWeather: boolean;
   organizer: string = "";
+  documentTitle : string = "";
 }

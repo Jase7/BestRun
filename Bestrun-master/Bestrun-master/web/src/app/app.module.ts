@@ -44,6 +44,7 @@ import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 import { TerminosComponent } from './components/dashboard/terminos/terminos.component';
 import { ContactoComponent } from './components/dashboard/contacto/contacto.component';
 import { QuienesSomosComponent } from './components/dashboard/quienes-somos/quienes-somos.component';
+import { PaymentService } from './services/api/payment.service';
 
 registerLocaleData(localeEsAr, 'es-ES')
 
@@ -125,7 +126,8 @@ export function provideConfig() {
        provide: LocationStrategy,
        useClass:HashLocationStrategy
     },
-    ProfileService
+    ProfileService,
+    PaymentService
   ],
   bootstrap: [AppComponent]
 })

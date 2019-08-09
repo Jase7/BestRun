@@ -8,10 +8,11 @@ import { StorageService } from '../storage.service';
 import { NotifyService } from '../notify.service';
 import { PaymentMethod } from 'src/app/models/paymentMethod.model';
 import { AuthenticationService } from './authentication.service';
+import { Address } from 'src/app/models/address.model';
 
 @Injectable()
 
-export class ProfileService {
+export class ProfileService {   
 
     api_url = data.api + "/profile"    
     public user : Sportsman = new Sportsman();
@@ -21,7 +22,6 @@ export class ProfileService {
     getMyData() : Observable<Sportsman> {
         return this.http.get(`${this.api_url}/${this.storage.get("userid")}`).pipe(map((res : any) => {
             this.user = res.data
-            console.log(this.user)
             return res.data as Sportsman
         }));
     }
@@ -73,8 +73,14 @@ export class ProfileService {
         }));
     }
 
-    saveData(user : Sportsman) {
-
-        return this.http.put(`${this.api_url}/profileData/${this.storage.get("userid")}`, {modelUser: user}).pipe()
+    saveData(address : Address) {
+      return this.http.post(`${this.api_url}/profileData/address/${this.storage.get("userid")}`, {newAddress: address}).pipe()
     }
+
+    editAddress(editAddress: Address) {
+      return this.http.put(`${this.api_url}/profileData/address/${this.storage.get("userid")}`, {newAddress: editAddress}).pipe();
+   }
+   deleteAddress(deleteAddr: Address) {
+      return this.http.delete(`${this.api_url}/profileData/address/${this.storage.get("userid")}/${deleteAddr}`).pipe();
+   }
  }

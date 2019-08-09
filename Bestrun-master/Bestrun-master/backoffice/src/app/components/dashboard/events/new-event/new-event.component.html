@@ -222,7 +222,7 @@
          </div>
          <form [formGroup]="newInscriptionForm">
             <div class="form-group row mb-2">
-               <div class="col-lg-4 col-md-4">
+               <div class="col-lg-3 col-md-3">
                   <label for="InputInscriptionTittle">Título (obligatorio)</label>
                   <input type="text" class="form-control" id="InputInscriptionTittle" formControlName="tittle">
                </div>
@@ -235,7 +235,7 @@
                   <label for="InputPrice">Precio total (obligatorio)</label>
                   <input type="number" class="form-control" id="InputPrice" placeholder="0" formControlName="price">
                </div>
-               <div class="col-lg-4 col-md-4">
+               <div class="col-lg-2 col-md-2">
                   <label for="customSwitch3">Estado</label>
                   <div class="custom-control custom-switch">
                      <input type="checkbox" class="custom-control-input" id="customSwitch3" formControlName="active">
@@ -243,7 +243,29 @@
                         for="customSwitch3">{{newInscriptionForm.controls['active'].value?'Activo':'Inactivo'}}</label>
                   </div>
                </div>
+
+               <div class="col-lg-2 col-md-2" *ngIf="!newInscriptionForm.controls['active'].value">
+                  <label for="inscriptionDate">Fecha próximamente</label>
+                  <div class="input-group">
+                     <input class="form-control" id="inscriptionDate" formControlName="nextInscription" ngbDatepicker
+                        #nextInscription="ngbDatepicker" readonly>
+                     <div class="input-group-append">
+                        <button class="btn btn-outline-secondary calendar" (click)="nextInscription.toggle()"
+                           type="button"></button>
+                     </div>
+                  </div>
+               </div>
             </div>
+
+            <div class="form-group row mb-0">
+               <div class="col-lg-12 col-md-12 mb-0">
+                  <label for="shippingCosts">Gastos de envío</label>
+                  <div class="input-group">
+                     <input class="form-control" id="shippingCosts" formControlName="shippingCosts" type="number">
+                  </div>
+               </div>
+            </div>
+
             <div class="form-group row mb-5">
                <div class="col-lg-10 col-md-10">
                   <label for="InputDescription2">Descripción</label>

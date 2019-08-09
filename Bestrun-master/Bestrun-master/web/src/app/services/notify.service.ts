@@ -9,9 +9,9 @@ export class NotifyService {
   constructor( private _service: NotificationsService) {
   }
 
-  show(type:NotificationType, tittle:string, message: string) {
+  show(type:NotificationType, tittle:string, message: string, timeOut = 3000) {
     this._service.create(tittle,message, type, {
-      timeOut: 3000,
+      timeOut: timeOut,
       showProgressBar: true,
       pauseOnHover: true,
       clickToClose: true

@@ -187,6 +187,7 @@
                         <th scope="col">Descripción</th>
                         <th scope="col">Iva</th>
                         <th scope="col">Precio</th>
+                        <th scope="col">Gastos de envío</th>
                         <th scope="col">Estado</th>
                         <th scope="col" colspan="2">Acciones</th>
                   </thead>
@@ -199,7 +200,8 @@
                               ...</a>
                         </td>
                         <td>{{inscription.taxPercentage}}</td>
-                        <td>{{inscription.price}}</td>
+                        <td>{{inscription.price | number: ".2"}}</td>
+                        <td>{{inscription.shippingCosts | number: ".2"}}</td>
                         <td>
                            <div class="custom-control custom-switch">
                               <input type="checkbox" class="custom-control-input" id="{{'customSwitch2' + i}}"
@@ -238,7 +240,7 @@
                   <label for="InputPrice">Precio total (obligatorio)</label>
                   <input type="number" class="form-control" id="InputPrice" placeholder="0" formControlName="price">
                </div>
-               <div class="col-lg-4 col-md-4">
+               <div class="col-lg-2 col-md-2">
                   <label for="customSwitch3">Estado</label>
                   <div class="custom-control custom-switch">
                      <input type="checkbox" class="custom-control-input" id="customSwitch3" formControlName="active">
@@ -246,7 +248,30 @@
                         for="customSwitch3">{{newInscriptionForm.controls['active'].value?'Activo':'Inactivo'}}</label>
                   </div>
                </div>
+
+               <div class="col-lg-2 col-md-2" *ngIf="!newInscriptionForm.controls['active'].value">
+                  <label for="inscriptionDate">Fecha próximamente</label>
+                  <div class="input-group">
+                     <input class="form-control" id="inscriptionDate" formControlName="nextInscription" ngbDatepicker
+                        #nextInscription="ngbDatepicker" type="date" readonly>
+                     <div class="input-group-append">
+                        <button class="btn btn-outline-secondary calendar" (click)="nextInscription.toggle()"
+                           type="button"></button>
+                     </div>
+                  </div>
+               </div>
             </div>
+
+            <div class="form-group row mb-0">
+               <div class="col-lg-2 col-md-2 mb-0">
+                  <label for="shippingCosts">Gastos de envío</label>
+                  <div class="input-group">
+                     <input class="form-control" id="shippingCosts" formControlName="shippingCosts" type="number">
+                  </div>
+               </div>
+            </div>
+
+
             <div class="form-group row mb-5">
                <div class="col-lg-10 col-md-10">
                   <label for="InputDescription2">Descripción</label>

@@ -9,6 +9,8 @@ var typeEvents = require('./api/typeEvents.route');
 var users = require('./api/users.route');
 var friends = require("./api/friends.route");
 var profile = require("./api/profile.route");
+var payment = require('./api/payment.route');
+var file = require('./api/file.route');
 
 var AuthController = require('../controllers/auth.controller');
 var AuthorizationController = require('../controllers/authorization.controller');
@@ -31,5 +33,9 @@ router.use('/friends', AuthController.authenticated);
 router.use('/friends', friends);
 router.use('/profile', AuthController.authenticated);
 router.use('/profile', profile);
+router.use('/payment', AuthController.authenticated);
+router.use('/payment', payment);
+router.use('/file', AuthController.authenticated);
+router.use('/file', file);
 
 module.exports = router;

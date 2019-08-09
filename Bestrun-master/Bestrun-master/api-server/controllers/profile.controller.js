@@ -127,18 +127,56 @@ exports.deletePaymentMethod = async function (req, res, next) {
     }
 };
 
-exports.saveProfileData = async function (req, res, next) {
+exports.saveAddress = async function (req, res, next) {
 
     try {
 
         var userid = req.params.userid ? new ObjectId(req.params.userid) : null;
-        var user = req.body.modelUser ? req.body.modelUser : null;
+        var address = req.body.newAddress ? req.body.newAddress : null;
 
-        if (user !== null) {
-            var userData = await profileService.saveProfileData(userid, user);
+        if (address !== null) {
+            var userData = await profileService.saveAddress(userid, address);
             return res.status(httpStatus.OK).json({ data: userData });
         }
         else res.status(400).json({ error: "No se han facilitado datos para guardar" });
+    }
+
+    catch (e) {
+        res.status(400).json({ error: e });
+    }
+}
+
+exports.editAddress = async function (req, res, next) {
+
+    try {
+
+        var userid = req.params.userid ? new ObjectId(req.params.userid) : null;
+        var address = req.body.newAddress ? req.body.newAddress : null;
+
+        if (address !== null) {
+            var userData = await profileService.editAddress(userid, address);
+            return res.status(httpStatus.OK).json({ data: userData });
+        }
+        else res.status(400).json({ error: "No se han facilitado datos para guardar" });
+    }
+
+    catch (e) {
+        res.status(400).json({ error: e.message });
+    }
+}
+
+exports.deleteAddress = async function (req, res, next) {
+
+    try {
+
+        var userid = req.params.userid ? new ObjectId(req.params.userid) : null;
+        var address = req.params.aid ? req.params.aid : null;
+
+        if (address !== null) {
+            var userData = await profileService.deleteAddress(userid, address);
+            return res.status(httpStatus.OK).json({ data: userData });
+        }
+        else res.status(400).json({ error: "No se han facilitado datos para borrar" });
     }
 
     catch (e) {

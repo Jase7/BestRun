@@ -14,8 +14,8 @@ exports.getAllSportsman = async function (req, res, next) {
     var limit = req.query.limit ? req.query.limit : 15;
     var term = req.query.search ? req.query.search : null;
 
-    // var query = {role: {$eq: 'Sportsman'}};
-    var query = {};
+    var query = {role: {$eq: 'Sportsman'}};
+    //var query = {};
 
     if (term) {
         query = {

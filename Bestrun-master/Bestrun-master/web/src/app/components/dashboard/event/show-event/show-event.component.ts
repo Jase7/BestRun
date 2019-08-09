@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { EventsService } from "../../../../services/api/events.service";
 import { NotificationType } from "angular2-notifications";
 import { NotifyService } from "../../../../services/notify.service";
@@ -14,6 +14,10 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ProfileService } from 'src/app/services/api/profile.service';
 import { SportsmanDataComponent } from '../../profile/sportsman-data/sportsman-data.component';
 import { FormBuilder } from '@angular/forms';
+import { PaymentService } from 'src/app/services/api/payment.service';
+import { PaymentData } from 'src/app/models/paymentData';
+import { Address } from 'src/app/models/address.model';
+import { Inscription } from 'src/app/models/inscription.model';
 
 declare var FB: any;
 
@@ -32,11 +36,20 @@ export class ShowEventComponent extends SportsmanDataComponent implements OnInit
    user: Sportsman = new Sportsman();
    faPlus = faPlus;
    inscription: string = ""
+   address: string = "";
    currentIcon: string = ""
-   currentIconText : string = "";
+   currentIconText: string = "";
+   paymentData: PaymentData = new PaymentData();
+   addresses: Address[] = [];
+
+   //Selected
+   inscriptionSelected: Inscription = new Inscription();
+   addressSelected: Address = new Address();
+   shippingCosts: number;
 
    constructor(private eventsService: EventsService, private notifyService: NotifyService, private route: ActivatedRoute,
-      public share: ShareService, private titleService: Title, private modalService: NgbModal, public profileService: ProfileService, private formBld: FormBuilder) {
+      public share: ShareService, private titleService: Title, private modalService: NgbModal, public profileService: ProfileService, private formBld: FormBuilder,
+      public paymentService: PaymentService, public router : Router) {
 
       super(formBld, titleService, modalService, profileService, notifyService)
 
@@ -51,6 +64,7 @@ export class ShowEventComponent extends SportsmanDataComponent implements OnInit
       this.getEvent().subscribe(
          (event) => {
             this.event = event;
+            console.debug(this.event)
             this.currentIcon = this.icons.find(x => x.id == event.iconWeather).icon;
             this.currentIconText = this.icons.find(x => x.id == event.iconWeather).text;
          },
@@ -58,6 +72,19 @@ export class ShowEventComponent extends SportsmanDataComponent implements OnInit
             this.notifyService.show(NotificationType.Error, "Error", "Error al obtener en el evento");
          }
       )
+
+      this.getAddresses().subscribe(
+         (addresses) => {
+            this.addresses = addresses.addresses
+         },
+         (error) => {
+            this.notifyService.show(NotificationType.Error, "Error", "Error al obtener las direcciones");
+         }
+      )
+   }
+
+   getAddresses() {
+      return this.profileService.getMyData();
    }
 
 
@@ -66,18 +93,75 @@ export class ShowEventComponent extends SportsmanDataComponent implements OnInit
    }
 
    changeActiveTab(tab, inscription) {
+
       this.activeTab = tab;
-      console.log(this.activeTab)
 
       if (tab == 'inscriptionData') {
-         this.inscription = inscription;
+
+         this.inscription = this.inscription != '' ? this.inscription : inscription._id
+         this.inscriptionSelected = Object.keys(this.inscriptionSelected).length != 0 ? this.inscriptionSelected : inscription
+         this.shippingCosts = this.inscriptionSelected.shippingCosts
+
          this.profileService.getMyData().subscribe((res: any) => {
             this.user = this.profileService.user
          });
       }
 
+      //get paymentData
       if (tab == 'resume') {
 
+         if (this.checkResumeTabAfterGo()) {
+
+            //Comprobamos la dirección
+            if (this.address != 'NAID') {
+
+               this.addressSelected = this.addresses.find(e => e._id == this.address)
+            }
+            else {
+               //try to get any address of the current user
+               if (this.user.addresses[0]) {
+
+                  this.addressSelected = this.user.addresses[0];
+                  this.notifyService.show(NotificationType.Info, "Querido usuario", "Aunque has seleccionado que no te hagamos el envío, hemos recogido algunos de tus datos de Roll&Race para que no tengas ningún problema cuando vayas a recoger tu dorsal.", 30000)
+               }
+               else {
+                  this.notifyService.show(NotificationType.Info, "Querido usuario", "No hemos encontrado datos tuyos para poder continuar con la compra, debes crear una nueva 'Dirección' en tus datos aunque luego nosotros no vamos a realizar ningún envío. Necesitamos tus datos para avisar a la organización y que te puedan entregar el dorsal", 30000)
+                  this.router.navigate(['/profile/sportsman-data'])
+               }
+            }
+
+            this.paymentService.getData(this.addressSelected, this.event, this.inscriptionSelected, this.user).subscribe((res) => {
+               this.paymentData = res['data'];
+            })
+         }
+
+         else {
+
+            this.notifyService.show(NotificationType.Error, "Error", "No ha seleccionado una opción")
+            this.activeTab = "inscriptionData"
+         }
+      }
+   }
+
+   checkResumeTabAfterGo() {
+
+      if (this.address !== "" && this.inscriptionSelected !== null) {
+         return true;
+      }
+      else {
+         return false;
+      }
+   }
+
+   selectAddress(aid) {
+
+      if (aid === 'NAID') {
+         this.address = aid
+         this.inscriptionSelected.shippingCosts = 0
+
+      } else {
+         this.address = aid
+         this.inscriptionSelected.shippingCosts = this.shippingCosts
       }
    }
 
@@ -87,5 +171,11 @@ export class ShowEventComponent extends SportsmanDataComponent implements OnInit
          quote: `Unete al evento ${this.event.tittle}!`,
          href: `${this.url}/event/${this.event.id}`,
       }, function (response) { });
+   }
+
+   //For normal submit
+   submit(e) {
+
+      e.preventDefault();
    }
 }

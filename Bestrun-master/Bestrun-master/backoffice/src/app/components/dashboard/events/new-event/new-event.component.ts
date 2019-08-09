@@ -65,8 +65,11 @@ export class NewEventComponent implements OnInit {
       description:[null],
       price: [null, Validators.compose([Validators.required])],
       taxPercentage: [0],
-      active: [true]
+      active: [true],
+      nextInscription: [null],
+      shippingCosts: [null]
     });
+
     this.getTypesEvent();
   }
 
@@ -81,17 +84,17 @@ export class NewEventComponent implements OnInit {
     event.celebrationHour && event.celebrationDate ? date.setHours(event.celebrationHour.hour, event.celebrationHour.minute, event.celebrationHour.second) : null;
     event.celebrationDate = event.celebrationDate ? date.toISOString() : null;
 
-
     event.closeInscriptions ? date.setFullYear(event.closeInscriptions.year, event.closeInscriptions.month - 1, event.closeInscriptions.day) : null;
     event.closeInscriptionsHour && event.closeInscriptions ? date.setHours(event.closeInscriptionsHour.hour, event.closeInscriptionsHour.minute, event.closeInscriptionsHour.second) : null;
     event.closeInscriptions = event.closeInscriptions ? date.toISOString() : null;
+
     event.typeInscription=this.typesInscription;
     delete event.celebrationHour;
     delete event.closeInscriptionsHour;
     event.iconWeather = this.iconWeather;
 
     this.eventsService.createEvent(event).subscribe((data: any) => {
-        // this.router.navigate(['']);
+       
         this.notify.show(NotificationType.Success, "Event created", "Evento creado con éxito");
         this.router.navigate(['/events/show', data.id]);
       },
@@ -140,11 +143,37 @@ export class NewEventComponent implements OnInit {
   }
 
   manageInscription() {
+     
     if(this.updatedInscription){
+
+      if (this.newInscriptionForm.controls['nextInscription'].value != null) {
+         //format date
+         let date = new Date();
+         this.newInscriptionForm.controls['nextInscription'].setValue(date.setFullYear(this.newInscriptionForm.controls['nextInscription'].value.year, 
+         this.newInscriptionForm.controls['nextInscription'].value.month - 1,
+         this.newInscriptionForm.controls['nextInscription'].value.day))
+   
+         this.newInscriptionForm.controls['nextInscription'].setValue(date.toISOString())
+
+      }
+
+
       this.typesInscription[this.inscriptionToUpdated]=this.newInscriptionForm.value;
       this.updatedInscription=false;
     }
     else{
+
+      if (this.newInscriptionForm.controls['nextInscription'].value != null) {
+
+         //format date
+         let date = new Date();
+         this.newInscriptionForm.controls['nextInscription'].setValue(date.setFullYear(this.newInscriptionForm.controls['nextInscription'].value.year, 
+         this.newInscriptionForm.controls['nextInscription'].value.month - 1,
+         this.newInscriptionForm.controls['nextInscription'].value.day))
+   
+         this.newInscriptionForm.controls['nextInscription'].setValue(date.toISOString())
+      }
+
       this.typesInscription.push(this.newInscriptionForm.value);
     }
     this.newInscriptionForm.reset();

@@ -5,6 +5,7 @@ import {map} from "rxjs/operators";
 import {Event} from "../../models/event.model";
 import {SearchEventModel} from "../../models/search-event.model";
 import {data} from "../../config/data";
+import { StorageService } from '../storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class EventsService {
   api_url = data.api;
   eventsUrl = `${this.api_url}/events`;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, public _storage : StorageService) {
   }
 
   getEvent(id): Observable<Event> {
@@ -46,5 +47,9 @@ export class EventsService {
            return res["eventData"]
         })
      )
+  }
+
+  getAddresses() {
+     return this.http.get(`${this.api_url}/profileData/address/${this._storage.get('userid')}`).pipe()
   }
 }

@@ -65,7 +65,9 @@ export class EditEventComponent implements OnInit {
       description: [null],
       price: [null, Validators.compose([Validators.required])],
       taxPercentage: [0],
-      active: [true]
+      active: [true],
+      nextInscription: [null],
+      shippingCosts: [null]
     });
   }
 
@@ -88,12 +90,15 @@ export class EditEventComponent implements OnInit {
   }
 
   setupForm() {
-    console.log(this.event);
+
     this.iconWeather = this.event.iconWeather;
+
     if (this.iconWeather)
       this.classIcon = `fas fa-lg ${this.icons[this.iconWeather].icon}`;
+
     let dateCelebration = new Date(this.event.celebrationDate);
     let dateClose = new Date(this.event.closeInscriptions);
+
     this.editEventForm.setValue({
       tittle: this.event.tittle,
       celebrationDate: this.event.celebrationDate ? {
@@ -117,6 +122,7 @@ export class EditEventComponent implements OnInit {
         minute: dateClose.getMinutes(),
         second: dateClose.getSeconds()
       } : null,
+
       typeEvent: this.event.typeEvent ? this.event.typeEvent : this.editEventForm.controls.typeEvent.value,
       limitInscriptions: this.event.limitInscriptions ? this.event.limitInscriptions : this.editEventForm.controls.limitInscriptions.value,
       distance: this.event.distance ? this.event.distance : this.editEventForm.controls.distance.value,
@@ -133,7 +139,6 @@ export class EditEventComponent implements OnInit {
       showWeather:this.event.showWeather,
       organizer: this.event.organizer  ? this.event.organizer : this.editEventForm.controls.organizer.value
     });
-    console.log(this.editEventForm);
   }
 
   onSubmit() {
@@ -141,7 +146,6 @@ export class EditEventComponent implements OnInit {
     event.id = this.event.id;
     let date = new Date();
 
-    console.log(event);
 
     event.celebrationDate ? date.setFullYear(event.celebrationDate.year, event.celebrationDate.month - 1, event.celebrationDate.day) : null;
     event.celebrationHour && event.celebrationDate ? date.setHours(event.celebrationHour.hour, event.celebrationHour.minute, event.celebrationHour.second) : null;
@@ -153,19 +157,19 @@ export class EditEventComponent implements OnInit {
     event.closeInscriptions = event.closeInscriptions ? date.toISOString() : null;
 
     event.typeInscription = this.event.typeInscription;
-    console.log(event);
+    
 
     event.typeEvent = event.typeEvent ? event.typeEvent : null;
     delete event.celebrationHour;
     delete event.closeInscriptionsHour;
     event.iconWeather = this.iconWeather;
     this.eventsService.editEvent(event).subscribe((data: any) => {
-        console.log(data);
+       
         this.notify.show(NotificationType.Success, "Event edited", "Evento actualizado con éxito");
         this.router.navigate(['/events/show', data.id]);
       },
       (error) => {
-        console.log(error);
+         
         this.notify.show(NotificationType.Error, "Error Create", error.error.message);
       });
   }
@@ -187,7 +191,7 @@ export class EditEventComponent implements OnInit {
 
   getTypesEvent() {
     this.typeEventService.getAllTypeEvent().subscribe((data: any) => {
-        console.log(data);
+       
         this.typeEvents = data;
       },
       (error) => {
@@ -211,21 +215,47 @@ export class EditEventComponent implements OnInit {
   }
 
   manageInscription() {
+
     if (this.updatedInscription) {
+
       let id = this.event.typeInscription[this.inscriptionToUpdated]._id;
+      
+      if (this.newInscriptionForm.controls['nextInscription'].value != null) {
+         //format date
+         let date = new Date();
+         this.newInscriptionForm.controls['nextInscription'].setValue(date.setFullYear(this.newInscriptionForm.controls['nextInscription'].value.year, 
+         this.newInscriptionForm.controls['nextInscription'].value.month - 1,
+         this.newInscriptionForm.controls['nextInscription'].value.day))
+
+         this.newInscriptionForm.controls['nextInscription'].setValue(date.toISOString())
+      }
+
       this.event.typeInscription[this.inscriptionToUpdated] = this.newInscriptionForm.value;
       id ? this.event.typeInscription[this.inscriptionToUpdated]._id = id : null;
       this.updatedInscription = false;
     }
     else {
+
+      if (this.newInscriptionForm.controls['nextInscription'].value != null) {
+         //format date
+         let date = new Date();
+         this.newInscriptionForm.controls['nextInscription'].setValue(date.setFullYear(this.newInscriptionForm.controls['nextInscription'].value.year, 
+         this.newInscriptionForm.controls['nextInscription'].value.month - 1,
+         this.newInscriptionForm.controls['nextInscription'].value.day))
+
+         this.newInscriptionForm.controls['nextInscription'].setValue(date.toISOString())
+      }
+
       this.event.typeInscription.push(this.newInscriptionForm.value);
     }
     this.newInscriptionForm.reset();
   }
 
   editInscription(index) {
+
     this.updatedInscription = true;
     this.inscriptionToUpdated = index;
+
     this.newInscriptionForm.setValue({
       tittle: this.event.typeInscription[index].tittle,
       price: this.event.typeInscription[index].price,
@@ -236,7 +266,7 @@ export class EditEventComponent implements OnInit {
   }
 
   changeState(i) {
-    console.log(i);
+     
     this.event.typeInscription[i].active = !this.event.typeInscription[i].active;
   }
 

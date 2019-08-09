@@ -107,10 +107,11 @@ exports.updateEvent = async function (event) {
     }
 };
 
-exports.changeDocument = async function (id, document) {
+exports.changeDocument = async function (id, document, name) {
     var savedEvent = await this.getEvent(id);
     var previousDoc = savedEvent.document;
     savedEvent.document = document;
+    savedEvent.documentTitle = name;
 
     try {
         await savedEvent.save();

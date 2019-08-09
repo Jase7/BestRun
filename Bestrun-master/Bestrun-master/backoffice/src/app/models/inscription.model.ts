@@ -5,4 +5,5 @@ export class Inscription{
   price:number;
   taxPercentage:number=0;
   active:boolean=true;
+  shippingCosts:number = 0;
 }

@@ -3,12 +3,13 @@ import { ProfileComponent } from '../profile.component';
 import { Title } from '@angular/platform-browser';
 import { faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { PaymentMethod } from 'src/app/models/paymentMethod.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { months } from "src/app/models/constants";
 import { ProfileService } from 'src/app/services/api/profile.service';
 import { NotifyService } from 'src/app/services/notify.service';
 import { NotificationType } from 'angular2-notifications';
+import { Address } from 'src/app/models/address.model';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
    selector: 'sportsman-data',
@@ -17,14 +18,18 @@ import { NotificationType } from 'angular2-notifications';
 })
 export class SportsmanDataComponent extends ProfileComponent implements OnInit {
 
-   private newPaymentMethod: PaymentMethod = { name: "Nueva tarjeta", type: "", cardNumber: "", CVC: "", yearExpire: 0, monthExpire: 0, ownerName: "" }
-   private paymentMethods: PaymentMethod[] = []
+   // private newPaymentMethod: PaymentMethod = { name: "Nueva tarjeta", type: "", cardNumber: "", CVC: "", yearExpire: 0, monthExpire: 0, ownerName: "" }
+   // private paymentMethods: PaymentMethod[] = []
+   // paymentMethodForm: FormGroup;
    faPlus = faPlus;
    faTrash = faTrash;
    sportsmanForm : FormGroup;
-   paymentMethodForm: FormGroup;
    months = months
    years: number[] = []
+
+   addresses : Address[] = []
+   newAddress : Address = new Address();
+   editAddress : Address = new Address();
 
    constructor(private formBuilder: FormBuilder, title: Title, modalService: NgbModal, profileService: ProfileService, private notify: NotifyService) {
       super(title, modalService, profileService)
@@ -45,15 +50,6 @@ export class SportsmanDataComponent extends ProfileComponent implements OnInit {
          club: []
       });
 
-      this.paymentMethodForm = this.formBuilder.group({
-         name: [, Validators.compose([Validators.minLength(3), Validators.maxLength(64), Validators.required])],
-         ownerName: [, Validators.compose([Validators.minLength(3), Validators.maxLength(64), Validators.required])],
-         creditnumber: ['', Validators.compose([Validators.minLength(16), Validators.maxLength(16), Validators.required, Validators.pattern("^(?:5[1-5][0-9]{2}|222[1-9]|22[3-9][0-9]|2[3-6][0-9]{2}|27[01][0-9]|2720)[0-9]{12}|^4[0-9]{12}(?:[0-9]{3})?$") ])],
-         monthExpire: ['', Validators.compose([])],
-         yearExpire: ['', Validators.compose([])],
-         CVC: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(3)])],
-      });
-
       const actualYear = new Date().getFullYear()
 
       for (let index = actualYear; index <= actualYear + 30; index++) {
@@ -61,55 +57,47 @@ export class SportsmanDataComponent extends ProfileComponent implements OnInit {
       }
    }
 
-   ngOnInit() {
-      this.getPaymentMethods();
+   ngOnInit() {;
       this.getMyData();
    }
 
   getMyData() {
       this.profileService.getMyData().subscribe((res : any ) => {              
-          this.user = this.profileService.user    
+          this.user = this.profileService.user
+          this.addresses = this.profileService.user.addresses 
       });
   }
 
-   openModal(content) {
+   openModal(content, addressID) {
+
+      this.editAddress = this.addresses.find(e => e._id == addressID)
       this.modal.open(content, { ariaLabelledBy: 'modal-basic-title', size: "lg" });
    }
 
-   getPaymentMethods() {
-
-      this.profileService.getPaymentMethods().subscribe((res: any) => {
-         this.paymentMethods = res
-      });
-   }
-
-   addPaymentMethod() {
-      this.profileService.setNewPaymentMethod(this.newPaymentMethod).subscribe((data: any) => {
-         this.modal.dismissAll();
-         this.notify.show(NotificationType.Info, "Método de pago", "El método de pago se ha creado correctamente")
-      },
-         (error) => {
-            this.notify.show(NotificationType.Error, "Error", error.error.message)
-         });
-   }
-
-   deletePaymentMethod(PID: any) {
-
-      this.profileService.deletePaymentMethod(PID.dataset.pid).subscribe((data: any) => {
-         this.notify.show(NotificationType.Info, "Método de pago", "El método de pago se ha eliminado correctamente")
-         PID.remove();
-      },
-         (error) => {
-            this.notify.show(NotificationType.Error, "Error", error.error.message)
-         });
-   }
-
    saveData() {
-      this.profileService.saveData(this.user).subscribe((data: any) => {
+      this.profileService.saveData(this.newAddress).subscribe((data: any) => {
          this.notify.show(NotificationType.Info, "Datos", "Tus datos se han modificado correctamente");
       },
          (error) => {
             this.notify.show(NotificationType.Error, "Error", error.error.message)
          });
-   }
+   }   
+
+   editAddr() {
+      this.profileService.editAddress(this.editAddress).subscribe((data: any) => {
+         this.notify.show(NotificationType.Info, "Dirección", "Tu dirección se ha modificado correctamente");
+      },
+         (error) => {
+            this.notify.show(NotificationType.Error, "Error", error.error.message)
+         });
+   }  
+
+   deleteAddr(aid) {
+      this.profileService.deleteAddress(aid).subscribe((data: any) => {
+         this.notify.show(NotificationType.Info, "Dirección", "La dirección seleccionada se ha borrado correctamente");
+      },
+         (error) => {
+            this.notify.show(NotificationType.Error, "Error", error.error.message)
+         });
+   }  
 }

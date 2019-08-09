@@ -17,6 +17,21 @@
     cursor: pointer;
 }
 
+.address {
+   border: 1px solid gray;
+   border-radius: 5px;
+   line-height: 2;
+   padding: 1em;
+}
+
+.edit-link, .delete-link {
+   color:  rgb(37, 52, 255);
+}
+
+.editButton:hover {
+
+}
+
 @media (max-width: 768px) {
 
    button[type="submit"] {

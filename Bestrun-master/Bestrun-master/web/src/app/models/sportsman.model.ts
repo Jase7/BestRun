@@ -1,3 +1,5 @@
+import { Address } from './address.model';
+
 export class Sportsman {
   _id:string;
   name: string = "";
@@ -17,4 +19,5 @@ export class Sportsman {
   zipcode : String = "";
   dni : String = "";
   club : String  = "";
+  addresses : Address[]
 }

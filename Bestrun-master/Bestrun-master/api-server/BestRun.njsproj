@@ -22,9 +22,21 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
   <ItemGroup>
+    <Content Include="controllers\file.controller.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="controllers\payment.controller.js" />
+    <Content Include="models\payment.model.js">
+      <SubType>Code</SubType>
+    </Content>
     <Content Include="nodemon.json" />
     <Content Include="package-lock.json" />
     <Content Include="package.json" />
+    <Content Include="routes\api\file.route.js">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="routes\api\payment.route.js" />
+    <Content Include="services\db\payment.service.js" />
     <Content Include="thermal-outlet-227216-9cab3c2a9afb.json" />
     <Content Include="app.js" />
     <Content Include="server.js" />

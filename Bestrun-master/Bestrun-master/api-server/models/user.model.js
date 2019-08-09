@@ -3,6 +3,50 @@ var Schema = mongoose.Schema;
 var mongoosePaginate = require('mongoose-paginate');
 var deepPopulate = require('mongoose-deep-populate')(mongoose);
 
+const AddressSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        maxlength: [40, 'too many characters'],
+        required: true
+    },
+    surnames: {
+        type: String,
+        maxlength: [40, 'too many characters'],
+    },
+    mobileNumber: {
+        type: String
+    },
+    address: {
+        type: String
+    },
+    shirtsize: {
+        type: String,
+        enum: ['S', 'M', 'L', 'XL', 'XXL']
+    },
+    poblation: {
+        type: String
+    },
+    county: {
+        type: String
+    },
+    sex: {
+        type: String,
+        enum: ['Hombre', 'Mujer']
+    },
+    zipcode: {
+        type: String
+    },
+    dni: {
+        type: String
+    },
+    club: {
+        type: String
+    }
+
+});
+
+const Address = mongoose.model('Address', AddressSchema);
+
 const UserSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -20,10 +64,6 @@ const UserSchema = new mongoose.Schema({
     emailVerified: {
         type: Boolean,
         default: false
-    },
-    mobileNumber: {
-        type: String
-        // match: [/\d{9}$/, 'The value of path {PATH} ({VALUE}) is not a valid mobile number.']
     },
     photo: {
         type: String
@@ -61,33 +101,7 @@ const UserSchema = new mongoose.Schema({
             ref: 'Event'
         }
     }],
-    address: {
-        type: String
-    },
-    shirtsize: {
-        type: String,
-        enum: ['S', 'M', 'L', 'XL', 'XXL']
-    }, 
-    poblation: {
-        type: String
-    },
-    county: {
-        type: String        
-    },
-    sex: {
-        type: String,
-        enum: ['Hombre', 'Mujer']
-    },
-    paymentMethods: [{ type: Schema.Types.ObjectId, ref: "PaymentMethod" }],
-    zipcode: {
-        type: String
-    },
-    dni: {
-        type: String
-    },
-    club: {
-        type: String
-    }
+    addresses: [AddressSchema]    
 
 });
 

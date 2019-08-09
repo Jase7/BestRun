@@ -154,6 +154,7 @@
                       <th scope="col">Descripción</th>
                       <th scope="col">Iva</th>
                       <th scope="col">Precio</th>
+                      <th scope="col">Gastos de envío</th>
                       <th scope="col">Estado</th>
                     </thead>
                     <tbody>
@@ -163,7 +164,8 @@
                       <td><a *ngIf="inscription.description" placement="top" container="body" ngbTooltip="{{inscription.description}}">{{inscription.description.substring(0,20)}} ...</a>
                       </td>
                       <td>{{inscription.taxPercentage}}</td>
-                      <td>{{inscription.price}}</td>
+                      <td>{{inscription.price | number: ".2"}}</td>
+                      <td>{{inscription.shippingCosts| number: ".2"}}</td>
                       <td>{{inscription.active?'Activo':'Inactivo'}}</td>
                     </tr>
                     <tr *ngIf="event.typeInscription.length===0">
@@ -182,8 +184,8 @@
                   <table class="table">
                     <tbody>
                     <tr>
-                      <td style="padding-left:0!important;">{{event.document.toString().split('/').pop()}}</td>
-                      <td style="cursor: pointer"><a target="_blank" href="{{event.document}}">Descargar</a></td>
+                      <td style="padding-left:0!important;">{{event.documentTitle.toString().split('/').pop()}}</td>
+                      <td style="cursor: pointer"><a [routerLink]="" (click)="getFile(event.id)">Descargar</a></td>
                       <td style="cursor: pointer" (click)="deleteFile()">Eliminar</td>
                     </tr>
                     </tbody>

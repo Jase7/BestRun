@@ -1,229 +1,320 @@
 <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="sportsman-data-tab">
 
-   <form [formGroup]="sportsmanForm">
-      <div class="form-group row mt-5 justify-content-center">
-         <label for="name" class="col-sm-2">Nombre (*)</label>
-         <div class="col-sm-4">
-            <input type="text" formControlName="name" id="name" class="form-control" [(ngModel)]="user.name" value="{{user.name}}"
-            [class.is-invalid]="!sportsmanForm.controls['name'].valid && (!sportsmanForm.controls['name'].pristine)"
-            [class.is-valid]="sportsmanForm.controls['name'].valid && (!sportsmanForm.controls['name'].pristine)">
-         </div>
+   <div class=" mt-3 row">
+      <h2 class="col-12 col-lg-12">Direcciones</h2>
+      <div class="col-12">
+         <div class="mt-3 row">
+            <div *ngIf="addresses.length == 0">No tienes ninguna dirección creada. Más abajo podrás crear una</div>
+            <div class="col-4 col-lg-4 address" *ngFor="let address of addresses">
+               <div clas="row">
+                  <div class="col-12 col-lg-12">
+                     <span><strong>{{address.name}} {{address.surnames}}</strong></span>
+                  </div>
+                  <div class="col-12 col-lg-12">
+                     <span>{{address.address}}</span>
+                  </div>
+                  <div class="col-12 col-lg-12">
+                     <span>{{address.poblation}}, {{address.county}}, {{address.zipcode}}</span>
+                  </div>
+                  <div class="col-12 col-lg-12">
+                     <span>Número de teléfono: {{address.mobileNumber}}</span>
+                  </div>
+               </div>
 
-         <label for="surnames" class="col-sm-2 mt-5">Apellidos (*)</label>
-         <div class="col-sm-4">
-            <input type="text" formControlName="surnames" id="surnames" class="form-control" [(ngModel)]="user.surnames" value="{{user.surnames}}"
-            [class.is-invalid]="!sportsmanForm.controls['surnames'].valid && (!sportsmanForm.controls['surnames'].pristine)"
-            [class.is-valid]="sportsmanForm.controls['surnames'].valid && (!sportsmanForm.controls['surnames'].pristine)">
-         </div>
-      </div>
-
-      <div class="form-group row mt-5 justify-content-center">
-         <label for="address" class="col-sm-2 col-form-label">Dirección (*)</label>
-         <div class="col-sm-10">
-            <input type="text" formControlName="address" id="address" class="form-control" value="{{user.address}}" [(ngModel)]="user.address"
-            [class.is-invalid]="!sportsmanForm.controls['address'].valid && (!sportsmanForm.controls['address'].pristine)"
-            [class.is-valid]="sportsmanForm.controls['address'].valid && (!sportsmanForm.controls['address'].pristine)">
-            <small id="emailHelp" class="form-text text-muted">¡Para nosotros es muy importante que nos indiques tu
-               dirección para que podamos mandarte el dorsal directamente a casa!</small>
-         </div>
-      </div>
-
-      <div class="form-group row mt-5 justify-content-center">
-         <label for="poblation" class="col-sm-2 col-form-label">Población (*)</label>
-         <div class="col-sm-2">
-            <input type="text" formControlName="poblation" id="poblation" class="form-control" value="{{user.poblation}}"
-               [(ngModel)]="user.poblation"
-               [class.is-invalid]="!sportsmanForm.controls['poblation'].valid && (!sportsmanForm.controls['poblation'].pristine)"
-               [class.is-valid]="sportsmanForm.controls['poblation'].valid && (!sportsmanForm.controls['poblation'].pristine)">
-         </div>
-         <label for="county" class="col-sm-2 col-form-label mt-5">Provincia (*)</label>
-         <div class="col-sm-2">
-            <input type="text" formControlName="county" id="county" class="form-control" value="{{user.county}}" [(ngModel)]="user.county"
-            [class.is-invalid]="!sportsmanForm.controls['county'].valid && (!sportsmanForm.controls['county'].pristine)"
-            [class.is-valid]="sportsmanForm.controls['county'].valid && (!sportsmanForm.controls['county'].pristine)">
-         </div>
-         <label for="poblation" class="col-sm-2 col-form-label mt-5">Código postal (*)</label>
-         <div class="col-sm-2">
-            <input type="text" formControlName="zipcode" id="zipcode" class="form-control" value="{{user.zipcode}}" [(ngModel)]="user.zipcode"
-            [class.is-invalid]="!sportsmanForm.controls['zipcode'].valid && (!sportsmanForm.controls['zipcode'].pristine)"
-            [class.is-valid]="sportsmanForm.controls['zipcode'].valid && (!sportsmanForm.controls['zipcode'].pristine)">
-         </div>
-      </div>
-
-      <div class="form-group row mt-5 justify-content-start">
-         <label for="shirtsize" class="col-sm-2 col-form-label">Talla (*)</label>
-         <div class="col-sm-4">
-            <div class="form-check form-check-inline">
-               <input class="form-check-input" type="radio" formControlName="shirtsize" name="shirtsize" id="exampleRadios1" value="S"
-                  [(ngModel)]="user.shirtsize">
-               <label class="form-check-label" for="exampleRadios1">S</label>
+               <div class="row mt-4 ml-1">
+                  <div class="col-12 col-lg-12">
+                     <a [routerLink]="" (click)="openModal(content, address._id)">Editar</a> | <a [routerLink]="" (click)="deleteAddr(address._id)">Eliminar</a>
+                  </div>
+               </div>
             </div>
-            <div class="form-check form-check-inline">
-               <input class="form-check-input" type="radio" formControlName="shirtsize" name="shirtsize" id="exampleRadios2" value="M"
-                  [(ngModel)]="user.shirtsize">
-               <label class="form-check-label" for="exampleRadios2">M</label>
-            </div>
-            <div class="form-check form-check-inline">
-               <input class="form-check-input" type="radio" formControlName="shirtsize" name="shirtsize" id="exampleRadios3" value="L"
-                  [(ngModel)]="user.shirtsize">
-               <label class="form-check-label" for="exampleRadios3">L</label>
-            </div>
-            <div class="form-check form-check-inline">
-               <input class="form-check-input" type="radio" formControlName="shirtsize" name="shirtsize" id="exampleRadios3" value="XL"
-                  [(ngModel)]="user.shirtsize">
-               <label class="form-check-label" for="exampleRadios3">XL</label>
-            </div>
-            <div class="form-check form-check-inline">
-               <input class="form-check-input" type="radio" formControlName="shirtsize" name="shirtsize" id="exampleRadios3" value="XXL"
-                  [(ngModel)]="user.shirtsize">
-               <label class="form-check-label" for="exampleRadios3">XXL</label>
-            </div>
-            <small id="shirtHelp" class="form-text text-muted">¡Elige tu talla y nosotros nos ocupamos del
-               resto!</small>
-         </div>
 
-         <label for="sex" class="col-sm-2 mt-5">Sexo (*)</label>
-         <div class="col-sm-4">
-            <select name="sex" formControlName="sex" id="sex" class="form-control" [(ngModel)]="user.sex">
-               <option value="hombre" selected>Hombre</option>
-               <option value="mujer">Mujer</option>
-            </select>
          </div>
       </div>
 
-      <div class="row justify-content-start mt-5">
-         <label for="phone" class="col-sm-2">Teléfono (*)</label>
-         <div class="col-sm-4">
-            <input type="tel" formControlName="phone" id="phone" class="form-control" [(ngModel)]="user.mobileNumber" value="{{user.mobileNumber}}"
-            [class.is-invalid]="!sportsmanForm.controls['phone'].valid && (!sportsmanForm.controls['phone'].pristine)"
-            [class.is-valid]="sportsmanForm.controls['phone'].valid && (!sportsmanForm.controls['phone'].pristine)">
-            <small id="emailHelp" class="form-text text-muted">Facilitándonos un número de teléfono te podremos avisar
-               si surge algún imprevisto con los eventos</small>
-         </div>
 
-         <label for="dni" class="col-sm-2 mt-5">DNI (*)</label>
-         <div class="col-sm-4">
-            <input type="tel" formControlName="dni" id="dni" class="form-control" [(ngModel)]="user.dni" value="{{user.dni}}"
-            [class.is-invalid]="!sportsmanForm.controls['dni'].valid && (!sportsmanForm.controls['dni'].pristine)"
-            [class.is-valid]="sportsmanForm.controls['dni'].valid && (!sportsmanForm.controls['dni'].pristine)">
-         </div>
+      <div clasS="mt-3 col-12 col-lg-12">
+         <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#newAddress"
+            aria-expanded="false" aria-controls="newAddress">
+            Crear nueva dirección
+         </button>
       </div>
+   </div>
 
-      <div class="row justify-content-start mt-5">
-         <label for="club" class="col-sm-2">Club</label>
-         <div class="col-sm-5">
-            <input type="tel" formControlName="club" id="club" class="form-control" [(ngModel)]="user.club" value="{{user.club}}">
-            <small id="clubHelp" class="form-text text-muted">¿Perteneces a algún club? ¡Háznoslo saber!</small>
-         </div>
-      </div>
+   <div class="row collapse" id="newAddress">
+      <form [formGroup]="sportsmanForm">
+         <div class="form-group row mt-5 justify-content-center">
+            <label for="name" class="col-sm-2">Nombre (*)</label>
+            <div class="col-sm-4">
+               <input type="text" formControlName="name" id="name" class="form-control" [(ngModel)]="newAddress.name"
+                  value="{{newAddress.name}}"
+                  [class.is-invalid]="!sportsmanForm.controls['name'].valid && (!sportsmanForm.controls['name'].pristine)"
+                  [class.is-valid]="sportsmanForm.controls['name'].valid && (!sportsmanForm.controls['name'].pristine)">
+            </div>
 
-      <div class="form-group row mt-5 justify-content-left">
-         <div class="dropdown col-7 col-lg-2 align-self-center">
-            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
-               aria-haspopup="true" aria-expanded="false">
-               Métodos de pago
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-               <li *ngIf="paymentMethods.length == 0" class="dropdown-item">No tienes métodos de pago.</li>
-               <li *ngFor="let payment of paymentMethods" class="dropdown-item" #PID attr.data-pid="{{payment._id}}">
-                  <span class="col-sm-4 paymentDescription">{{payment.name}} / #{{payment.cardNumber}}</span>
-                  <span class="col-sm-2 paymentDelete" placement="top" ngbTooltip="Borrar método de pago">
-                     <fa-icon [icon]="faTrash" (click)="deletePaymentMethod(PID)"></fa-icon>
-                  </span>
-               </li>
+            <label for="surnames" class="col-sm-2 mt-5">Apellidos (*)</label>
+            <div class="col-sm-4">
+               <input type="text" formControlName="surnames" id="surnames" class="form-control"
+                  [(ngModel)]="newAddress.surnames" value="{{newAddress.surnames}}"
+                  [class.is-invalid]="!sportsmanForm.controls['surnames'].valid && (!sportsmanForm.controls['surnames'].pristine)"
+                  [class.is-valid]="sportsmanForm.controls['surnames'].valid && (!sportsmanForm.controls['surnames'].pristine)">
             </div>
          </div>
 
-         <div class="col-2 col-lg-2 text-center">
-            <div class="add-payment" (click)="openModal(content)" placement="top"
-               ngbTooltip="Añadir nuevo método de pago">
-               <fa-icon [icon]="faPlus"></fa-icon>
+         <div class="form-group row mt-5 justify-content-center">
+            <label for="address" class="col-sm-2 col-form-label">Dirección (*)</label>
+            <div class="col-sm-10">
+               <input type="text" formControlName="address" id="address" class="form-control"
+                  value="{{newAddress.address}}" [(ngModel)]="newAddress.address"
+                  [class.is-invalid]="!sportsmanForm.controls['address'].valid && (!sportsmanForm.controls['address'].pristine)"
+                  [class.is-valid]="sportsmanForm.controls['address'].valid && (!sportsmanForm.controls['address'].pristine)">
+               <small id="emailHelp" class="form-text text-muted">¡Para nosotros es muy importante que nos indiques tu
+                  dirección para que podamos mandarte el dorsal directamente a casa!</small>
             </div>
          </div>
-      </div>
 
-      <div class="row justify-content-end mt-3 mb-5">
-         <button type="submit" class="btn btn-outline-primary" role="button" aria-pressed="true" (click)="saveData()" [disabled]="!sportsmanForm.valid"
-            #DataSubmit>Guardar datos</button>
-      </div>
-   </form>
+         <div class="form-group row mt-5 justify-content-center">
+            <label for="poblation" class="col-sm-2 col-form-label">Población (*)</label>
+            <div class="col-sm-2">
+               <input type="text" formControlName="poblation" id="poblation" class="form-control"
+                  value="{{newAddress.poblation}}" [(ngModel)]="newAddress.poblation"
+                  [class.is-invalid]="!sportsmanForm.controls['poblation'].valid && (!sportsmanForm.controls['poblation'].pristine)"
+                  [class.is-valid]="sportsmanForm.controls['poblation'].valid && (!sportsmanForm.controls['poblation'].pristine)">
+            </div>
+            <label for="county" class="col-sm-2 col-form-label mt-5">Provincia (*)</label>
+            <div class="col-sm-2">
+               <input type="text" formControlName="county" id="county" class="form-control"
+                  value="{{newAddress.county}}" [(ngModel)]="newAddress.county"
+                  [class.is-invalid]="!sportsmanForm.controls['county'].valid && (!sportsmanForm.controls['county'].pristine)"
+                  [class.is-valid]="sportsmanForm.controls['county'].valid && (!sportsmanForm.controls['county'].pristine)">
+            </div>
+            <label for="poblation" class="col-sm-2 col-form-label mt-5">Código postal (*)</label>
+            <div class="col-sm-2">
+               <input type="text" formControlName="zipcode" id="zipcode" class="form-control"
+                  value="{{newAddress.zipcode}}" [(ngModel)]="newAddress.zipcode"
+                  [class.is-invalid]="!sportsmanForm.controls['zipcode'].valid && (!sportsmanForm.controls['zipcode'].pristine)"
+                  [class.is-valid]="sportsmanForm.controls['zipcode'].valid && (!sportsmanForm.controls['zipcode'].pristine)">
+            </div>
+         </div>
+
+         <div class="form-group row mt-5 justify-content-start">
+            <label for="shirtsize" class="col-sm-2 col-form-label">Talla (*)</label>
+            <div class="col-sm-4">
+               <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" formControlName="shirtsize" name="shirtsize"
+                     id="exampleRadios1" value="S" [(ngModel)]="newAddress.shirtsize">
+                  <label class="form-check-label" for="exampleRadios1">S</label>
+               </div>
+               <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" formControlName="shirtsize" name="shirtsize"
+                     id="exampleRadios2" value="M" [(ngModel)]="newAddress.shirtsize">
+                  <label class="form-check-label" for="exampleRadios2">M</label>
+               </div>
+               <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" formControlName="shirtsize" name="shirtsize"
+                     id="exampleRadios3" value="L" [(ngModel)]="newAddress.shirtsize">
+                  <label class="form-check-label" for="exampleRadios3">L</label>
+               </div>
+               <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" formControlName="shirtsize" name="shirtsize"
+                     id="exampleRadios3" value="XL" [(ngModel)]="newAddress.shirtsize">
+                  <label class="form-check-label" for="exampleRadios3">XL</label>
+               </div>
+               <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" formControlName="shirtsize" name="shirtsize"
+                     id="exampleRadios3" value="XXL" [(ngModel)]="newAddress.shirtsize">
+                  <label class="form-check-label" for="exampleRadios3">XXL</label>
+               </div>
+               <small id="shirtHelp" class="form-text text-muted">¡Elige tu talla y nosotros nos ocupamos del
+                  resto!</small>
+            </div>
+
+            <label for="sex" class="col-sm-2 mt-5">Sexo (*)</label>
+            <div class="col-sm-4">
+               <select name="sex" formControlName="sex" id="sex" class="form-control" [(ngModel)]="newAddress.sex">
+                  <option value="Hombre" selected>Hombre</option>
+                  <option value="Mujer">Mujer</option>
+               </select>
+            </div>
+         </div>
+
+         <div class="row justify-content-start mt-5">
+            <label for="phone" class="col-sm-2">Teléfono (*)</label>
+            <div class="col-sm-4">
+               <input type="tel" formControlName="phone" id="phone" class="form-control"
+                  [(ngModel)]="newAddress.mobileNumber" value="{{newAddress.mobileNumber}}"
+                  [class.is-invalid]="!sportsmanForm.controls['phone'].valid && (!sportsmanForm.controls['phone'].pristine)"
+                  [class.is-valid]="sportsmanForm.controls['phone'].valid && (!sportsmanForm.controls['phone'].pristine)">
+               <small id="emailHelp" class="form-text text-muted">Facilitándonos un número de teléfono te podremos
+                  avisar
+                  si surge algún imprevisto con los eventos</small>
+            </div>
+
+            <label for="dni" class="col-sm-2 mt-5">DNI (*)</label>
+            <div class="col-sm-4">
+               <input type="tel" formControlName="dni" id="dni" class="form-control" [(ngModel)]="newAddress.dni"
+                  value="{{newAddress.dni}}"
+                  [class.is-invalid]="!sportsmanForm.controls['dni'].valid && (!sportsmanForm.controls['dni'].pristine)"
+                  [class.is-valid]="sportsmanForm.controls['dni'].valid && (!sportsmanForm.controls['dni'].pristine)">
+            </div>
+         </div>
+
+         <div class="row justify-content-start mt-5">
+            <label for="club" class="col-sm-2">Club</label>
+            <div class="col-sm-5">
+               <input type="tel" formControlName="club" id="club" class="form-control" [(ngModel)]="newAddress.club"
+                  value="{{newAddress.club}}">
+               <small id="clubHelp" class="form-text text-muted">¿Perteneces a algún club? ¡Háznoslo saber!</small>
+            </div>
+         </div>
+
+         <div class="row justify-content-end mt-3 mb-5">
+            <button type="submit" class="btn btn-outline-primary" role="button" aria-pressed="true" (click)="saveData()"
+               [disabled]="!sportsmanForm.valid" #DataSubmit>Guardar datos</button>
+         </div>
+      </form>
+   </div>
+
 </div>
 
 <!-- NG template-->
 <ng-template #content let-modal>
    <div class="modal-header">
-      <h4 class="modal-title" id="modal-title">Agregar método de pago</h4>
+      <h4 class="modal-title" id="modal-title">Editar dirección</h4>
       <button type="button" class="close" aria-describedby="modal-title" (click)="modal.dismiss('Cross click')">
          <span aria-hidden="true">&times;</span>
       </button>
    </div>
    <div class="modal-body">
-      <form [formGroup]="paymentMethodForm">
-         <div class="form-group row mt-3 justify-content-start">
-            <label for="name" class="col-sm-2 col-form-label">Nombre del método de pago</label>
-            <div class="col-sm-9">
-               <input type="text" formControlName="name" id="name" class="form-control"
-                  [(ngModel)]="newPaymentMethod.name"
-                  [class.is-invalid]="!paymentMethodForm.controls['name'].valid && (!paymentMethodForm.controls['name'].pristine)"
-                  [class.is-valid]="paymentMethodForm.controls['name'].valid && (!paymentMethodForm.controls['name'].pristine)"
-                  value="Nueva tarjeta">
+      <form [formGroup]="sportsmanForm">
+         <div class="form-group row mt-5 justify-content-center">
+            <label for="name" class="col-sm-2">Nombre (*)</label>
+            <div class="col-sm-4">
+               <input type="text" formControlName="name" id="name" class="form-control" [(ngModel)]="editAddress.name"
+                  value="{{editAddress.name}}"
+                  [class.is-invalid]="!sportsmanForm.controls['name'].valid && (!sportsmanForm.controls['name'].pristine)"
+                  [class.is-valid]="sportsmanForm.controls['name'].valid && (!sportsmanForm.controls['name'].pristine)">
+            </div>
+
+            <label for="surnames" class="col-sm-2 mt-5">Apellidos (*)</label>
+            <div class="col-sm-4">
+               <input type="text" formControlName="surnames" id="surnames" class="form-control"
+                  [(ngModel)]="editAddress.surnames" value="{{editAddress.surnames}}"
+                  [class.is-invalid]="!sportsmanForm.controls['surnames'].valid && (!sportsmanForm.controls['surnames'].pristine)"
+                  [class.is-valid]="sportsmanForm.controls['surnames'].valid && (!sportsmanForm.controls['surnames'].pristine)">
             </div>
          </div>
 
-         <div class="form-group row mt-3 justify-content-start">
-            <label for="name" class="col-sm-2 col-form-label">Nombre del titular</label>
-            <div class="col-sm-9">
-               <input type="text" formControlName="ownerName" id="ownerName" class="form-control"
-                  [(ngModel)]="newPaymentMethod.ownerName"
-                  [class.is-invalid]="!paymentMethodForm.controls['ownerName'].valid && (!paymentMethodForm.controls['ownerName'].pristine)"
-                  [class.is-valid]="paymentMethodForm.controls['ownerName'].valid && (!paymentMethodForm.controls['ownerName'].pristine)">
+         <div class="form-group row mt-5 justify-content-center">
+            <label for="address" class="col-sm-2 col-form-label">Dirección (*)</label>
+            <div class="col-sm-10">
+               <input type="text" formControlName="address" id="address" class="form-control"
+                  value="{{editAddress.address}}" [(ngModel)]="editAddress.address"
+                  [class.is-invalid]="!sportsmanForm.controls['address'].valid && (!sportsmanForm.controls['address'].pristine)"
+                  [class.is-valid]="sportsmanForm.controls['address'].valid && (!sportsmanForm.controls['address'].pristine)">
+               <small id="emailHelp" class="form-text text-muted">¡Para nosotros es muy importante que nos indiques tu
+                  dirección para que podamos mandarte el dorsal directamente a casa!</small>
             </div>
          </div>
 
-         <div class="form-group row mt-3 justify-content-start">
-            <div class="col-lg-2">
-               <label for="creditnumber" class="col-form-label">Nº de tarjeta</label>
-               <img class="col-3 col-lg-6" src="../../../../../assets/visa.png">
-               <img class="col-3 col-lg-6" src="../../../../../assets/mastercard.png">
+         <div class="form-group row mt-5 justify-content-center">
+            <label for="poblation" class="col-sm-2 col-form-label">Población (*)</label>
+            <div class="col-sm-2">
+               <input type="text" formControlName="poblation" id="poblation" class="form-control"
+                  value="{{editAddress.poblation}}" [(ngModel)]="editAddress.poblation"
+                  [class.is-invalid]="!sportsmanForm.controls['poblation'].valid && (!sportsmanForm.controls['poblation'].pristine)"
+                  [class.is-valid]="sportsmanForm.controls['poblation'].valid && (!sportsmanForm.controls['poblation'].pristine)">
             </div>
-            <div class="col-sm-9">
-               <input type="text" id="creditnumber" class="form-control" formControlName="creditnumber"
-                  [(ngModel)]="newPaymentMethod.cardNumber"
-                  [class.is-invalid]="!paymentMethodForm.controls['creditnumber'].valid && (!paymentMethodForm.controls['creditnumber'].pristine)"
-                  [class.is-valid]="paymentMethodForm.controls['creditnumber'].valid && (!paymentMethodForm.controls['creditnumber'].pristine)">
-                  <div class="text-danger" [hidden]="paymentMethodForm.controls['creditnumber'].valid && (!paymentMethodForm.controls['creditnumber'].pristine)">Sólo se permite una tarjeta MasterCard o Visa</div>
+            <label for="county" class="col-sm-2 col-form-label mt-5">Provincia (*)</label>
+            <div class="col-sm-2">
+               <input type="text" formControlName="county" id="county" class="form-control"
+                  value="{{editAddress.county}}" [(ngModel)]="editAddress.county"
+                  [class.is-invalid]="!sportsmanForm.controls['county'].valid && (!sportsmanForm.controls['county'].pristine)"
+                  [class.is-valid]="sportsmanForm.controls['county'].valid && (!sportsmanForm.controls['county'].pristine)">
+            </div>
+            <label for="poblation" class="col-sm-2 col-form-label mt-5">Código postal (*)</label>
+            <div class="col-sm-2">
+               <input type="text" formControlName="zipcode" id="zipcode" class="form-control"
+                  value="{{editAddress.zipcode}}" [(ngModel)]="editAddress.zipcode"
+                  [class.is-invalid]="!sportsmanForm.controls['zipcode'].valid && (!sportsmanForm.controls['zipcode'].pristine)"
+                  [class.is-valid]="sportsmanForm.controls['zipcode'].valid && (!sportsmanForm.controls['zipcode'].pristine)">
             </div>
          </div>
 
          <div class="form-group row mt-5 justify-content-start">
-            <label for="monthExpire" class=" col-sm-2 col-form-label">Fecha de caducidad</label>
-            <div class="col-6 col-sm-4">
-               <select class="form-control" formControlName="monthExpire" [(ngModel)]="newPaymentMethod.monthExpire">
-                  <option *ngFor="let month of months" [ngValue]="month.id">{{month.name}}</option>
-               </select>
+            <label for="shirtsize" class="col-sm-2 col-form-label">Talla (*)</label>
+            <div class="col-sm-4">
+               <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" formControlName="shirtsize" name="shirtsize"
+                     id="exampleRadios1" value="S" [(ngModel)]="editAddress.shirtsize">
+                  <label class="form-check-label" for="exampleRadios1">S</label>
+               </div>
+               <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" formControlName="shirtsize" name="shirtsize"
+                     id="exampleRadios2" value="M" [(ngModel)]="editAddress.shirtsize">
+                  <label class="form-check-label" for="exampleRadios2">M</label>
+               </div>
+               <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" formControlName="shirtsize" name="shirtsize"
+                     id="exampleRadios3" value="L" [(ngModel)]="editAddress.shirtsize">
+                  <label class="form-check-label" for="exampleRadios3">L</label>
+               </div>
+               <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" formControlName="shirtsize" name="shirtsize"
+                     id="exampleRadios3" value="XL" [(ngModel)]="editAddress.shirtsize">
+                  <label class="form-check-label" for="exampleRadios3">XL</label>
+               </div>
+               <div class="form-check form-check-inline">
+                  <input class="form-check-input" type="radio" formControlName="shirtsize" name="shirtsize"
+                     id="exampleRadios3" value="XXL" [(ngModel)]="editAddress.shirtsize">
+                  <label class="form-check-label" for="exampleRadios3">XXL</label>
+               </div>
+               <small id="shirtHelp" class="form-text text-muted">¡Elige tu talla y nosotros nos ocupamos del
+                  resto!</small>
             </div>
-            /
-            <div class="col-5 col-sm-4">
-               <select class="form-control" formControlName="yearExpire" [(ngModel)]="newPaymentMethod.yearExpire">
-                  <option *ngFor="let year of years" [ngValue]="year">{{year}}</option>
+
+            <label for="sex" class="col-sm-2 mt-5">Sexo (*)</label>
+            <div class="col-sm-4">
+               <select name="sex" formControlName="sex" id="sex" class="form-control" [(ngModel)]="editAddress.sex">
+                  <option value="Hombre" selected>Hombre</option>
+                  <option value="Mujer">Mujer</option>
                </select>
             </div>
          </div>
 
-         <div class="form-group row mt-3 justify-content-start">
-            <label for="CVC" class="col-sm-2 col-form-label">CVC</label>
-            <div class="col-sm-9">
-               <input type="text" formControlName="CVC" id="CVC" class="form-control" [(ngModel)]="newPaymentMethod.CVC"
-                  [class.is-invalid]="!paymentMethodForm.controls['CVC'].valid && (!paymentMethodForm.controls['CVC'].pristine)"
-                  [class.is-valid]="paymentMethodForm.controls['CVC'].valid && (!paymentMethodForm.controls['CVC'].pristine)">
+         <div class="row justify-content-start mt-5">
+            <label for="phone" class="col-sm-2">Teléfono (*)</label>
+            <div class="col-sm-4">
+               <input type="tel" formControlName="phone" id="phone" class="form-control"
+                  [(ngModel)]="editAddress.mobileNumber" value="{{editAddress.mobileNumber}}"
+                  [class.is-invalid]="!sportsmanForm.controls['phone'].valid && (!sportsmanForm.controls['phone'].pristine)"
+                  [class.is-valid]="sportsmanForm.controls['phone'].valid && (!sportsmanForm.controls['phone'].pristine)">
+               <small id="emailHelp" class="form-text text-muted">Facilitándonos un número de teléfono te podremos
+                  avisar
+                  si surge algún imprevisto con los eventos</small>
+            </div>
+
+            <label for="dni" class="col-sm-2 mt-5">DNI (*)</label>
+            <div class="col-sm-4">
+               <input type="tel" formControlName="dni" id="dni" class="form-control" [(ngModel)]="editAddress.dni"
+                  value="{{editAddress.dni}}"
+                  [class.is-invalid]="!sportsmanForm.controls['dni'].valid && (!sportsmanForm.controls['dni'].pristine)"
+                  [class.is-valid]="sportsmanForm.controls['dni'].valid && (!sportsmanForm.controls['dni'].pristine)">
             </div>
          </div>
 
+         <div class="row justify-content-start mt-5">
+            <label for="club" class="col-sm-2">Club</label>
+            <div class="col-sm-5">
+               <input type="tel" formControlName="club" id="club" class="form-control" [(ngModel)]="editAddress.club"
+                  value="{{editAddress.club}}">
+               <small id="clubHelp" class="form-text text-muted">¿Perteneces a algún club? ¡Háznoslo saber!</small>
+            </div>
+         </div>         
       </form>
    </div>
    <div class="modal-footer">
-      <button type="button" class="btn btn-primary" (click)="addPaymentMethod()"
-         [disabled]="!paymentMethodForm.valid">Agregar método de pago</button>
+      <button type="button" class="btn btn-primary editButton" (click)="editAddr()"
+         [disabled]="!sportsmanForm.valid">Editar dirección</button>
       <button type="button" class="btn btn-outline-secondary" (click)="modal.close()">Cancelar</button>
    </div>
 </ng-template>

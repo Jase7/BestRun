@@ -187,14 +187,14 @@ exports.uploadFile = async function (req, res, next) {
     var id = req.params.id;
 
     try {
-        var fileName = await fileService.sendFileToGCS(req.file);
-        var previousDoc = await EventService.changeDocument(id, fileName);
+        var b64 = req.file.buffer.toString('base64')//await fileService.storeInBBDD(req.file);
+        var previousDoc = await EventService.changeDocument(id, b64, req.file.originalname);
 
         if (previousDoc)
             fileService.deleteFileToGCS(previousDoc);
         var updatedEvent = await EventService.getEvent(id);
         logService.createLog({
-            description: `Añadido archivo ${fileName} a evento ${updatedEvent.tittle} (${id}) subido 
+            description: `Añadido archivo ${req.file.originalname} a evento ${updatedEvent.tittle} (${id}) subido 
         por ${req.authUser.role}: ${req.authUser.name} ${req.authUser.surnames}`
         });
         return res.status(httpStatus.OK).json({status: httpStatus.OK, data: formatEvent(updatedEvent)});
@@ -286,7 +286,8 @@ function formatEvent(event) {
         city: event.city,
         location: event.location,
         photo: fileService.getPublicUrl(event.photo),
-        document: fileService.getPublicUrl(event.document),
+        document: event.document,
+        documentTitle: event.documentTitle,
         active: event.active,
         sponsored: event.sponsored,
         temperature: event.temperature,

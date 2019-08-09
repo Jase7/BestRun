@@ -23,9 +23,30 @@ const InscriptionSchema = new mongoose.Schema({
         min: 0,
         max: 100,
         default: 0
+    },
+    nextInscription: {
+        type: Date,
+        default: Date.now
+    },
+    shippingCosts: {
+        type: Number
     }
 });
+
+InscriptionSchema.path('price').get(function (num) {
+    return (num).toFixed(2);
+});
+
+
+
+InscriptionSchema.path('shippingCosts').get(function (num) {
+    return (num).toFixed(2);
+});
+
+
 const Inscription = mongoose.model('Inscription', InscriptionSchema);
+
+
 
 const EventSchema = new mongoose.Schema({
     tittle: {
@@ -79,6 +100,9 @@ const EventSchema = new mongoose.Schema({
     document: {
         type: String
     },
+    documentTitle: {
+        type: String
+    }, 
     sponsored: {
         type: Boolean,
         default: false

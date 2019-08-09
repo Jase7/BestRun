@@ -19,11 +19,12 @@ export class ProfileComponent implements OnInit {
         this.title.setTitle("Roll&Race - PERFIL")
     }
 
-    openModal(content) {
+    openModal(content, addressID = "") {
         this.modal.open(content);
     }
 
     deleteAccount() {
         this.profileService.deleteAccount().subscribe();
     }   
+    
 }
