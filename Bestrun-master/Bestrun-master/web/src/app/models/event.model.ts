@@ -24,4 +24,5 @@ export class Event {
   iconWeather: number;
   showWeather: boolean;
   createdAt: string = new Date().toISOString();
+  documentTitle: string = "";
 }

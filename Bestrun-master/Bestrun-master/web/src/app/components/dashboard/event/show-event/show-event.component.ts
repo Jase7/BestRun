@@ -178,4 +178,45 @@ export class ShowEventComponent extends SportsmanDataComponent implements OnInit
 
       e.preventDefault();
    }
+
+   downloadDocument() {
+
+      this.eventsService.getFile(this.event.id).subscribe((resultBlob : any) => {
+         var data = this.convertBase64ToBlobData(resultBlob['data'])
+
+         if (window.navigator && window.navigator.msSaveOrOpenBlob) { //IE
+            window.navigator.msSaveOrOpenBlob(data, this.event.documentTitle);
+         } else { // chrome
+            const blob = new Blob([data], { type: 'application/pdf' });
+            const url = URL.createObjectURL(blob);
+            // window.open(url, '_blank');
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = this.event.documentTitle;
+            link.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
+         }
+
+      });
+   }
+
+   convertBase64ToBlobData(base64Data: string, contentType: string='application/pdf', sliceSize=512) {
+      const byteCharacters = atob(base64Data);
+      const byteArrays = [];
+   
+      for (let offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+        const slice = byteCharacters.slice(offset, offset + sliceSize);
+   
+        const byteNumbers = new Array(slice.length);
+        for (let i = 0; i < slice.length; i++) {
+          byteNumbers[i] = slice.charCodeAt(i);
+        }
+   
+        const byteArray = new Uint8Array(byteNumbers);
+   
+        byteArrays.push(byteArray);
+      }
+   
+      const blob = new Blob(byteArrays, { type: contentType });
+      return blob;
+    }
 }

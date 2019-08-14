@@ -33,7 +33,6 @@ router.use('/friends', AuthController.authenticated);
 router.use('/friends', friends);
 router.use('/profile', AuthController.authenticated);
 router.use('/profile', profile);
-router.use('/payment', AuthController.authenticated);
 router.use('/payment', payment);
 router.use('/file', AuthController.authenticated);
 router.use('/file', file);

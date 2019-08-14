@@ -229,15 +229,12 @@ exports.uploadPhoto = async function (req, res, next) {
     var id = req.params.id;
 
     try {
-        var fileName = await fileService.sendFileToGCS(req.file);
-        var previousImage = await EventService.changePhoto(id, fileName);
-
-        if (previousImage)
-            fileService.deleteFileToGCS(previousImage);
+        var b64 = req.file.buffer.toString('base64');
+        var previousImage = await EventService.changePhoto(id, b64);
 
         var updatedEvent = await EventService.getEvent(id);
         logService.createLog({
-            description: `Añadida imagen ${fileName} a evento ${updatedEvent.tittle} (${id}) añadida 
+            description: `Añadida imagen ${b64} a evento ${updatedEvent.tittle} (${id}) añadida 
         por ${req.authUser.role}: ${req.authUser.name} ${req.authUser.surnames}`
         });
         return res.status(httpStatus.OK).json({status: httpStatus.OK, data: formatEvent(updatedEvent)});
@@ -285,7 +282,7 @@ function formatEvent(event) {
         typeInscription: event.typeInscription,
         city: event.city,
         location: event.location,
-        photo: fileService.getPublicUrl(event.photo),
+        photo: event.photo,
         document: event.document,
         documentTitle: event.documentTitle,
         active: event.active,

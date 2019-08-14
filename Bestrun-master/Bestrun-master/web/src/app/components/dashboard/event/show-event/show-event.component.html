@@ -16,7 +16,7 @@
             (click)="changeActiveTab('payment')" href="#v-pills-resume"
             [ngClass]="{ 'active':activeTab==='resume', 'disabled': activeTab !== 'resume' }">Pasarela de pago</a>
 
-         <a class="nav-link" id="v-pills-doc-tab" target="_blank" href="{{event.document}}"
+         <a class="nav-link" id="v-pills-doc-tab" [routerLink]="" (click)="downloadDocument()"
             [ngClass]="{ 'disabled':event.document===null}">Documentación</a>
 
       </div>

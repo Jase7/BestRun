@@ -26,4 +26,32 @@ exports.savePayment = async function (user, address, inscriptionID, event) {
 
         throw Error(e);
     }
+};
+
+exports.savePaymentOrder = async function (payment) {
+
+    var data = await Payment.findById(payment);
+    data.paymentOrder = payment._id.toString().slice(-12);
+    data.save();
+
+    return data;
+}
+
+exports.getPayment = async function (paymentID) {
+
+    var payment = await Payment.find({ paymentOrder: paymentID })
+    return payment;
+};
+
+exports.updatePaymentStatus = async function (payment, status) {
+
+    console.log(JSON.stringify(payment));
+    console.log("ID " + payment[0]._id);
+
+    let paymentObj = await Payment.findById(payment[0]._id);
+    paymentObj.status = status;
+
+    paymentObj.save();
+
+    return paymentObj;
 }

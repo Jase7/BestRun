@@ -25,7 +25,7 @@
           <div class="d-flex justify-content-center align-items-center" *ngIf="event.photo">
             <div style="position: relative;">
               <div (click)="deleteImage()"><i class="fas fa-times-circle remove-image"></i></div>
-              <img class="image" src="{{event.photo}}">
+              <img class="image" src="data:image/jpeg;base64,{{event.photo}}">
             </div>
           </div>
         </div>

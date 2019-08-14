@@ -44,7 +44,7 @@ export class MyTimesComponent implements OnInit {
   }
 
   getMyEvents() {
-    this.eventsService.getMyEvents(this.searchEvent).subscribe(
+    this.eventsService.getMyTimes(this.searchEvent).subscribe(
       (data) => {
         console.log(data);
         this.myEvents = this.myEvents.concat(data.docs);

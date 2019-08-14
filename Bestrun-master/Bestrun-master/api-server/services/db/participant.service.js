@@ -25,6 +25,9 @@ exports.createParticipant = async function (participant) {
         category: participant.category,
         position: participant.position
     });
+
+    console.log("New participant " + JSON.stringify(newParticipant))
+
     try {
         let savedParticipant = await newParticipant.save();
         return savedParticipant;
@@ -85,6 +88,9 @@ exports.deleteParticipant = async function (id) {
 
 function manageErrors(e) {
     let err;
+
+    console.log(JSON.stringify(e));
+
     switch (e.code || e.name) {
         case "ValidationError":
             err = e._message;

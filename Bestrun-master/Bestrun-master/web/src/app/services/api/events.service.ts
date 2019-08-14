@@ -41,6 +41,14 @@ export class EventsService {
     );
   }
 
+  getMyTimes(search: SearchEventModel) {
+   return this.http.get(`${this.api_url}/sportsman/my-times?page=${search.page}&search=${search.term}&limit=${search.pageSize}&type=${search.typeEvent}`).pipe(
+      map(res => {
+        return res["data"];
+      })
+    );
+  }
+
   getEventsTimeComparator(myID : String, friendID : String ) {
      return this.http.get(`${this.api_url}/sportsman/events/${myID}/${friendID}`).pipe(
         map(res => {
@@ -52,4 +60,8 @@ export class EventsService {
   getAddresses() {
      return this.http.get(`${this.api_url}/profileData/address/${this._storage.get('userid')}`).pipe()
   }
+
+  getFile(eventid) {
+      return this.http.get(`${this.api_url}/file/${eventid}`).pipe()
+   }  
 }

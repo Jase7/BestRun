@@ -7,7 +7,7 @@ export class ImageEventPipe implements PipeTransform {
 
   transform(value: any, args?: any): any {
     if(value)
-      return value;
+      return 'data:image/jpeg;base64,' + value;
     return "assets/run.png";
   }
 

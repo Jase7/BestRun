@@ -37,6 +37,9 @@ const PaymentMethodSchema = new mongoose.Schema({
     },
     sending: {
         type: Boolean
+    }, 
+    paymentOrder: {
+        type: String
     }
 })
 

@@ -166,6 +166,7 @@ exports.getMyEvents = async function (req, res, next) {
         var type = req.query.type ? req.query.type : null;
 
         var query = { user: { $eq: user.id } };
+        query.$and = [{ time: { $eq: "" } }];
 
         if (term) {
             query.$and = { tittleEvent: { $regex: term, $options: 'i' } };
@@ -197,6 +198,53 @@ exports.getMyEvents = async function (req, res, next) {
         return res.status(httpStatus.BAD_REQUEST).json({ status: httpStatus.BAD_REQUEST, message: e.message });
     }
 };
+
+exports.getMyTimes = async function (req, res, next) {
+
+     try {
+
+        let user = req.authUser;
+
+        var page = req.query.page ? req.query.page : 1;
+        var limit = isNaN(req.query.limit) ? 5 : Number(req.query.limit);
+        var term = req.query.search ? req.query.search : null;
+        var type = req.query.type ? req.query.type : null;
+
+         var query = { user: { $eq: user.id } };
+         query.$and = [{
+             time: { $ne: "" }
+         }];
+
+        if (term) {
+            query.$and = { tittleEvent: { $regex: term, $options: 'i' } };            
+        }
+
+        var options = {
+            page,
+            limit
+        };
+
+        if (type)
+            options.populate = [{
+                path: 'event',
+                match: { typeEvent: { $ne: type } }
+            }];
+
+        else
+            options.populate = 'event';
+
+        var participants = await participantService.getAllParticipant(query, options);
+
+        participants.docs = participants.docs.map((participant) => {
+            return formatParticipant(participant);
+        });
+
+        return res.status(httpStatus.OK).json({ status: httpStatus.OK, data: participants });
+
+    } catch (e) {
+        return res.status(httpStatus.BAD_REQUEST).json({ status: httpStatus.BAD_REQUEST, message: e.message });
+    }
+}
 
 exports.getEventsTimeComparator = async function (req, res, next) {
 
