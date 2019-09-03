@@ -17,6 +17,9 @@ import {ShowEventComponent} from "./components/dashboard/events/show-event/show-
 import {EditEventComponent} from "./components/dashboard/events/edit-sportsman/edit-event.component";
 import {AuthorizationService} from "./services/api/authorization.service";
 import {LogsComponent} from "./components/dashboard/logs/logs.component";
+import { ShowPaymentsComponent } from './components/dashboard/payments/show-payments/show-payments.component';
+import { PaymentDetailsComponent } from './components/dashboard/payments/payment-details/payment-details.component';
+import { Payment } from './models/payment.model';
 
 export const routes: Routes = [
   {
@@ -97,6 +100,22 @@ export const routes: Routes = [
           }
         ]
       },
+
+      {
+         path: 'payments',
+         canActivate: [AuthorizationService],
+         children: [
+            {
+               path: '',
+               component: ShowPaymentsComponent,
+            },
+            {
+               path: 'showPayment/:id',
+               component: PaymentDetailsComponent
+            }
+            
+         ]
+       },
       {
         path: 'logs',
         canActivate: [AuthorizationService],

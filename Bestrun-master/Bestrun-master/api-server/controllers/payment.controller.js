@@ -5,6 +5,74 @@ var logService = require('../services/db/logs.service');
 const ParticipantService = require('../services/db/participant.service');
 const UserService = require('../services/db/user.service');
 const EventService = require('../services/db/event.service');
+const Event = require('../models/event.model');
+
+exports.getPayments = async function (req, res, next) {
+
+    var page = req.query.page ? req.query.page : 1;
+    var limit = isNaN(req.query.limit) ? 20 : Number(req.query.limit);
+
+    var query = {};
+
+    query.$and = [
+        { status: { $ne: "Pendiente" } }
+    ];
+
+    var options = {
+        page,
+        limit
+    };
+
+    options.populate = [
+        {
+            path: 'user'
+        },
+        {
+            path: 'event'
+        }
+    ];
+
+    var payments = await paymentService.getPayments(query, options);
+
+    payments.docs = payments.docs.map((payment) => {
+        return formatPayment(payment);
+    });
+
+    return res.status(httpStatus.OK).json({ data: payments });
+
+};
+
+exports.getDataFromPayment = async function (req, res, next) {
+
+    var paymentID = req.params.id ? req.params.id : null; 
+
+    if (paymentID) {
+
+        var payment = await paymentService.getPayment(paymentID.slice(-12)); 
+
+        if (payment !== null) {
+
+            var event = await EventService.getEvent(payment[0].event._id);
+            var inscription = event.typeInscription.filter(e => e._id.toString() === payment[0].typeInscription._id.toString());
+            var user = await UserService.getUser(payment[0].user._id);
+            var address = user.addresses.filter(e => e._id.toString() === payment[0].address._id.toString());
+
+            if (inscription.length > 0 && address.length > 0) {
+                return res.status(httpStatus.OK).json({ event: event, inscription: inscription[0], address: address[0]});
+            }
+
+            else {
+                return res.status(httpStatus.BAD_REQUEST).json({ error: "TypeInscription not found, maybe deleted from BBDD" });
+            }
+
+        }
+
+        else {
+            return res.status(httpStatus.BAD_REQUEST).json({ error: "Payment not found, maybe deleted from BBDD" });
+        }
+    }
+};
+
 
 exports.startPayment = async function (req, res, next) {
 
@@ -113,7 +181,7 @@ exports.paymentStatus = async function (req, res, next) {
 
 function createPayment(description, total, titular, orderId, paymentId, eventID) {
     const redsys = new Redsys();
-    const encryptKey = "sq7HjrUOBfKmC576ILgskD5srU870gJ7";
+    const encryptKey = process.env.ENCRYPT_KEY;
 
     const mParams = {
         "DS_MERCHANT_AMOUNT": convertToValidAmount(total),
@@ -137,4 +205,15 @@ function convertToValidAmount(amount) {
 
     return withoutDots
 
+}
+
+function formatPayment(payment) {
+
+    return {
+        _id: payment._id,
+        user: payment.user,
+        event: payment.event ? payment.event : new Event(),
+        paymentDate: payment.paymentDate,
+        status: payment.status
+    };
 }

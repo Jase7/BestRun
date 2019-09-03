@@ -29,7 +29,8 @@ import {
   NgbDatepickerModule,
   NgbModalModule,
   NgbPaginationModule, NgbTabsetModule,
-  NgbTimepickerModule, NgbTooltipModule, NgbTypeaheadModule
+  NgbTimepickerModule, NgbTooltipModule, NgbTypeaheadModule,
+  NgbCollapseModule
 } from "@ng-bootstrap/ng-bootstrap";
 import {ShowEventComponent} from "./components/dashboard/events/show-event/show-event.component";
 import {EditEventComponent} from "./components/dashboard/events/edit-sportsman/edit-event.component";
@@ -39,6 +40,8 @@ import {TypeEventsService} from "./services/api/type-events.service";
 import {LogsService} from "./services/api/logs.service";
 import {LogsComponent} from "./components/dashboard/logs/logs.component";
 import {TokenInterceptor} from "./services/token-interceptor.service";
+import { ShowPaymentsComponent } from './components/dashboard/payments/show-payments/show-payments.component';
+import { PaymentDetailsComponent } from './components/dashboard/payments/payment-details/payment-details.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +60,9 @@ import {TokenInterceptor} from "./services/token-interceptor.service";
     NewEventComponent,
     ShowEventComponent,
     EditEventComponent,
-    LogsComponent
+    LogsComponent,
+    ShowPaymentsComponent,
+    PaymentDetailsComponent
   ],
   imports: [
     CommonModule,
@@ -73,7 +78,8 @@ import {TokenInterceptor} from "./services/token-interceptor.service";
     NgbModalModule,
     NgbTabsetModule,
     NgbTooltipModule,
-    NgbTypeaheadModule
+    NgbTypeaheadModule,
+    NgbCollapseModule
   ],
   providers: [
     AuthenticationService,

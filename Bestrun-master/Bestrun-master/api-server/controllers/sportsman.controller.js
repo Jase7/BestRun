@@ -309,7 +309,7 @@ function formatEvent(event) {
         typeInscription: event.typeInscription,
         city: event.city,
         location: event.location,
-        photo: fileService.getPublicUrl(event.photo),
+        photo: event.photo,
         document: fileService.getPublicUrl(event.document),
         active: event.active,
         sponsored: event.sponsored,

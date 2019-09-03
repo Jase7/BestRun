@@ -75,14 +75,14 @@ exports.updateEvent = async function (event) {
         return false;
     }
 
-    oldEvent.name = event.tittle;
+    oldEvent.tittle = event.tittle;
     oldEvent.celebrationDate = event.celebrationDate;
     oldEvent.closeInscriptions = event.closeInscriptions;
     oldEvent.categories = event.categories;
+    oldEvent.description = event.description;
     oldEvent.distance = event.distance;
     oldEvent.city = event.city;
     oldEvent.month = new Date(event.celebrationDate).getMonth() + 1;
-    oldEvent.description = event.description;
     oldEvent.typeEvent = event.typeEvent;
     oldEvent.typeInscription = event.typeInscription;
     oldEvent.location = event.location;
@@ -95,6 +95,7 @@ exports.updateEvent = async function (event) {
     oldEvent.temperatureMax = event.temperatureMax;
     oldEvent.temperatureMin = event.temperatureMin;
     oldEvent.chanceRain = event.chanceRain;
+    oldEvent.organizer = event.organizer;
     oldEvent.overallStatus = event.overallStatus;
     oldEvent.iconWeather = event.iconWeather;
     oldEvent.showWeather = event.showWeather;

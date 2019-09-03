@@ -119,7 +119,7 @@
                   </div>
                   <div class="d-flex justify-content-between">
                      <div style="padding: 10px;max-width: 600px">
-                        <p style="word-break: break-all;white-space: normal;">{{i.description}}</p>
+                        <p style="white-space: normal;">{{i.description}}</p>
                      </div>
                      <div style="padding: 10px; max-width: 200px!important;">
                         <h4 class="price-incription" style="color:#00B152">{{i.price | number: ".2"}}&euro;
@@ -170,7 +170,7 @@
                </div>
 
                <div class="row mt-3">
-                  <form action="https://sis-t.redsys.es:25443/sis/realizarPago" method="POST" target="_blank"
+                  <form action="https://sis.redsys.es/sis/realizarPago" method="POST" target="_blank"
                      (submit)="submit()">
                      <input type="hidden" name="Ds_SignatureVersion" value="HMAC_SHA256_V1" />
                      <input type="hidden" name="Ds_MerchantParameters" value="{{paymentData.merchantParameters}}" />

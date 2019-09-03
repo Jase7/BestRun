@@ -1,6 +1,18 @@
 const Payment = require('../../models/payment.model');
 const ObjectId = require('mongoose').Types.ObjectId;
 
+
+exports.getPayments = async function (query, options) {
+
+    try {
+        var allPayments = await Payment.paginate(query, options);
+        return allPayments;
+    } catch (e) {
+        console.log(e);
+        throw Error(`Error while Paginating allPayments`);
+    }
+}
+
 exports.savePayment = async function (user, address, inscriptionID, event) {
 
     try {
@@ -13,7 +25,8 @@ exports.savePayment = async function (user, address, inscriptionID, event) {
             price: inscriptionID.price,
             shippingCosts: inscriptionID.shippingCosts,
             paymentDate: Date.now(),
-            sending: inscriptionID.shippingCosts > 0 ? true : false
+            sending: inscriptionID.shippingCosts > 0 ? true : false,
+            status: 'Pendiente'
         });
 
         payment = await payment.save();

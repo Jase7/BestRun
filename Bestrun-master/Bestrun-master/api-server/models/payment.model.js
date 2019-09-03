@@ -11,7 +11,7 @@ const PaymentMethodSchema = new mongoose.Schema({
     },
     address: {
         type: Schema.Types.ObjectId,
-        ref: 'User'
+        refPath: 'Event.addresses'
     },
     event: {
         type: Schema.Types.ObjectId,
@@ -19,7 +19,7 @@ const PaymentMethodSchema = new mongoose.Schema({
     },
     typeInscription: {
         type: Schema.Types.ObjectId,
-        ref: 'Event'
+        ref: 'Inscription'
     },
     price: {
         type: String
@@ -33,7 +33,7 @@ const PaymentMethodSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        default: 'Pendiente'
+        default: ''
     },
     sending: {
         type: Boolean

@@ -45,6 +45,7 @@ const AddressSchema = new mongoose.Schema({
 
 });
 
+AddressSchema.plugin(deepPopulate);
 const Address = mongoose.model('Address', AddressSchema);
 
 const UserSchema = new mongoose.Schema({
